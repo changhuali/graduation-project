@@ -6,16 +6,18 @@ gulp.task('app_js', function(){
       .pipe(gulp.dest('./dist/assets/app/js'));
 })
 
-gulp.task("app_css", function(){
-
+gulp.task("awesome_css", function(){
+  gulp.src('./src/font-awesome/css/*')
+      .pipe(gulp.dest('./dist/assets/font-awesome/css'))
 })
 
-gulp.task("app_font", function(){
-
+gulp.task("awesome_font", function(){
+  gulp.src('./src/font-awesome/fonts/*')
+      .pipe(gulp.dest('./dist/assets/font-awesome/fonts'))
 })
 
 gulp.task("clean", function(){
-  del('./dist/**/*');
+  del('./dist/assets/*');
 })
 
-gulp.task("build", ["app_js", "app_css", "app_font"]);
+gulp.task("build", ["app_js", "awesome_css", "awesome_font"]);

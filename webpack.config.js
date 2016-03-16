@@ -2,23 +2,26 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: "./src/app/app.js",
+    app: "./src/app/js/app.js",
   },
   output: {
     path: "./dist/assets/app/js",
     filename: "[name].min.js",
-    publicPath: "/assets/app/js/"
+    publicPath: "/dist/assets/app/js/"
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: "babel",
+        query: {
+          presets: ['react', 'es2015']
+        }
       },
       {
         test: /\.css$/,
-        loader: "style!css!sass!sourceMap"
+        loader: "style!css"
       },
       {
         test: /\.(png|jpg|gif)/,
