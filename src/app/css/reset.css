@@ -63,3 +63,24 @@ input,textarea,select {
 legend {
     color: #000
 }
+.clearfix:before,
+.clearfix:after{
+    content:"";
+    display:table;
+}
+.clearfix:after{
+    clear:both;
+}
+a{
+    color: #37a;
+    text-decoration: none;
+}
+a:visited{
+    color: #37a;
+}
+a:hover{
+    color: #37a;
+}
+a:active{
+    color: #37a;
+}

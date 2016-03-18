@@ -4,27 +4,48 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as testAc from '../action/testAc';
 
+import Header from './common/Header';
+import Footer from './common/Footer';
+
+import '../../css/reset.css';
+import '../../css/header.css';
+import '../../css/footer.css';
+import '../../css/login.css';
+
 class App extends Component {
     constructor(props){
         super(props);
+        this.state={
+            bodyHeight: "",
+        }
+    }
+
+    getBodyHeight() {
+        var bodyHeight = window.innerHeight-228 < 480 ? 480 : window.innerHeight - 228;
+        this.setState({
+            bodyHeight: bodyHeight,
+        })
     }
 
     componentDidMount() {
-        console.log(this.props);
-        this.props.testBoundAc.test();
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps, "------");
+        this.getBodyHeight();
+        window.onresize = () => {
+            this.getBodyHeight();
+        }
     }
 
     render(){
         return(
             <div>
-                <div>this is header</div>
-                <Link to={{pathname: '/index'}}>click</Link>
-                {this.props.children}
+                <div>
+                    <Header {...this.props} />
+                </div>
+                <div style={{height: this.state.bodyHeight}}>
+                    {React.cloneElement(this.props.children, this.props)}
+                </div>
+                <div>
+                    <Footer {...this.props} />
+                </div>
             </div>
         )
     }

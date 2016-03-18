@@ -1,0 +1,28 @@
+.header-wrap{
+    width: 100%;
+    background: #f5f5f5;
+    color: #999999;
+    font-size: 12px;
+}
+.header{
+    width: 980px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+}
+.header-left{
+    float: left;
+}
+.header-left-location{
+    padding: 0 5px;
+}
+.header-left-tog{
+    color: #0eb3b3;
+}
+.header-right{
+    float: right;
+}
+.header-right li{
+    float: left;
+    margin-left: 20px;
+}
