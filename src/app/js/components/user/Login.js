@@ -23,7 +23,12 @@ export default class Login extends Component {
         }
     }
 
+    login(e) {
+        this.props.userBoundAc.login();
+    }
+
     componentDidMount() {
+        console.log(this.props)
         if(this.props.tabActive) {
             this.setState({
                 tabActive: this.props.tabActive,
@@ -69,7 +74,7 @@ export default class Login extends Component {
                                 <input className="login-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
                                 <a className="login-content-right-forgetPwd" href="#">忘记密码?</a>
                             </p>
-                            <button className="login-content-right-sub">立即登录</button>
+                            <button onClick={this.login.bind(this)} className="login-content-right-sub">立即登录</button>
                             <div className="ligin-content-right-regist">
                                 没有账号?<Link className="right" to={{pathname: "regist"}}>立即注册</Link>
                             </div>

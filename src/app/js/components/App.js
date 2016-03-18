@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as testAc from '../action/testAc';
+import * as userAc from '../action/userAc';
 
 import Header from './common/Header';
 import Footer from './common/Footer';
@@ -21,7 +22,7 @@ class App extends Component {
     }
 
     getBodyHeight() {
-        var bodyHeight = window.innerHeight-228 < 480 ? 480 : window.innerHeight - 228;
+        var bodyHeight = window.innerHeight-228 < 550 ? 550 : window.innerHeight - 228;
         this.setState({
             bodyHeight: bodyHeight,
         })
@@ -56,12 +57,14 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         test: state.test,
+        user: state.user,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         testBoundAc: bindActionCreators(testAc, dispatch),
+        userBoundAc: bindActionCreators(userAc, dispatch),
     }
 }
 

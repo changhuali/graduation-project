@@ -6,14 +6,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+
+
+//处理api路由
+app.get('/api/client/login', function(req, res){
+    res.send("success");
+})
+
 //处理静态路由
 app.get('*', function(req, res){
     res.render("index.html");
-})
-
-//处理api路由
-app.get('/api', function(req, res){
-    res.end("success");
 })
 
 //服务器错误处理器
