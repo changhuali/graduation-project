@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Login from './Login';
 
 export default class Regist extends Component {
     constructor(props){
@@ -10,7 +11,7 @@ export default class Regist extends Component {
 
     render() {
         return(
-            <div>this is regist</div>
+            <Login tabActive="regist" {...this.props} />
         )
     }
 }

@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: "./dist/assets/app/js",
     filename: "[name].min.js",
-    publicPath: "/dist/assets/app/js/"
+    publicPath: "/assets/app/js/"
   },
   module: {
     loaders: [

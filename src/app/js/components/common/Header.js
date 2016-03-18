@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Header extends Component {
     constructor(props){
@@ -18,8 +19,8 @@ export default class Header extends Component {
                         <span className="header-left-tog">[切换城市]</span>
                     </div>
                     <ul className="header-right">
-                        <li>请登录</li>
-                        <li>免费注册</li>
+                        <li><Link style={{color: "#999999"}} to={{pathname: "login"}}>请登录</Link></li>
+                        <li><Link style={{color: "#999999"}} to={{pathname: "regist"}}>免费注册</Link></li>
                         <li>咨询热线:400-400-888</li>
                         <li>关注微信</li>
                     </ul>
