@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as testAc from '../action/testAc';
+
 import * as userAc from '../action/userAc';
 
 import Header from './common/Header';
 import Nav    from './common/Nav';
 import SearchBar from './common/SearchBar';
 import Footer from './common/Footer';
+
+import 'antd/lib/index.css';
 
 import '../../css/reset.css';
 import '../../css/header.css';
@@ -21,9 +23,14 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state={
-            bodyHeight: "",
+            bodyHeight: "auto",
             hideNav: false,
+            routeChangeToLR: false,
         }
+    }
+
+    jugeRouteIsLogin() {
+
     }
 
     getBodyHeight() {
@@ -33,26 +40,22 @@ class App extends Component {
         })
     }
 
+    hideNav(tag) {
+        this.setState({
+            hideNav: tag,
+        })
+    }
+
     componentDidMount() {
         this.getBodyHeight();
         window.onresize = () => {
             this.getBodyHeight();
         }
-
-        var routePath = this.props.location.pathname;
-        if(routePath == "/login" || routePath == "/regist") {
-            this.setState({
-                hideNav: true,
-            })
-        }else{
-            this.setState({
-                hideNav: false,
-            })
-        }
     }
 
+
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+
     }
 
     render(){
@@ -68,7 +71,7 @@ class App extends Component {
                     <Nav {...this.props} />
                 </div>
                 <div style={{height: this.state.bodyHeight}}>
-                    {React.cloneElement(this.props.children, this.props)}
+                    {React.cloneElement(this.props.children, Object.assign({}, this.props, {hideNav: this.hideNav.bind(this)}))}
                 </div>
                 <div>
                     <Footer {...this.props} />
@@ -82,14 +85,12 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        test: state.test,
         user: state.user,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        testBoundAc: bindActionCreators(testAc, dispatch),
         userBoundAc: bindActionCreators(userAc, dispatch),
     }
 }
