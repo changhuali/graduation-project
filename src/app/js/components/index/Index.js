@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 export default class Index extends Component{
     render(){
         return(
-            <div>this is Index</div>
+            <div className="index">
+                
+            </div>
         )
     }
 }

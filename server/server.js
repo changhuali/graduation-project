@@ -1,22 +1,21 @@
 var express = require('express');
 var app     = express();
 var path    = require('path');
+
+var clientRoute = require('./routes/client');
+var apiRoute    = require('./routes/api');
+
 //模板引擎设置为html
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-
 //处理api路由
-app.get('/api/client/login', function(req, res){
-    res.send("success");
-})
+app.use('/api', apiRoute);
 
 //处理静态路由
-app.get('*', function(req, res){
-    res.render("index.html");
-})
+app.use('/', clientRoute);
 
 //服务器错误处理器
 app.use(function(err, req, res, next){

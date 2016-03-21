@@ -6,10 +6,14 @@ import * as testAc from '../action/testAc';
 import * as userAc from '../action/userAc';
 
 import Header from './common/Header';
+import Nav    from './common/Nav';
+import SearchBar from './common/SearchBar';
 import Footer from './common/Footer';
 
 import '../../css/reset.css';
 import '../../css/header.css';
+import '../../css/searchBar.css';
+import '../../css/nav.css';
 import '../../css/footer.css';
 import '../../css/login.css';
 
@@ -35,11 +39,21 @@ class App extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+    }
+
     render(){
         return(
             <div>
                 <div>
                     <Header {...this.props} />
+                </div>
+                <div>
+                    <SearchBar {...this.props} />
+                </div>
+                <div>
+                    <Nav {...this.props} />
                 </div>
                 <div style={{height: this.state.bodyHeight}}>
                     {React.cloneElement(this.props.children, this.props)}

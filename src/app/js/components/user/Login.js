@@ -28,7 +28,6 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
         if(this.props.tabActive) {
             this.setState({
                 tabActive: this.props.tabActive,

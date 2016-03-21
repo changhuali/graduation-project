@@ -1,0 +1,32 @@
+.nav-wrap{
+    width: 100%;
+    border-bottom: 2px solid #f5f5f5;
+}
+.nav{
+    width: 980px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+}
+.nav-item{
+    display: inline-block;
+    height: 100%;
+    padding: 0 25px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.nav-item:hover{
+    background: rgb(40, 221, 74);
+    transition: all .5s;
+}
+.nav-item:hover a{
+    color: #fff;
+    transition: all .5s;
+}
+.nav-item-active{
+    background: rgb(40, 221, 74);
+    transition: all .5s;
+}
+.nav-item-active a{
+    color: #fff;
+}
