@@ -1,6 +1,7 @@
 var express = require('express');
 var app     = express();
 var path    = require('path');
+var bodyParser = require('body-parser');
 
 var clientRoute = require('./routes/client');
 var apiRoute    = require('./routes/api');
@@ -10,6 +11,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 //处理api路由
 app.use('/api', apiRoute);

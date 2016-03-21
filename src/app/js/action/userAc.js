@@ -3,12 +3,13 @@ import HttpRequest from 'superagent';
 
 export function login() {
     return dispatch => {
-        HttpRequest.get('/api/client/login')
-                   .end((err, res)=>{
-                       console.log(res)
+        HttpRequest.post('/api/client/login')
+                .send({user: "1234"})
+                   .end((err, resp)=>{
+                       console.log(resp, "--")
                        dispatch({
                            type: LOGIN,
-                           data: res.body
+                           data: resp.body
                        })
                    })
     }

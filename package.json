@@ -7,12 +7,13 @@
     "dev": "./node_modules/.bin/gulp clean && ./node_modules/.bin/gulp build && ./node_modules/webpack/bin/webpack.js --progress --color --watch --config webpack.config.js"
   },
   "dependencies": {
-    "body-parser": "~1.13.2",
+    "body-parser": "^1.15.0",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "lodash": "^4.6.1",
+    "mongoose": "^4.4.8",
     "morgan": "~1.6.1",
     "path": "^0.12.7",
     "react": "^0.14.7",
@@ -22,7 +23,7 @@
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "serve-favicon": "~2.3.0",
-    "superagent": "^1.8.1"
+    "superagent": "1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.2",

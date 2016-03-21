@@ -22,6 +22,7 @@ class App extends Component {
         super(props);
         this.state={
             bodyHeight: "",
+            hideNav: false,
         }
     }
 
@@ -37,6 +38,17 @@ class App extends Component {
         window.onresize = () => {
             this.getBodyHeight();
         }
+
+        var routePath = this.props.location.pathname;
+        if(routePath == "/login" || routePath == "/regist") {
+            this.setState({
+                hideNav: true,
+            })
+        }else{
+            this.setState({
+                hideNav: false,
+            })
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,10 +61,10 @@ class App extends Component {
                 <div>
                     <Header {...this.props} />
                 </div>
-                <div>
+                <div style={{display: this.state.hideNav == true ? "none" : "block"}}>
                     <SearchBar {...this.props} />
                 </div>
-                <div>
+                <div style={{display: this.state.hideNav == true ? "none" : "block"}}>
                     <Nav {...this.props} />
                 </div>
                 <div style={{height: this.state.bodyHeight}}>
