@@ -11,9 +11,9 @@ export default function (state={info: {}, registInfo: {}}, action) {
         case RESET_INFO:
             return Object.assign({}, state, {info: action.data});
         case REGIST:
-            return Object.assign({}, state, {regist: action.data});
+            return Object.assign({}, state, {registInfo: action.data});
         case RESET_REGIST:
-            return Object.assign({}, state, {regist: action.data});
+            return Object.assign({}, state, {registInfo: action.data});
         default:
             return state;
 

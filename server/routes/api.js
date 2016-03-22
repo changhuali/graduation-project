@@ -66,11 +66,47 @@ router.delete('/client/logout', function(req, res){
     res.send({meesage: "logout success"});
 })
 
+var checkRegist = function(req, callback) {
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        userPwd : String
+    });
+    var myModel = db.model('user', userSchema, "user");
+    myModel.findOne({userName: req.body.userName}, function(err, data){
+        if(err){
+            console.log(err);
+        }else{
+            if(data == null){
+                myModel.create({userName: req.body.userName, userPwd: req.body.userPwd}, function(err, data){
+                    if(err){
+                        console.log(err, "-------------regist insert error");
+                        callback("error");
+                    }else{
+                        callback("ok", {id: data._id, userName: data.userName});
+                    }
+                })
+
+            }else{
+                callback("exist");
+            }
+        }
+    })
+}
+
 //用户注册
 router.post('/client/regist', function(req, res){
-    if(req.body){
-        res.send("success");
-    }
+    checkRegist(req, function(status, data){
+        if(status == "exist") {
+            res.statusCode = "401";
+            res.send({errorCode: "401", message: "用户名已存在"})
+        }else if(status == "ok"){
+            res.statusCode = "200";
+            res.send(data)
+        }else if(status == "error"){
+            res.statusCode == "500";
+            res.send({errorCode: "500", message: "创建用户是失败"})
+        }
+    });
 })
 
 module.exports = router;
