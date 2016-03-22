@@ -31,11 +31,12 @@
 }
 .header-user-ul{
     position: absolute;
-    left: -50%;
     top: 50px;
+    left: -50%;
     width: 100px;
     text-align: center;
     border: 1px solid #eee;
+    z-index: 1;
 }
 .header-user-ul li{
     margin-left: 0;
