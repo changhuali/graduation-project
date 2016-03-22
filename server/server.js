@@ -14,12 +14,12 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//处理api路由
-app.use('/api', apiRoute);
 
 //处理静态路由
-app.use('/', clientRoute);
+app.use('*', clientRoute);
 
+//处理api路由
+app.use('/api', apiRoute);
 //服务器错误处理器
 app.use(function(err, req, res, next){
     console.log(err.stack);
