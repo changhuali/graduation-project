@@ -1,7 +1,8 @@
 var express = require('express');
 var app     = express();
 var path    = require('path');
-var bodyParser = require('body-parser');
+var bodyParser   = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var clientRoute = require('./routes/client');
 var apiRoute    = require('./routes/api');
@@ -11,15 +12,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+//处理api路由
+app.use('/api', apiRoute);
 
 //处理静态路由
 app.use('*', clientRoute);
 
-//处理api路由
-app.use('/api', apiRoute);
 //服务器错误处理器
 app.use(function(err, req, res, next){
     console.log(err.stack);

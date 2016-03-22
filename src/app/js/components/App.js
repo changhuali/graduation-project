@@ -34,7 +34,7 @@ class App extends Component {
     }
 
     getBodyHeight() {
-        var bodyHeight = window.innerHeight-228 < 550 ? 550 : window.innerHeight - 228;
+        var bodyHeight = window.innerHeight-228 < 550 ? 550 : window.innerHeight - 232;
         this.setState({
             bodyHeight: bodyHeight,
         })
@@ -47,6 +47,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.props.userBoundAc.checkInfo();
         this.getBodyHeight();
         window.onresize = () => {
             this.getBodyHeight();

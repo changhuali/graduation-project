@@ -26,3 +26,19 @@
     float: left;
     margin-left: 20px;
 }
+.header-user{
+    position: relative;
+}
+.header-user-ul{
+    position: absolute;
+    left: -50%;
+    top: 50px;
+    width: 100px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+.header-user-ul li{
+    margin-left: 0;
+    float: none;
+    line-height: 40px;
+}

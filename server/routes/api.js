@@ -1,6 +1,7 @@
 var express  = require('express');
 var router   = express.Router();
 var mongoose = require('mongoose');
+//连接数据库
 mongoose.connect('mongodb://localhost/graduation_project');
 var db = mongoose.connection;
 db.on('error', function(error){
@@ -9,33 +10,67 @@ db.on('error', function(error){
 db.once('open', function(){
     console.log("graduation_project connect success");
 });
-var checkLogin = function(req, res, callback){
+
+//查询用户名并核对用户密码
+var checkLogin = function(req, callback){
     var userSchema = new mongoose.Schema({
         userName: String,
         userPwd : String
     });
     var myModel = db.model('user', userSchema, "user");
-    myModel.findOne({userName: req.body.userName, userPwd: req.body.userPwd},function(err, data){
+    myModel.findOne({userName: req.body.userName},function(err, data){
         if(err){
-            callback({errorCode: "401", message: "用户名或密码错误"});
+            console.log(err);
         }else{
-            console.log(data)
-            callback({id: data._id, userName: data.userName});
+            if(data == null){
+                callback("error");
+            }else if(req.body.userPwd == data.userPwd){
+                console.log(data);
+                callback({id: data._id, userName: data.userName});
+            }else{
+                console.log(data);
+                callback("error");
+            }
         }
     })
 }
 
-
+//用户登录
 router.post('/client/login', function(req, res){
-    checkLogin(req, res, function (data) {
-        console.log(data, "---")
-        res.statusCode = "200";
-        res.send(data);
+    checkLogin(req, function (data) {
+        if(data != "error") {
+            res.statusCode = "200";
+            res.cookie('info', {id: data.id, userName: data.userName}, {path: '/', maxAge: 30*60*1000});
+            res.send(data);
+        }else{
+            res.statusCode = "401";
+            res.send({errorCode: 401, message: "用户名或密码错误"});
+        }
     });
 })
+//保存用户信息到cookie
+router.get('/client/info', function(req, res){
+    console.log(req.cookies, "-----req.cookie");
+    if(req.cookies.info) {
+        res.statusCode = "200";
+        res.send(req.cookies.info);
+    }else{
+        res.statusCode = "401";
+        res.send({});
+    }
+})
+//用户退出
+router.delete('/client/logout', function(req, res){
+    res.clearCookie('info');
+    res.statusCode = '200';
+    res.send({meesage: "logout success"});
+})
 
-router.get('/client/login', function(req, res){
-
+//用户注册
+router.post('/client/regist', function(req, res){
+    if(req.body){
+        res.send("success");
+    }
 })
 
 module.exports = router;
