@@ -22,7 +22,7 @@ export default class Nav extends Component {
             if(idx == this.state.active){
                 itemStyle = "nav-item nav-item-active";
             }
-            list.push(<div key={obj.key+obj.idx} onClick={this.changeItem.bind(this, idx)} className={itemStyle}><Link to={{pathname: obj.src}}>{obj.key}</Link></div>)
+            list.push(<div key={obj.key+obj.idx} onClick={this.changeItem.bind(this, idx)} className={itemStyle}><Link className="color_theme" to={{pathname: obj.src}}>{obj.key}</Link></div>)
         })
         return <div className="nav">{list}</div>
     }
