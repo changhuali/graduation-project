@@ -1,0 +1,86 @@
+.index-wrap{
+    width: 100%;
+}
+.index{
+    width: 1220px;
+    margin: 0 auto;
+}
+.index-head{
+    width: 100%;
+    padding-top: 20px;
+}
+/*********************index左侧apply**********************/
+.index-head-left{
+    float: left;
+}
+.index-head-apply{
+    width: 300px;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+.index-head-applyBox{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+}
+.index-head-applyItem{
+    float: left;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #eee;
+    cursor: pointer;
+}
+.index-head-applyBox .active{
+    transition: color 0.3s;
+    color: #01af63;
+}
+.index-head-applyItem:hover{
+    transition: color 0.3s;
+    color: #01af63;
+}
+.index-head-applyItem:last-child{
+    border-right: none;
+}
+.index-head-applyBody{
+    width: 100%;
+    padding: 15px 20px;
+    box-sizing: border-box;
+}
+.index-head-applyMsg{
+    margin-bottom: 18px;
+}
+.index-head-applyForm{
+
+}
+.index-head-applyForm input{
+    width: 100%;
+    border: 1px solid #eee;
+    outline: none;
+    height: 35px;
+    margin-bottom: 18px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.index-head-applyForm input[type="submit"]{
+    color: #fff;
+    background: #01af63;
+}
+.index-head-applyBottom{
+    padding: 10px 0;
+}
+.index-head-applyBottom li{
+    line-height: 20px;
+}
+.index-head-right{
+    position: relative;
+    float: right;
+    width: 900px;
+    height: 347px;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}

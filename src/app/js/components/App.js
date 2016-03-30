@@ -18,6 +18,8 @@ import '../../css/searchBar.css';
 import '../../css/nav.css';
 import '../../css/footer.css';
 import '../../css/login.css';
+import '../../css/index.css';
+import '../../css/carousel.css';
 
 class App extends Component {
     constructor(props){
