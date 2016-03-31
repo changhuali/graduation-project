@@ -39,7 +39,7 @@ export default class Carousel extends Component{
         };
         imgSource.map((imgSrc, idx) => {
             list.push(<div key={"img"+idx} style={styles} className="carousel-itemImg">
-                        <img onMouseOver={this.pauseAnimate.bind(this)} style={{width: "100%", height: "100%"}} src={imgSrc} />
+                        <img style={{width: "100%", height: "100%"}} src={imgSrc} />
                       </div>)
         });
         return list;
@@ -75,7 +75,7 @@ export default class Carousel extends Component{
         var imgSource = this.props.imgSource;
         var imgLength = imgSource.length;
         return (
-            <div onMouseLeave={this.continueAnimate.bind(this)} className="carousel">
+            <div onMouseOver={this.pauseAnimate.bind(this)} onMouseLeave={this.continueAnimate.bind(this)} className="carousel">
                 <div ref="carousel"
                      style={{width: Number(this.props.width*imgSource.length),
                             height: this.props.height,

@@ -62,6 +62,7 @@ class App extends Component {
     }
 
     render(){
+        var  style= {height: this.state.bodyHeight};
         return(
             <div>
                 <div>
@@ -73,7 +74,7 @@ class App extends Component {
                 <div style={{display: this.state.hideNav == true ? "none" : "block"}}>
                     <Nav {...this.props} />
                 </div>
-                <div style={{height: this.state.bodyHeight}}>
+                <div>
                     {React.cloneElement(this.props.children, Object.assign({}, this.props, {hideNav: this.hideNav.bind(this)}))}
                 </div>
                 <div>

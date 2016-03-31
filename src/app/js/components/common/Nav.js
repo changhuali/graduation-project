@@ -17,7 +17,7 @@ export default class Nav extends Component {
 
     createNav() {
         var list = [];
-        dataArr.map((obj, idx) => {
+            DATA.map((obj, idx) => {
             var itemStyle = "nav-item";
             if(idx == this.state.active){
                 itemStyle = "nav-item nav-item-active";
@@ -36,10 +36,14 @@ export default class Nav extends Component {
     }
 }
 
-const dataArr = [{"key": "首页","src": "/"},
-                {"key": "关于国风","src": "/"},
-                {"key": "家装产品","src": "/"},
-                {"key": "咨询中心","src": "/"},
-                {"key": "优惠活动","src": "/"},
-                {"key": "在线样板房","src": "/"},
-                {"key": "装修预算","src": "/"}];
+    const DATA = [
+    {"key": "首页","src": "/"},
+    {"key": "家装产品","src": "/"},
+    {"key": "家装案例","src": "/"},
+    {"key": "在线样板房","src": "/"},
+    {"key": "装修预算","src": "/"},
+    {"key": "资讯中心","src": "/"},
+    {"key": "优惠活动","src": "/"},
+    {"key": "关于国风","src": "/"},
+    {"key": "联系我们","src": "/"},
+];

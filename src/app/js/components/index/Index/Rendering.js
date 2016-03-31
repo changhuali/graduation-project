@@ -1,0 +1,50 @@
+import React, { Component } from 'react';
+import rendering_1 from '../../../../images/rendering_1.jpg';
+import rendering_2 from '../../../../images/rendering_2.jpg';
+import rendering_3 from '../../../../images/rendering_3.jpg';
+import rendering_4 from '../../../../images/rendering_4.jpg';
+import rendering_5 from '../../../../images/rendering_5.jpg';
+import rendering_6 from '../../../../images/rendering_6.jpg';
+import rendering_7 from '../../../../images/rendering_7.jpg';
+import rendering_8 from '../../../../images/rendering_8.jpg';
+
+export default class Rendering extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
+    createItem() {
+        var list = [];
+        DATA.map((obj, idx) => {
+            list.push(
+                <div className="index-rendering-item">
+                    <img src={obj.img} />
+                    <p>{obj.text}</p>
+                </div>
+            )
+        })
+        return list;
+    }
+
+    render() {
+        return (
+            <div className="index-rendering clearfix">
+                {this.createItem()}
+            </div>
+        )
+    }
+}
+
+const DATA = [
+    {img: rendering_1, text: '客厅'},
+    {img: rendering_2, text: '卧室'},
+    {img: rendering_3, text: '餐厅'},
+    {img: rendering_4, text: '厨房'},
+    {img: rendering_5, text: '卫生间'},
+    {img: rendering_6, text: '阳台'},
+    {img: rendering_7, text: '背景墙'},
+    {img: rendering_8, text: '吊顶'},
+];
