@@ -82,7 +82,7 @@ class App extends Component {
                 <div style={{display: this.state.hideNav == true ? "none" : "block"}}>
                     <Nav {...this.props} />
                 </div>
-                <div  style={style}>
+                <div>
                     {React.cloneElement(this.props.children, Object.assign({}, this.props, {hideNav: this.hideNav.bind(this)}))}
                 </div>
                 <div>

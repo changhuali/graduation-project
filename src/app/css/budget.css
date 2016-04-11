@@ -1,0 +1,37 @@
+.budget-wrap{
+  width: 100%;
+}
+.budget{
+  width: 1220px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.budget-bg{
+  width: 100%;
+  height: 600px;
+  background: #108C5B;
+}
+.budget{
+  position: relative;
+  height: 600px;
+  background: url(../images/budget/budget_bg.jpg) no-repeat;
+}
+.budget-form{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 340px;
+  height: 400px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 0 5px rgba(10, 179, 179, 0.7);
+  box-sizing: border-box;
+}
+.budget-form input{
+  width: 300px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  height: 35px;
+  padding: 5px;
+}
