@@ -13,6 +13,10 @@ export default class Carousel extends Component{
         this.startAnimate();
     }
 
+    componentWillUnmount() {
+        clearTimeout(t);
+    }
+
     startAnimate() {
         t = setTimeout(()=>{
             var newIndex = this.state.index + 1;
@@ -45,7 +49,7 @@ export default class Carousel extends Component{
         return list;
     }
     changeIndex(idx) {
-        clearTimeout(t)
+        clearTimeout(t);
         this.setState({
             index: idx,
             right: idx*this.props.width,

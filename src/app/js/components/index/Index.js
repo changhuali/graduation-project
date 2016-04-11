@@ -28,7 +28,7 @@ export default class Index extends Component{
                             <Apply {...this.props} />
                         </div>
                         <div className="index-carouselArea">
-                            <Carousel {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="10000" />
+                            <Carousel {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="2000" />
                         </div>
                     </div>
                     <div className="index-progressArea">
