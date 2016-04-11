@@ -16,6 +16,7 @@
     border-top-right-radius: 5px;
 }
 .nav-item:hover{
+  color: #fff;
     background: #01af63;
     transition: all .5s;
     cursor: pointer;
@@ -25,6 +26,7 @@
     transition: all .5s;
 }
 .nav-item-active{
+    color: #fff;
     background: #01af63;
     transition: all .5s;
 }

@@ -18,8 +18,9 @@ import '../../css/searchBar.css';
 import '../../css/nav.css';
 import '../../css/footer.css';
 import '../../css/login.css';
-import '../../css/index.css';
 import '../../css/carousel.css';
+import '../../css/index.css';
+import '../../css/familyPro.css';
 
 class App extends Component {
     constructor(props){
@@ -62,7 +63,7 @@ class App extends Component {
     }
 
     render(){
-        var  style= {height: this.state.bodyHeight};
+        var  style= {minHeight: this.state.bodyHeight};
         return(
             <div>
                 <div>
@@ -74,7 +75,7 @@ class App extends Component {
                 <div style={{display: this.state.hideNav == true ? "none" : "block"}}>
                     <Nav {...this.props} />
                 </div>
-                <div>
+                <div  style={style}>
                     {React.cloneElement(this.props.children, Object.assign({}, this.props, {hideNav: this.hideNav.bind(this)}))}
                 </div>
                 <div>

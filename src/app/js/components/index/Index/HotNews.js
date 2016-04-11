@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import news_ad from '../../../../images/news_ad.jpg';
+import news_ad2 from '../../../../images/news_ad2.jpg';
 
 export default class HotNews extends Component {
     constructor(props) {
@@ -24,11 +26,15 @@ export default class HotNews extends Component {
     render() {
         return (
             <div className="index-hotNews clearfix">
-                <div className="index-hotNews-left"></div>
+                <div className="index-hotNews-left">
+
+                </div>
                 <ul className="index-hotNews-center">
                     {this.createCenterItem()}
                 </ul>
-                <div className="index-hotNews-right"></div>
+                <div className="index-hotNews-right">
+                  <img className="img_full" src={news_ad} />
+                </div>
             </div>
         )
     }

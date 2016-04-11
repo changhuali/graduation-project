@@ -18,11 +18,15 @@ export default class Nav extends Component {
     createNav() {
         var list = [];
             DATA.map((obj, idx) => {
-            var itemStyle = "nav-item";
+            var itemStyle = "nav-item color_theme";
             if(idx == this.state.active){
                 itemStyle = "nav-item nav-item-active";
             }
-            list.push(<div key={obj.key+obj.idx} onClick={this.changeItem.bind(this, idx)} className={itemStyle}><Link className="color_theme" to={{pathname: obj.src}}>{obj.key}</Link></div>)
+            list.push(<Link to={obj.src}>
+                        <div key={obj.key+obj.idx} onClick={this.changeItem.bind(this, idx)} className={itemStyle}>
+                          {obj.key}
+                        </div>
+                      </Link>)
         })
         return <div className="nav">{list}</div>
     }
@@ -38,7 +42,7 @@ export default class Nav extends Component {
 
     const DATA = [
     {"key": "首页","src": "/"},
-    {"key": "家装产品","src": "/"},
+    {"key": "家装产品","src": "/familyPro"},
     {"key": "家装案例","src": "/"},
     {"key": "在线样板房","src": "/"},
     {"key": "装修预算","src": "/"},
