@@ -20,7 +20,7 @@ export default class Rendering extends Component {
         var list = [];
         DATA.map((obj, idx) => {
             list.push(
-                <div className="index-rendering-item">
+                <div key={obj.text+idx} className="index-rendering-item">
                     <img src={obj.img} />
                     <p>{obj.text}</p>
                 </div>

@@ -18,7 +18,7 @@ export default class Exhibition extends Component {
         var list = [];
         DATA.map((obj, idx) => {
             list.push(
-                <a className="index-exhibition-item" href={obj.src}>
+                <a key={idx} className="index-exhibition-item" href={obj.src}>
                     <img src={obj.img} />
                 </a>
             )

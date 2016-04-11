@@ -14,7 +14,7 @@ export default class HotNews extends Component {
         var list = [];
         CENTER_DATA.map((obj, idx) => {
             list.push(
-                <li className="index-hotNews-centerItem">
+                <li key={idx} className="index-hotNews-centerItem">
                     <a href={obj.src}>{obj.title}</a>
                     <p>{obj.content.substr(0, 50)+'...'}</p>
                 </li>

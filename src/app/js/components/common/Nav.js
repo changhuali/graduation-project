@@ -22,13 +22,33 @@ export default class Nav extends Component {
             if(idx == this.state.active){
                 itemStyle = "nav-item nav-item-active";
             }
-            list.push(<Link to={obj.src}>
-                        <div key={obj.key+obj.idx} onClick={this.changeItem.bind(this, idx)} className={itemStyle}>
+            list.push(<Link key={obj.key+obj.idx} to={obj.src}>
+                        <div onClick={this.changeItem.bind(this, idx)} className={itemStyle}>
                           {obj.key}
                         </div>
                       </Link>)
         })
         return <div className="nav">{list}</div>
+    }
+
+    getActiveIndex(pathname) {
+      var arr = ['/', '/familyCase/'];
+      var active = 0;
+      arr.map((str, idx) => {
+        if(str == pathname) {
+          active = idx;
+        }
+      });
+      return active;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.location);
+        if(nextProps.location.pathname != "/") {
+            this.setState({
+                active: this.getActiveIndex(nextProps.location.pathname),
+            });
+        }
     }
 
     render() {
@@ -42,7 +62,7 @@ export default class Nav extends Component {
 
     const DATA = [
     {"key": "首页","src": "/"},
-    {"key": "家装产品","src": "/familyPro"},
+    {"key": "家装产品","src": "/familyCase"},
     {"key": "家装案例","src": "/"},
     {"key": "在线样板房","src": "/"},
     {"key": "装修预算","src": "/"},

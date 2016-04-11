@@ -11,6 +11,7 @@
     width: 320px;
     height: 70px;
     margin-right: 95px;
+    border: 1px solid #eee;
 }
 .searchBar-img img{
     width: 100%;
@@ -52,4 +53,5 @@
     float: right;
     width: 230px;
     height: 70px;
+    border: 1px solid #eee;
 }

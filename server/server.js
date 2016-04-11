@@ -12,6 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+app.use(express.static(path.join(__dirname, '../src/app/images')));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,6 +36,7 @@ app.use(function(req, res, next){
 
 //监听端口
 var server = app.listen(8000, function(){
+    console.log(path.join(__dirname, '../src/app/'));
     var host = server.address().address;
     var port = server.address().port;
     console.log("graduation.test listening at http://%s:%s", host, port);

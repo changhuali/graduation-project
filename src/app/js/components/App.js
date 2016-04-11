@@ -20,7 +20,7 @@ import '../../css/footer.css';
 import '../../css/login.css';
 import '../../css/carousel.css';
 import '../../css/index.css';
-import '../../css/familyPro.css';
+import '../../css/familyCase.css';
 
 class App extends Component {
     constructor(props){

@@ -15,7 +15,7 @@ export default class extends Component {
             <div className="searchBar-wrap">
                 <div className="searchBar clearfix">
                     <div className="searchBar-img">
-                        <img src={""} />
+
                     </div>
                     <div className="searchBar-from">
                         <div className="searchBar-select">
@@ -25,7 +25,7 @@ export default class extends Component {
                         <input type="submit" className="searchBar-btn" value="搜索" />
                     </div>
                     <div className="searchBar-ad">
-                        <img src={search_right} />
+
                     </div>
                 </div>
             </div>

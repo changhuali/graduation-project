@@ -12,7 +12,7 @@ export default class Progress extends Component {
         var list = [];
         DATA.map((obj, idx) => {
             list.push(
-                <li className="index-progress-item">
+                <li key={obj.text+idx} className="index-progress-item">
                     <i className={"index-progress-icon-"+(idx+1)}></i>
                     <span>{obj.text}</span>
                 </li>

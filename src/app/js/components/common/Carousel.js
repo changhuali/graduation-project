@@ -65,8 +65,8 @@ export default class Carousel extends Component{
         var list = [];
         for(let i=0; i<imgLength; i++) {
             var btnActive = i == this.state.index ? 'carousel-itemBtn carousel-btnActive' : 'carousel-itemBtn';
-            list.push(<li onClick={this.changeIndex.bind(this, i)}
-                          className={btnActive}></li>)
+            list.push(<li key={i} onClick={this.changeIndex.bind(this, i)} className={btnActive}>
+                      </li>)
         }
         return list;
     }

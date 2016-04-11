@@ -12,7 +12,7 @@ export default class Footer extends Component {
         var list = [];
         DATA.map((key, idx) => {
             list.push(
-                <a className="footer-nav-a" href="#">{key}</a>
+                <a key={idx} className="footer-nav-a" href="#">{key}</a>
             )
         })
         return list;
