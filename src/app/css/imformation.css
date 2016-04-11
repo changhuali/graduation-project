@@ -1,0 +1,44 @@
+.imformation-wrap{
+  width: 100;
+}
+.imformation{
+  width: 970px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.imformation-item{
+  padding: 30px 0;
+  border-top: 1px solid #eee;
+}
+.imformation-item:hover{
+  background: rgba(201, 207, 212, 0.23);
+  transition: all .3s;
+}
+.imformation-item:last-child{
+  border-bottom: 1px solid #eee;
+}
+.imformation-img{
+  float: left;
+  width: 140px;
+}
+.information-con{
+  float: right;
+  width: 810px;
+  padding: 0 10px;
+}
+.imformation-title{
+  font-size: 16px;
+  font-weight: bold;
+}
+.imformation-text{
+  line-height: 25px;
+}
+.imformation-other{
+  padding: 10px 0;
+}
+.imformation-other span{
+  margin-right: 20px;
+}
+.imformation-pagination{
+  margin-top: 20px;
+}
