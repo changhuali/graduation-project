@@ -1,0 +1,18 @@
+.about-wrap{
+  width: 100%;
+}
+.about{
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+.about-title{
+  font-size: 18px;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+.about p{
+  line-height: 25px;
+  text-indent: 2em;
+}
