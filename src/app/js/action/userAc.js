@@ -37,7 +37,6 @@ export function checkInfo () {
         HttpRequest
         .get('/api/client/info')
         .end((err, resp) => {
-            console.log(resp, "checkInfo");
             var data = interceptorAction(err, resp);
             dispatch({
                 type: CHECK_LOGIN,

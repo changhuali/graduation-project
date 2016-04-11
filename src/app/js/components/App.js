@@ -20,7 +20,14 @@ import '../../css/footer.css';
 import '../../css/login.css';
 import '../../css/carousel.css';
 import '../../css/index.css';
+import '../../css/familyPro.css';
 import '../../css/familyCase.css';
+import '../../css/onlineDemo.css';
+import '../../css/budget.css';
+import '../../css/imformation.css';
+import '../../css/promotion.css';
+import '../../css/about.css';
+import '../../css/contact.css';
 
 class App extends Component {
     constructor(props){
