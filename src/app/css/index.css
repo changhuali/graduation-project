@@ -117,6 +117,40 @@
     transition: all .5s ease;
     color: #fff;
 }
+.index-progress-item i{
+  display: block;
+  width: 44px;
+  height: 37px;
+  margin: 26px auto 15px;
+  background-image: url('../images/progress.png');
+}
+.index-progress-icon-1{
+  background-position: -41px -124px;
+}
+.index-progress-icon-2{
+  background-position: -41px -124px;
+}
+.index-progress-icon-3{
+  background-position: -41px -124px;
+}
+.index-progress-icon-4{
+  background-position: -41px -124px;
+}
+.index-progress-icon-5{
+  background-position: -41px -124px;
+}
+.index-progress-icon-6{
+  background-position: -41px -124px;
+}
+.index-progress-icon-7{
+  background-position: -41px -124px;
+}
+.index-progress-icon-8{
+  background-position: -41px -124px;
+}
+.index-progress-icon-9{
+  background-position: -41px -124px;
+}
 /*********************index效果图Rendering**********************/
 .index-renderingArea{
     margin-top: 60px;

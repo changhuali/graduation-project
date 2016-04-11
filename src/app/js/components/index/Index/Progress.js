@@ -13,7 +13,7 @@ export default class Progress extends Component {
         DATA.map((obj, idx) => {
             list.push(
                 <li className="index-progress-item">
-                    <i className=""></i>
+                    <i className={"index-progress-icon-"+(idx+1)}></i>
                     <span>{obj.text}</span>
                 </li>
             )
