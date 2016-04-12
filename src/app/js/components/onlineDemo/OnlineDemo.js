@@ -7,6 +7,7 @@ export default class OnlineDemo extends Component {
         this.state = {
           current: 1,
           pageSize: 30,
+          selected: ['在线样板房'],
         }
     }
 
@@ -46,12 +47,48 @@ export default class OnlineDemo extends Component {
       return list;
     }
 
+    choose(value, index) {
+      var arr = this.state.selected;
+      arr[index] = value;
+      this.setState({
+        selected: arr,
+      });
+    }
+
+    createHeaderItem(data, index) {
+      var list = [];
+      data.map(key => {
+        list.push(
+          <span onClick={this.choose.bind(this, key, index)} className="onlineDemo-headerItem">{key}</span>
+        );
+      });
+      return list;
+    }
+
+    createSelectStr() {
+      var list = [];
+      this.state.selected.map((key, idx) => {
+        list.push(
+          <span className="onlineDemo-selectedItem">{key}{idx != this.state.selected.length-1 ? <i className="fa fa-angle-right"></i>: ''}</span>
+        );
+      });
+      return list;
+    }
+
     render() {
         return (
             <div className="onlineDemo-wrap">
               <div className="onlineDemo">
-                <div>
-
+                <div className="onlineDemo-head">
+                  <div className="onlineDemo-selected">{this.createSelectStr()}</div>
+                  <div>
+                    <div className="onlineDemo-headBox">
+                      <span className="bg_eee">空间</span>{this.createHeaderItem(SPACE, 1)}</div>
+                    <div className="onlineDemo-headBox">
+                      <span className="bg_eee">局部</span>{this.createHeaderItem(PART, 2)}</div>
+                    <div className="onlineDemo-headBox">
+                      <span className="bg_eee">风格</span>{this.createHeaderItem(STYLE, 3)}</div>
+                  </div>
                 </div>
                 {this.createItem()}
                 <div className="onlineDemo-pagination">
@@ -67,6 +104,9 @@ export default class OnlineDemo extends Component {
         )
     }
 }
+var SPACE = ['客厅', '卧室', '厨房', '卫生间', '阳台', '餐厅'];
+var PART  = ['背景墙', '吊顶'];
+var STYLE = ['简约', '现代', '中式', '欧式', '美式', '田园'];
 var DATA = [
   {title: '二居客厅电视背景墙装修效果图片', img: '/onlineDemo/living_room/1.jpg', id: ''},
   {title: '二居客厅电视背景墙装修效果图片', img: '/onlineDemo/living_room/2.jpg', id: ''},
