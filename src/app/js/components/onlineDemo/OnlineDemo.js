@@ -58,19 +58,35 @@ export default class OnlineDemo extends Component {
     createHeaderItem(data, index) {
       var list = [];
       data.map(key => {
+        var style = key == this.state.selected[index] ? "onlineDemo-headerItem color_bold" : "onlineDemo-headerItem";
         list.push(
-          <span onClick={this.choose.bind(this, key, index)} className="onlineDemo-headerItem">{key}</span>
+          <span onClick={this.choose.bind(this, key, index)} className={style}>{key}</span>
         );
       });
       return list;
     }
 
+    resetSelect(idx) {
+      if(idx != 0) {
+        var arr = this.state.selected;
+        arr[idx] = '';
+        this.setState({
+          selected: arr,
+        });
+      }
+    }
+
     createSelectStr() {
       var list = [];
       this.state.selected.map((key, idx) => {
-        list.push(
-          <span className="onlineDemo-selectedItem">{key}{idx != this.state.selected.length-1 ? <i className="fa fa-angle-right"></i>: ''}</span>
-        );
+        if(key != '') {
+          list.push(
+            <span onClick={this.resetSelect.bind(this, idx)} className="onlineDemo-selectedItem">
+              {idx != 0 ? <i className="fa fa-angle-right"></i> : ''}
+              {key}
+            </span>
+          );
+        }
       });
       return list;
     }
