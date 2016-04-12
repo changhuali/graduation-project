@@ -4,10 +4,10 @@
 .index{
     width: 1220px;
     margin: 0 auto;
+    padding: 40px 0;
 }
 .index-head{
     width: 100%;
-    padding-top: 20px;
 }
 .index-section-title{
     margin-bottom: 15px;
@@ -258,7 +258,6 @@
 /*********************index展会专题Exhibition**********************/
 .index-exhibitionArea{
     margin-top: 60px;
-    margin-bottom: 100px;
 }
 .index-exhibition-item{
     margin-right: 20.8px;

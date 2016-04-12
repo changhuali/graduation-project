@@ -13,7 +13,7 @@ export default class About extends Component {
             <div className="about-wrap">
               <div className="about">
                 <h1 className="about-title">公司简介  Compant Profile</h1>
-                <img src="/about/about_bg.jpg" />
+                <img className="about-logo" src="/about/about_bg.jpg" />
                 <p>国风—互联网装修领导者（中国建筑装饰行业协会认证），国风由深圳市彬讯科技有限公司创办，总部位于深圳市南山区科技园，是国家级的高新技术企业。</p>
                 <p>自2008年创办以来，国风始终秉承“用心服务用户来赢得口碑和利益”的经营理念，并始终处于高速而稳健的发展态势。截止目前，国风已开通250个城市分
                    站，汇聚全国近7万家正规装修公司、90万名室内设计师，已成立北京、上海、广州、武汉、长沙、南京、杭州、厦门、福州等26家分公司，当前拥有员工超过1500人。

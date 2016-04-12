@@ -27,8 +27,8 @@ export default class FamilyCase extends Component {
             list.push(
                 <div key={idx} className="familyCase-item">
                     <div className="familyCase-info">
-                        <h2>{obj.title}</h2>
-                        <p>{obj.description}</p>
+                        <h2 className="familyCase-tit">{obj.title}</h2>
+                        <p className="familyCase-text">{obj.description}</p>
                     </div>
                     <div className="familyCase-img1">
                         <img src={obj.img_1} />
@@ -70,13 +70,13 @@ export default class FamilyCase extends Component {
     }
 }
 var DATA = [
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
-    {id: '', title: '北京某某某2', description: '北京某某某', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
-    {id: '', title: '北京某某某2', description: '北京某某某', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
-    {id: '', title: '北京某某某2', description: '北京某某某', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
-    {id: '', title: '北京某某某1', description: '北京某某某', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_1_1.jpg', img_2: '/familyCase/item_1_2.jpg', img_3: '/familyCase/item_1_3.jpg', img_4: '/familyCase/item_1_4.jpg', img_5: '/familyCase/item_1_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_2_1.jpg', img_2: '/familyCase/item_2_2.jpg', img_3: '/familyCase/item_2_3.jpg', img_4: '/familyCase/item_2_4.jpg', img_5: '/familyCase/item_2_5.jpg'},
+    {id: '', title: '沙坪坝 凌江翠屏', description: '沙坪坝学府路重大科技园区', img_1: '/familyCase/item_3_1.jpg', img_2: '/familyCase/item_3_2.jpg', img_3: '/familyCase/item_3_3.jpg', img_4: '/familyCase/item_3_4.jpg', img_5: '/familyCase/item_3_5.jpg'},
 ];

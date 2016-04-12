@@ -29,8 +29,8 @@ export default class OnlineDemo extends Component {
       data.map((obj, idx) => {
         arrObj['col'+idx%4].push(
           <div className="onlineDemo-item">
-            <div className="onlineDemo-img">
-              <img className="img_full" src={obj.img} />
+            <div className="onlineDemo-imgBox">
+              <img className="img_full onlineDemo-img" src={obj.img} />
             </div>
             <div className="onlineDemo-title">{obj.title}</div>
           </div>

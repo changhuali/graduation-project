@@ -4,7 +4,14 @@
 .onlineDemo{
   width: 1220px;
   margin: 0 auto;
-  margin-top: 30px;
+  padding: 40px 0;
+}
+.onlineDemo-img{
+  transition: all .5s;
+}
+.onlineDemo-img:hover{
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 0 20px rgba(21, 19, 22, 0.64);
 }
 .onlineDemo-col1,
 .onlineDemo-col2,
@@ -27,7 +34,7 @@
   line-height: 30px;
 }
 .onlineDemo-pagination{
-  margin: 30px 0;
+  margin-top: 40px;
 }
 .onlineDemo-head{
   border: 1px solid #eee;

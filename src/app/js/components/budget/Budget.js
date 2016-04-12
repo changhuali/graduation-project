@@ -19,12 +19,12 @@ export default class Budget extends Component {
     render() {
         return (
             <div className="budget-wrap">
-              <div className="budget-bg">
                 <div className="budget">
+                  <div className="budget-bg">
+                  </div>
                   <div className="budget-form">
                   </div>
                 </div>
-              </div>
             </div>
         )
     }

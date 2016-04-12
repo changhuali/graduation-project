@@ -1,10 +1,11 @@
 .familyCase-wrap{
   width: 100%;
+  background: #f8f8f8;
 }
 .familyCase{
   width: 1220px;
   margin: 0 auto;
-  padding-top: 20px;
+  padding: 40px 0;
 }
 .familyCase-item{
   position: relative;
@@ -23,6 +24,14 @@
   left: 0;
   width: 200px;
   height: 200px;
+  padding-left: 20px;
+  padding-top: 80px;
+  background: #fff;
+  box-sizing: border-box;
+}
+.familyCase-tit{
+  font-size: 18px;
+  font-weight: bold;
 }
 .familyCase-img1{
   position: absolute;
@@ -65,5 +74,5 @@
   background: #000;
 }
 .familyCase-pagination{
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
