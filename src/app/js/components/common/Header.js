@@ -13,6 +13,9 @@ export default class Header extends Component {
         this.props.userBoundAc.logout();
     }
 
+    componentDidMount() {
+    }
+
     render() {
         return(
             <div className="header-wrap">

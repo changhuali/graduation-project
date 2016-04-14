@@ -34,7 +34,7 @@
   padding: 20px;
   background: #fff;
   border: 1px solid #eee;
-  box-shadow: -5px -5px 5px rgba(165, 204, 175, 0.55);
+  box-shadow: 5px 5px 5px rgba(165, 204, 175, 0.55);
   box-sizing: border-box;
 }
 .budget-form input{

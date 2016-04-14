@@ -23,6 +23,24 @@ export default class Budget extends Component {
                   <div className="budget-bg">
                   </div>
                   <div className="budget-form">
+                    <input type="text" placeholder="您的称呼" />
+                    <input type="text" placeholder="手机号码" />
+                    <div>
+                      <select>
+                        <option>省份</option>
+                      </select>
+                      <select>
+                        <option>市区</option>
+                      </select>
+                    </div>
+                    <input type="text" placeholder="街道及小区" />
+                    <input type="text" placeholder="装修面积" />
+                    <div>
+                      <select>
+                        <option>装修风格</option>
+                      </select>
+                    </div>
+                    <input type="button" value="免费报价" />
                   </div>
                 </div>
             </div>

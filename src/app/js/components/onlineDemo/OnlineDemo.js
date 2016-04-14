@@ -16,7 +16,6 @@ export default class OnlineDemo extends Component {
     }
 
     changePage(value) {
-      console.log(value);
       this.setState({
         current: value,
       })
@@ -28,7 +27,7 @@ export default class OnlineDemo extends Component {
       var data = this.getCurrData();
       data.map((obj, idx) => {
         arrObj['col'+idx%4].push(
-          <div className="onlineDemo-item">
+          <div key={'col_' + idx} className="onlineDemo-item">
             <div className="onlineDemo-imgBox">
               <img className="img_full onlineDemo-img" src={obj.img} />
             </div>
@@ -37,7 +36,7 @@ export default class OnlineDemo extends Component {
         );
       });
       list.push(
-        <div className="clearfix">
+        <div key={'col_box'} className="clearfix">
           <div className="onlineDemo-col1">{arrObj.col0}</div>
           <div className="onlineDemo-col2">{arrObj.col1}</div>
           <div className="onlineDemo-col3">{arrObj.col2}</div>
@@ -57,10 +56,10 @@ export default class OnlineDemo extends Component {
 
     createHeaderItem(data, index) {
       var list = [];
-      data.map(key => {
+      data.map((key, idx) => {
         var style = key == this.state.selected[index] ? "onlineDemo-headerItem color_bold" : "onlineDemo-headerItem";
         list.push(
-          <span onClick={this.choose.bind(this, key, index)} className={style}>{key}</span>
+          <span key={idx} onClick={this.choose.bind(this, key, index)} className={style}>{key}</span>
         );
       });
       return list;
@@ -81,7 +80,7 @@ export default class OnlineDemo extends Component {
       this.state.selected.map((key, idx) => {
         if(key != '') {
           list.push(
-            <span onClick={this.resetSelect.bind(this, idx)} className="onlineDemo-selectedItem">
+            <span key={idx} onClick={this.resetSelect.bind(this, idx)} className="onlineDemo-selectedItem">
               {idx != 0 ? <i className="fa fa-angle-right"></i> : ''}
               {key}
             </span>

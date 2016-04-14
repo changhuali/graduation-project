@@ -12,7 +12,7 @@ export default class Promotion extends Component {
       var list = [];
       DATA.map((obj, idx) => {
         list.push(
-          <div className="promotion-item clearfix">
+          <div key={idx} className="promotion-item clearfix">
             <h2 className="promotion-title">{obj.title}</h2>
             <div className="promotion-img">
               <img className="img_full" src={obj.img} />
