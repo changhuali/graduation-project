@@ -2,7 +2,7 @@
   width: 100%;
 }
 .about{
-  width: 800px;
+  width: 970px;
   margin: 0 auto;
   padding: 40px 0;
 }
@@ -15,6 +15,19 @@
 .about p{
   line-height: 25px;
   text-indent: 2em;
+  margin-bottom: 20px;
+}
+.about h2{
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(154, 151, 157);
+  margin-bottom: 20px;
+}
+.about h3{
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(134, 127, 128);
+  margin-bottom: 20px;
 }
 @keyframes about_animate{
   0% {transform: rotateY(0)}
@@ -23,4 +36,28 @@
 }
 .about-logo{
   animation: about_animate 10s;
+}
+.about-leftCon{
+  float: left;
+  padding: 40px 0;
+  width: 185px;
+  min-height: 300px;
+  text-align: center;
+  background: #f4f4f4;
+}
+.about-rightCon{
+  float: left;
+  margin-left: 25px;
+  width: 730px;
+}
+.about-navItem{
+  font-size: 16px;
+  height: 45px;
+  line-height: 45px;
+  cursor: pointer;
+  transition: all 1s;
+}
+.about-nav .active{
+  background: #7fd894;
+  color: #fff;
 }

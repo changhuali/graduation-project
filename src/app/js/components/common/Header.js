@@ -6,6 +6,7 @@ export default class Header extends Component {
         super(props);
         this.state={
             showUserSet: false,
+            location: '北京',
         }
     }
 
@@ -14,6 +15,14 @@ export default class Header extends Component {
     }
 
     componentDidMount() {
+        var myFun = (result) => {
+      		var cityName = result.name;
+          this.setState({
+            location: cityName,
+          });
+      	}
+      	var myCity = new BMap.LocalCity();
+      	myCity.get(myFun);
     }
 
     render() {
@@ -22,7 +31,7 @@ export default class Header extends Component {
                 <div className="header clearfix">
                     <div className="header-left">
                         <i className="fa fa-map-marker color_theme"></i>
-                        <span className="header-left-location">重庆</span>
+                        <span className="header-left-location">{this.state.location}</span>
                         <a className="header-left-tog" href="javascript:;">[切换城市]</a>
                     </div>
                     {this.props.user.info.id ?
