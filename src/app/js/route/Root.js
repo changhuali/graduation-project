@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect, NotFoundRoute } from 'react-router';
 import App         from '../components/App';
-import Login       from '../components/user/Login';
-import Regist      from '../components/user/Regist';
+import User        from '../components/user/User';
 import Index       from '../components/index/Index';
 import FaminyPro   from '../components/familyPro/FamilyPro';
 import FaminyCase  from '../components/familyCase/FamilyCase';
@@ -16,8 +15,8 @@ import Contact     from '../components/contact/Contact';
 var routes = (
     <Route path='/' component={App}>
         <IndexRoute component={Index} />
-        <Route path='login' component={Login} />
-        <Route path='regist' component={Regist} />
+        <Route path='login' component={User} />
+        <Route path='regist' component={User} />
         <Route path='familyPro' component={FaminyPro} />
         <Route path='familyCase' component={FaminyCase} />
         <Route path='onlineDemo' component={OnlineDemo} />

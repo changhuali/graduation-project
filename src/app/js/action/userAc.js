@@ -1,11 +1,13 @@
-export const LOGIN      = "LOGIN";
+export const LOGIN       = "LOGIN";
 export const CHECK_LOGIN = "CHECK_LOGIN";
-export const LOGOUT     = "LOGOUT";
+export const LOGOUT      = "LOGOUT";
 export const RESET_INFO  = "RESET_INFO";
-export const REGIST     = "REGIST";
-export const RESET_REGIST = "RESET_REGIST"
+export const REGIST      = "REGIST";
+export const RESET_REGIST   = "RESET_REGIST";
+export const GET_CHECK_CODE = 'GET_CHECK_CODE';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
+import {message} from 'antd';
 
 export function login(params) {
     return dispatch => {
@@ -67,7 +69,11 @@ export function regist(params) {
         .post('/api/client/regist')
         .send(params)
         .end((err, resp) => {
-            console.log(resp, "regist()");
+            if (resp.ok) {
+                message.success("注册成功");
+            } else {
+                message.erorr(resp.body.message);
+            }
             var data = interceptorAction(err, resp);
             dispatch({
                type: REGIST,
@@ -76,6 +82,21 @@ export function regist(params) {
         })
     }
 }
+
+export function getCheckCode(phone) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/checkCode')
+        .send({phone: phone})
+        .end((err, resp) => {
+            dispatch({
+                type: GET_CHECK_CODE,
+                data: resp.body,
+            });
+        });
+    };
+}
+
 export function resetRegistInfo() {
     return dispatch => {
         dispatch({

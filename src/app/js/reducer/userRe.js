@@ -1,6 +1,6 @@
-import { LOGIN, CHECK_LOGIN, LOGOUT, RESET_INFO, REGIST, RESET_REGIST } from '../action/userAc';
+import { LOGIN, CHECK_LOGIN, LOGOUT, RESET_INFO, REGIST, RESET_REGIST, GET_CHECK_CODE } from '../action/userAc';
 
-export default function (state={info: {}, registInfo: {}}, action) {
+export default function (state={info: {}, registInfo: {}, checkCode: {}}, action) {
     switch(action.type) {
         case LOGIN:
             return Object.assign({}, state, {info: action.data});
@@ -8,6 +8,8 @@ export default function (state={info: {}, registInfo: {}}, action) {
             return Object.assign({}, state, {info: action.data});
         case LOGOUT:
             return Object.assign({}, state, {info: action.data});
+        case GET_CHECK_CODE:
+            return Object.assign({}, state, {checkCode: action.data});
         case RESET_INFO:
             return Object.assign({}, state, {info: action.data});
         case REGIST:
