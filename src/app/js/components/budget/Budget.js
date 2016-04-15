@@ -25,11 +25,11 @@ export default class Budget extends Component {
                   <div className="budget-form">
                     <input type="text" placeholder="您的称呼" />
                     <input type="text" placeholder="手机号码" />
-                    <div>
-                      <select>
+                    <div className="budget-location">
+                      <select className="budget-city">
                         <option>省份</option>
                       </select>
-                      <select>
+                      <select className="budget-province">
                         <option>市区</option>
                       </select>
                     </div>

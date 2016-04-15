@@ -7,7 +7,7 @@
   padding: 40px 0;
 }
 @keyframes budget_animate{
-  0% {transform: scale(0, 0)}
+  0% {transform: scale(.5, .5)}
   100% {transform: scale(1, 1);}
 }
 .budget-bg{
@@ -29,9 +29,8 @@
   position: absolute;
   bottom: 100px;
   right: 0;
-  width: 500px;
-  height: 400px;
-  padding: 20px;
+  width: 380px;
+  padding: 40px;
   background: #fff;
   border: 1px solid #eee;
   box-shadow: 5px 5px 5px rgba(165, 204, 175, 0.55);
@@ -40,7 +39,23 @@
 .budget-form input{
   width: 300px;
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-bottom: 20px;
   height: 35px;
   padding: 5px;
+  outline: none;
+  border: 1px solid #999;
+}
+.budget-location{
+  margin-bottom: 20px;
+}
+.budget-form input[type = 'button'] {
+  margin-top: 20px;
+  background: #01af63;
+  color: #fff;
+  border: none;
+}
+.budget-form select{
+  outline: none;
+  margin-right: 20px;
+  width: 100px;
 }

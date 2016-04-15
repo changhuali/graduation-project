@@ -4,7 +4,7 @@
 .promotion{
   width: 970px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 40px 0;
 }
 .promotion-item{
   margin-bottom: 20px;
@@ -16,6 +16,8 @@
 .promotion-title{
   font-size: 16px;
   font-weight: bold;
+  margin-bottom: 10px;
+  color: rgb(92, 203, 69);
 }
 .promotion-right{
   float: right;
