@@ -54,10 +54,10 @@ export default class Login extends Component {
         }else{
             Object.keys(this.state.loginObj).map(key => {
                 var msg = key == "phone" ? "手机号码不能为空" : "密码不能为空";
-                console.log(this.state.loginObj[key], '=1');
+                console.log(key, this.state.loginObj[key], '=1');
                 if(this.state.loginObj[key] == "") {
                     this.setState({
-                        message: Object.assign({}, this.state.message, {[key]: msg}),
+                        message: Object.assign(this.state.message, {[key]: msg}),
                     });
                 }
             })

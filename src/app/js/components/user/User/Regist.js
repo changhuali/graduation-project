@@ -25,7 +25,13 @@ export default class Regist extends Component {
             },
             checking: 61,
             registing: false,
-            message: ""
+            message: {
+                userName: "",
+                phone: "",
+                userPwd: "",
+                userRePwd: "",
+                checkCode: "",
+            },
         }
     }
 
@@ -45,9 +51,15 @@ export default class Regist extends Component {
                 userRePwd: false,
                 checkCode: false,
             },
+            message: {
+                userName: "",
+                phone: "",
+                userPwd: "",
+                userRePwd: "",
+                checkCode: "",
+            },
             checking: 61,
             registing: false,
-            message: ""
         });
     }
 
@@ -58,36 +70,41 @@ export default class Regist extends Component {
         })
     }
 
+    setMessage(key, value) {
+        var newObj = Object.assign({}, this.state.message, {[key]: value});
+        this.setState({
+            message: newObj,
+        });
+    }
+
     checkFormat(e) {
         var message = "";
         switch(e.target.name) {
             case "userName":
                 message = __FORMCHECK__.checkUser(e.target.value);
+                this.setMessage('userName', message);
                 break;
             case "phone":
                 message = __FORMCHECK__.checkPhone(e.target.value);
+                this.setMessage('phone', message);
                 break;
             case "userPwd":
                 message = __FORMCHECK__.checkPwd(e.target.value);
+                this.setMessage('userPwd', message);
                 break;
             case "userRePwd":
                 message = __FORMCHECK__.checkRePwd(this.state.registObj.userRePwd, this.state.registObj.userPwd);
+                this.setMessage('userRePwd', message);
                 break;
             case "checkCode":
                 message = __FORMCHECK__.checkCode(e.target.value);
+                this.setMessage('checkCode', message);
                 break;
         }
-        console.log(message, '====');
-        if(message.length != 0){
-            this.setState({
-                message: message,
-                registTag: Object.assign(this.state.registTag, {[e.target.name]: false}),
-            })
-        }else{
-            this.setState({
-                registTag: Object.assign(this.state.registTag, {[e.target.name]: true}),
-            })
-        }
+        console.log(Object.assign(this.state.registTag, {[e.target.name]: message.length != 0 ? false : true}), '=================================');
+        this.setState({
+            registTag: Object.assign(this.state.registTag, {[e.target.name]: message.length != 0 ? false : true}),
+        })
     }
 
     getCheckCode() {
@@ -126,6 +143,7 @@ export default class Regist extends Component {
     regist(e) {
         e.preventDefault();
         var obj = this.state.registTag;
+        var messageObj = this.state.message;
         var tag = Object.keys(obj).every(key => {
             return obj[key] != false;
         })
@@ -134,16 +152,17 @@ export default class Regist extends Component {
                 registing: true,
             })
             this.props.userBoundAc.regist(this.state.registObj);
-        }else if(this.state.message == ""){
+        }else{
             notification.error({
                 description: "请完善用户信息",
             })
-        }else{
-            notification.error({
-                description: this.state.message,
-                duration: 3,
-            });
         }
+    }
+
+    resetMessage(e) {
+        this.setState({
+            message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
+        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -162,6 +181,7 @@ export default class Regist extends Component {
     }
 
     render() {
+        console.log(this.state.message);
         var formObj = this.state.registObj;
         return(
             <div className="user-right-registForm">
@@ -169,38 +189,47 @@ export default class Regist extends Component {
                     type='text'
                     name="userName"
                     onChange={this.setRegistObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userName}
                     autoComplete="off"
                     placeholder="用户名" />
+                <p className="user-msg">{this.state.message.userName}</p>
                 <input className="user-right-user"
                     type='text'
                     name="phone"
                     onChange={this.setRegistObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.phone}
                     autoComplete="off"
                     placeholder="手机号" />
+                <p className="user-msg">{this.state.message.phone}</p>
                 <input className="user-right-pwd"
                     type='password'
                     name="userPwd"
                     onChange={this.setRegistObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userPwd}
                     autoComplete="off"
                     placeholder="密码" />
+                <p className="user-msg">{this.state.message.userPwd}</p>
                 <input className="user-right-pwd"
                     type='password'
                     name="userRePwd"
                     onChange={this.setRegistObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userRePwd}
                     autoComplete="off"
                     placeholder="确认密码" />
+                <p className="user-msg">{this.state.message.userRePwd}</p>
                 <input className="user-right-checkCode"
                     type='text'
                     name="checkCode"
                     onChange={this.setRegistObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.checkCode}
                     autoComplete="off"
@@ -208,6 +237,7 @@ export default class Regist extends Component {
                 <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
                     {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
                 </button>
+                <p className="user-msg">{this.state.message.checkCode}</p>
                 <p className="user-right-autoLogin clearfix">
                     <input className="user-remenberPwd"
                         type="checkBox"
