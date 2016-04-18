@@ -35,20 +35,22 @@ var __FORMCHECK__ = {
             return "";
         }
     },
-    checkPhone: function(value) {
+    checkPhone: function(value, str) {
+        var str = str || "";
         if(this.isEmpty(value)) {
-            return "手机号码不能为空";
+            return str+"手机号码不能为空";
         }else if(!this.isPhoneNum(value)){//暂时只支持手机号码验证
-            return "手机号码格式错误";
+            return str+"手机号码格式错误";
         }else{
             return "";
         }
     },
-    checkPwd: function(value) {
+    checkPwd: function(value, str) {
+        var str = str || "";
         if(this.isEmpty(value)){
-            return "密码不能为空";
+            return str+"密码不能为空";
         }else if(!this.pwdLessThan(value, 6, 12)){
-            return "密码长度 6-12 位";
+            return str+"密码长度 6-12 位";
         }else{
             return "";
         }

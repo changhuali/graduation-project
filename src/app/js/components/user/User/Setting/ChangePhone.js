@@ -12,13 +12,17 @@ export default class ChangePhone extends Component {
                 checkCode: "",
             },
             changeTag: {
-                befPhone: "",
-                newPhone: "",
-                checkCode: "",
+                befPhone: false,
+                newPhone: false,
+                checkCode: false,
             },
             checking: 61,
             changing: false,
-            message: ""
+            message: {
+                befPhone: "",
+                newPhone: "",
+                checkCode: "",
+            }
         }
     }
 
@@ -29,30 +33,33 @@ export default class ChangePhone extends Component {
         })
     }
 
+    setMessage(key, value) {
+        var newObj = Object.assign({}, this.state.message, {[key]: value});
+        this.setState({
+            message: newObj,
+        });
+    }
+
     checkFormat(e) {
         var message = "";
         switch(e.target.name) {
-            case "befPwd":
-                message = __FORMCHECK__.checkPwd(e.target.value);
+            case "befPhone":
+                message = __FORMCHECK__.checkPhone(e.target.value, '原');
+                this.setMessage('befPhone', message);
                 break;
-            case "newPwd":
-                message = __FORMCHECK__.checkPwd(e.target.value);
+            case "afPhone":
+                message = __FORMCHECK__.checkPhone(e.target.value, '新');
+                this.setMessage('afPhone', message);
                 break;
-            case "rePwd":
-                message = __FORMCHECK__.checkRePwd(this.state.changeObj.rePwd, this.state.changeObj.userPwd);
+            case "checkCode":
+                message = __FORMCHECK__.checkCode(e.target.value);
+                this.setMessage('checkCode', message);
                 break;
         }
         console.log(message, '====');
-        if(message.length != 0){
-            this.setState({
-                message: message,
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: false}),
-            })
-        }else{
-            this.setState({
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: true}),
-            })
-        }
+        this.setState({
+            changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
+        })
     }
 
     getCheckCode() {
@@ -98,17 +105,18 @@ export default class ChangePhone extends Component {
             this.setState({
                 registing: true,
             })
-            this.props.userBoundAc.regist(this.state.changeObj);
-        }else if(this.state.message == ""){
+            this.props.userBoundAc.regist(this.state.registObj);
+        }else{
             notification.error({
                 description: "请完善用户信息",
             })
-        }else{
-            notification.error({
-                description: this.state.message,
-                duration: 3,
-            });
         }
+    }
+
+    resetMessage(e) {
+        this.setState({
+            message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
+        })
     }
 
     render() {
@@ -117,24 +125,29 @@ export default class ChangePhone extends Component {
             <div>
                 <input className="user-right-user"
                     type='text'
-                    name="phone"
+                    name="befPhone"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.phone}
                     autoComplete="off"
                     placeholder="原手机号" />
+                <p className="user-msg">{this.state.message.befPhone}</p>
                 <input className="user-right-user"
                     type='text'
-                    name="phone"
+                    name="afPhone"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.phone}
                     autoComplete="off"
                     placeholder="新手机号" />
+                <p className="user-msg">{this.state.message.afPhone}</p>
                 <input className="user-right-checkCode"
                     type='text'
                     name="checkCode"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.checkCode}
                     autoComplete="off"
@@ -142,6 +155,7 @@ export default class ChangePhone extends Component {
                 <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
                     {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
                 </button>
+                <p className="user-msg">{this.state.message.checkCode}</p>
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>

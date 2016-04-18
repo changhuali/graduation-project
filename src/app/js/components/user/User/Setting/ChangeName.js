@@ -13,7 +13,9 @@ export default class ChangeName extends Component {
                 userName: false,
             },
             changing: false,
-            message: ""
+            message: {
+                userName: false,
+            }
         }
     }
 
@@ -24,24 +26,25 @@ export default class ChangeName extends Component {
         })
     }
 
+    setMessage(key, value) {
+        var newObj = Object.assign({}, this.state.message, {[key]: value});
+        this.setState({
+            message: newObj,
+        });
+    }
+
     checkFormat(e) {
         var message = "";
         switch(e.target.name) {
             case "userName":
                 message = __FORMCHECK__.checkUser(e.target.value);
+                this.setMessage('userName', message);
                 break;
         }
         console.log(message, '====');
-        if(message.length != 0){
-            this.setState({
-                message: message,
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: false}),
-            })
-        }else{
-            this.setState({
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: true}),
-            })
-        }
+        this.setState({
+            changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
+        })
     }
 
     change(e) {
@@ -55,16 +58,17 @@ export default class ChangeName extends Component {
                 registing: true,
             })
             this.props.userBoundAc.regist(this.state.registObj);
-        }else if(this.state.message == ""){
+        }else{
             notification.error({
                 description: "请完善用户信息",
             })
-        }else{
-            notification.error({
-                description: this.state.message,
-                duration: 3,
-            });
         }
+    }
+
+    resetMessage(e) {
+        this.setState({
+            message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
+        })
     }
 
     render() {
@@ -75,10 +79,12 @@ export default class ChangeName extends Component {
                     type='text'
                     name="userName"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userName}
                     autoComplete="off"
                     placeholder="用户名" />
+                <p className="user-msg">{this.state.message.userName}</p>
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>

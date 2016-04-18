@@ -43,7 +43,7 @@ export default class Regist extends Component {
                         <Link to={{pathname: '/'}}><img src={img_left} alt="" /></Link>
                     </div>
                     <div className="user-set-right">
-                        <Tabs tabPosition="top">
+                        <Tabs tabPosition="left">
                             <TabPane tab="修改密码" key="1">
                                 <div className="user-pane">
                                     <ChangePwd {...this.props} />

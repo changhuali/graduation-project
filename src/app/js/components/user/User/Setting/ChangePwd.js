@@ -16,8 +16,12 @@ export default class ChangePwd extends Component {
                 newPwd: false,
                 rePwd: false,
             },
+            message: {
+                befPwd: "",
+                newPwd: "",
+                rePwd: "",
+            },
             changing: false,
-            message: ""
         }
     }
 
@@ -28,30 +32,33 @@ export default class ChangePwd extends Component {
         })
     }
 
+    setMessage(key, value) {
+        var newObj = Object.assign({}, this.state.message, {[key]: value});
+        this.setState({
+            message: newObj,
+        });
+    }
+
     checkFormat(e) {
         var message = "";
         switch(e.target.name) {
             case "befPwd":
-                message = '原' + __FORMCHECK__.checkPwd(e.target.value);
+                message = __FORMCHECK__.checkPwd(e.target.value, '原');
+                this.setMessage('befPwd', message);
                 break;
             case "newPwd":
-                message = '新' + __FORMCHECK__.checkPwd(e.target.value);
+                message = __FORMCHECK__.checkPwd(e.target.value, '新');
+                this.setMessage('newPwd', message);
                 break;
             case "rePwd":
                 message = __FORMCHECK__.checkRePwd(this.state.changeObj.rePwd, this.state.changeObj.newPwd);
+                this.setMessage('rePwd', message);
                 break;
         }
         console.log(message, '====');
-        if(message.length != 0){
-            this.setState({
-                message: message,
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: false}),
-            })
-        }else{
-            this.setState({
-                changeTag: Object.assign(this.state.changeTag, {[e.target.name]: true}),
-            })
-        }
+        this.setState({
+            changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
+        })
     }
 
     change(e) {
@@ -65,16 +72,17 @@ export default class ChangePwd extends Component {
                 registing: true,
             })
             this.props.userBoundAc.regist(this.state.registObj);
-        }else if(this.state.message == ""){
+        }else{
             notification.error({
                 description: "请完善用户信息",
             })
-        }else{
-            notification.error({
-                description: this.state.message,
-                duration: 3,
-            });
         }
+    }
+
+    resetMessage(e) {
+        this.setState({
+            message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
+        })
     }
 
     render() {
@@ -85,26 +93,32 @@ export default class ChangePwd extends Component {
                     type='text'
                     name="befPwd"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.befPwd}
                     autoComplete="off"
                     placeholder="原密码" />
+                <p className="user-msg">{this.state.message.befPwd}</p>
                 <input className="user-right-pwd"
-                    type='password'
+                    type='text'
                     name="newPwd"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.newPwd}
                     autoComplete="off"
                     placeholder="新密码" />
+                <p className="user-msg">{this.state.message.newPwd}</p>
                 <input className="user-right-pwd"
-                    type='password'
+                    type='text'
                     name="rePwd"
                     onChange={this.setChangeObj.bind(this)}
+                    onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.rePwd}
                     autoComplete="off"
                     placeholder="确认密码" />
+                <p className="user-msg">{this.state.message.rePwd}</p>
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>
