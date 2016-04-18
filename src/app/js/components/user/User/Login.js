@@ -63,15 +63,15 @@ export default class Login extends Component {
 
     render() {
         return(
-            <div className="login-content-right-count">
-                <input className="login-content-right-user"
+            <div className="user-right-loginForm">
+                <input className="user-right-user"
                     type='text'
                     name="userName"
                     onChange={this.setLoginParams.bind(this)}
                     value={this.state.loginObj.userName}
                     placeholder="手机号"
                     autoComplete="off" />
-                <input className="login-content-right-pwd"
+                <input className="user-right-pwd"
                     type='password'
                     name="userPwd"
                     onKeyUp={this.enterLogin.bind(this)}
@@ -79,14 +79,14 @@ export default class Login extends Component {
                     value={this.state.loginObj.userPwd}
                     placeholder="密码"
                     autoComplete="off" />
-                <p className="login-content-right-autoLogin clearfix">
-                    <input className="login-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
-                    <a className="login-content-right-forgetPwd" href="#">忘记密码?</a>
+                <p className="user-right-autoLogin clearfix">
+                    <input className="user-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
+                    <a className="user-right-forgetPwd" href="#">忘记密码?</a>
                 </p>
                 <button onClick={this.login.bind(this)}
-                    className="login-content-right-sub"
+                    className="user-right-sub"
                     disabled={this.state.logining? "disabled" : ""}>{this.state.logining? "登录中" : "立即登录"}</button>
-                <div className="ligin-content-right-regist">
+                <div className="user-right-regist">
                     没有账号?<Link className="right" to={{pathname: "regist"}}>立即注册</Link>
                 </div>
             </div>

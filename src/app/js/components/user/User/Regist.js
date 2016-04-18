@@ -132,44 +132,44 @@ export default class Regist extends Component {
     render() {
         var formObj = this.state.registObj;
         return(
-            <div className="login-content-right-regist">
-                <input className="login-content-right-user"
+            <div className="user-right-registForm">
+                <input className="user-right-user"
                     type='text'
                     name="userName"
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userName}
                     placeholder="手机号" />
-                <input className="login-content-right-pwd"
+                <input className="user-right-pwd"
                     type='password'
                     name="userPwd"
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userPwd}
                     placeholder="密码" />
-                <input className="login-content-right-pwd"
+                <input className="user-right-pwd"
                     type='password'
                     name="userRePwd"
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userRePwd}
                     placeholder="确认密码" />
-                <input className="lgoin-content-right-checkCode"
+                <input className="user-right-checkCode"
                     type='text'
                     name="checkCode"
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.checkCode}
                     placeholder="验证码" />
-                <button onClick={this.getCheckCode.bind(this)} className="login-content-right-sub login-checkCode">
+                <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
                     {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
                 </button>
-                <p className="login-content-right-autoLogin clearfix">
-                    <input className="login-remenberPwd"
+                <p className="user-right-autoLogin clearfix">
+                    <input className="user-remenberPwd"
                         type="checkBox"
                         name="agreement" />&nbsp;&nbsp;我已阅读并同意<Link to={{pathname: "/"}}>《土巴兔用户服务协议》</Link>
                 </p>
-                <button className="login-content-right-sub"
+                <button className="user-right-sub"
                     onClick={this.regist.bind(this)}
                     disabled={this.state.registing ? "disabled" : ""}>{this.state.registing ? "注册中" : "立即注册"}</button>
             </div>

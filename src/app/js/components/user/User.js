@@ -36,32 +36,33 @@ export default class User extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
-        if(nextProps.location.pathname == '/regist') {
+        if(nextProps.location.pathname == '/regist' || nextProps.location.pathname == 'regist') {
             this.setState({
                 tabActive: 'regist',
             });
         }else{
             this.setState({
-                tabActive: 'regist',
+                tabActive: 'login',
             });
         }
     }
 
     render() {
+        console.log(this.state.tabActive);
         var login = this.state.tabActive == "login" ? "color_999 active" : "color_999";
         var regist= this.state.tabActive == "regist"? "color_999 active" : "color_999";
         return(
-            <div className="login-wrap">
-                <div className="login-header">
+            <div className="user-wrap">
+                <div className="user-header">
                     <a href="#"><img src="" alt="" /></a>
-                    <h2>欢迎登录</h2>
+                    <h2>{this.state.tabActive == "login" ? '欢迎登录' : '欢迎注册'}</h2>
                 </div>
-                <div className="login-content clearfix">
-                    <div className="login-content-left">
+                <div className="user-content clearfix">
+                    <div className="user-left">
                         <Link to={{pathname: '/'}}><img src={img_left} alt="" /></Link>
                     </div>
-                    <div className="login-content-right">
-                        <div className="login-content-right-tab">
+                    <div className="user-right">
+                        <div className="user-right-tab">
                             <Link to={{pathname: "login"}}><span id="login" className={login} onClick={this.changeTab.bind(this)}>账号登录</span></Link>
                             <Link to={{pathname: "regist"}}><span id="regist" className={regist} onClick={this.changeTab.bind(this)}>账号注册</span></Link>
                         </div>
