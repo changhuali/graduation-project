@@ -171,7 +171,7 @@ export default class Regist extends Component {
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userName}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="用户名" />
                 <input className="user-right-user"
                     type='text'
@@ -179,7 +179,7 @@ export default class Regist extends Component {
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.phone}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="手机号" />
                 <input className="user-right-pwd"
                     type='password'
@@ -187,7 +187,7 @@ export default class Regist extends Component {
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userPwd}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="密码" />
                 <input className="user-right-pwd"
                     type='password'
@@ -195,7 +195,7 @@ export default class Regist extends Component {
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.userRePwd}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="确认密码" />
                 <input className="user-right-checkCode"
                     type='text'
@@ -203,7 +203,7 @@ export default class Regist extends Component {
                     onChange={this.setRegistObj.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.checkCode}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="验证码" />
                 <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
                     {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
@@ -215,7 +215,9 @@ export default class Regist extends Component {
                 </p>
                 <button className="user-right-sub"
                     onClick={this.regist.bind(this)}
-                    disabled={this.state.registing ? "disabled" : ""}>{this.state.registing ? "注册中" : "立即注册"}</button>
+                    disabled={this.state.registing ? "disabled" : ""}>
+                    {this.state.registing ? "注册中" : "立即注册"}
+                </button>
             </div>
         )
     }

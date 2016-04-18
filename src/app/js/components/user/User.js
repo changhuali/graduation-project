@@ -66,7 +66,6 @@ export default class User extends Component {
         return(
             <div className="user-wrap">
                 <div className="user-header">
-                    <a href="#"><img src="" alt="" /></a>
                     <h2>{this.state.tabActive == "login" ? '欢迎登录' : '欢迎注册'}</h2>
                 </div>
                 <div style={style} className="user-content clearfix">

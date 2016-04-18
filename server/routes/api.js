@@ -21,7 +21,7 @@ var checkLogin = function(req, callback){
     });
     var myModel = db.model('user', userSchema, "user");
     myModel.findOne({phone: req.body.phone},function(err, data){
-        console.log(data.userName, "===========================================================================login data");
+        console.log(data, "===========================================================================login data");
         if(err){
             console.log(err);
             callback(500);
@@ -44,14 +44,16 @@ router.post('/client/login', function(req, res){
             console.log(data, '===');
             res.send(data);
         }else if(status == 401003) {
-            res.statusCode = 401003;
+            res.statusCode = 401;
             res.send({
-                message: data,
+                errorCode: 401,
+                message: '用户名或密码错误',
             });
         }else if(status == 500) {
             res.statusCode == 500;
             res.send({
-                message: data,
+                errorCode: 500,
+                message: '服务器内部错误',
             });
         }
     });

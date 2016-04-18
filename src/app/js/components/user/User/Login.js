@@ -70,7 +70,7 @@ export default class Login extends Component {
                     onChange={this.setLoginParams.bind(this)}
                     value={this.state.loginObj.phone}
                     placeholder="手机号"
-                    autocomplete="off" />
+                    autoComplete="off" />
                 <input className="user-right-pwd"
                     type='password'
                     name="userPwd"
@@ -78,7 +78,7 @@ export default class Login extends Component {
                     onChange={this.setLoginParams.bind(this)}
                     value={this.state.loginObj.userPwd}
                     placeholder="密码"
-                    autocomplete="off" />
+                    autoComplete="off" />
                 <p className="user-right-autoLogin clearfix">
                     <input className="user-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
                     <a className="user-right-forgetPwd" href="#">忘记密码?</a>

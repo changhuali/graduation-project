@@ -105,3 +105,9 @@
 .user-pane{
     padding: 20px 40px;
 }
+.user-set-right{
+    float: right;
+    width: 450px;
+    padding: 30px;
+    color: #666;
+}
