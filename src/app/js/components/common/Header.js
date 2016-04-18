@@ -64,8 +64,15 @@ class UserSetting extends Component{
         })
     }
 
+    hideUserSet() {
+        this.setState({
+            showUserSet: false,
+        });
+    }
+
     logout() {
         this.props.logout();
+        this.hideUserSet();
     }
 
     componentDidMount() {
@@ -86,7 +93,7 @@ class UserSetting extends Component{
                     {this.state.showUserSet ?
                     <ul style={{marginLeft: this.state.margin}} className="header-user-ul">
                         <span className="header-user-arrow"></span>
-                        <Link to={{pathname: "user"}}><li className="color_theme">个人设置</li></Link>
+                        <Link to={{pathname: "user"}}><li onClick={this.hideUserSet.bind(this)} className="color_theme">个人设置</li></Link>
                         <a className="color_theme" onClick={this.logout.bind(this)} href="javascript:;"><li>退出</li></a>
                     </ul>
                     : ""}

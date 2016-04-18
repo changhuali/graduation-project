@@ -27,9 +27,11 @@ var checkLogin = function(req, callback){
             callback(500);
         }else{
             if(data == null){
-                callback(401003);
+                callback(401004);
             }else if(req.body.userPwd == data.userPwd){
                 callback(200, {id: data._id , userName: data.userName});
+            }else{
+                callback(401003);
             }
         }
     })
@@ -47,7 +49,13 @@ router.post('/client/login', function(req, res){
             res.statusCode = 401;
             res.send({
                 errorCode: 401,
-                message: '用户名或密码错误',
+                message: '密码错误',
+            });
+        }else if(status == 401004) {
+            res.statusCode = 401;
+            res.send({
+                errorCode: 401,
+                message: '该用户不存在',
             });
         }else if(status == 500) {
             res.statusCode == 500;
