@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { __FORMCHECK__ } from '../../../../../config/class';
 import { notification } from 'antd';
 import __has from 'lodash/has';
+import __assign from 'lodash/assign';
 
 export default class Login extends Component {
     constructor(props){
@@ -31,7 +32,7 @@ export default class Login extends Component {
         if(__FORMCHECK__.isEmpty(e.target.value)) {
             var msg = e.target.name == "phone" ? "手机号码不能为空" : "密码不能为空";
             this.setState({
-                message: Object.assign({}, this.state.message, {[e.target.name]: msg}),
+                message: __assign(this.state.message, {[e.target.name]: msg}),
             })
         }
     }
