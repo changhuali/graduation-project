@@ -9,6 +9,7 @@ export default class User extends Component {
         super(props);
         this.state={
             tabActive: "login",
+            bodyHeight: "auto",
         }
     }
 
@@ -26,8 +27,19 @@ export default class User extends Component {
         return obj[this.state.tabActive];
     }
 
+    getBodyHeight() {
+        var bodyHeight = window.innerHeight-370 < 500 ? 500 : window.innerHeight - 370;
+        this.setState({
+            bodyHeight: bodyHeight,
+        })
+    }
+
     componentDidMount() {
         this.props.hideNav(true);
+        this.getBodyHeight();
+        window.onresize = () => {
+            this.getBodyHeight();
+        }
     }
 
     componentWillUnmount() {
@@ -48,7 +60,7 @@ export default class User extends Component {
     }
 
     render() {
-        console.log(this.state.tabActive);
+        var style= {minHeight: this.state.bodyHeight};
         var login = this.state.tabActive == "login" ? "color_999 active" : "color_999";
         var regist= this.state.tabActive == "regist"? "color_999 active" : "color_999";
         return(
@@ -57,7 +69,7 @@ export default class User extends Component {
                     <a href="#"><img src="" alt="" /></a>
                     <h2>{this.state.tabActive == "login" ? '欢迎登录' : '欢迎注册'}</h2>
                 </div>
-                <div className="user-content clearfix">
+                <div style={style} className="user-content clearfix">
                     <div className="user-left">
                         <Link to={{pathname: '/'}}><img src={img_left} alt="" /></Link>
                     </div>

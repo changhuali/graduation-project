@@ -7,9 +7,7 @@
 .user-content{
     width: 980px;
     margin: 0 auto;
-}
-.user-content{
-    padding: 40px 0;
+    padding-top: 40px;
 }
 .user-left{
     float: left;

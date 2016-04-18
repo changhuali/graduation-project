@@ -33,7 +33,6 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state={
-            bodyHeight: "auto",
             hideNav: false,
             routeChangeToLR: false,
         }
@@ -43,12 +42,6 @@ class App extends Component {
 
     }
 
-    getBodyHeight() {
-        var bodyHeight = window.innerHeight-228 < 550 ? 550 : window.innerHeight - 232;
-        this.setState({
-            bodyHeight: bodyHeight,
-        })
-    }
 
     hideNav(tag) {
         this.setState({
@@ -58,19 +51,13 @@ class App extends Component {
 
     componentDidMount() {
         this.props.userBoundAc.checkInfo();
-        this.getBodyHeight();
-        window.onresize = () => {
-            this.getBodyHeight();
-        }
     }
-
 
     componentWillReceiveProps(nextProps) {
 
     }
 
     render(){
-        var  style= {minHeight: this.state.bodyHeight};
         return(
             <div>
                 <div>
