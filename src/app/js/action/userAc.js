@@ -5,6 +5,7 @@ export const RESET_INFO  = "RESET_INFO";
 export const REGIST      = "REGIST";
 export const RESET_REGIST   = "RESET_REGIST";
 export const GET_CHECK_CODE = 'GET_CHECK_CODE';
+export const CHECK_PWD   = 'CHECK_PWD';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
 import {message} from 'antd';
@@ -92,6 +93,20 @@ export function getCheckCode(phone) {
         .end((err, resp) => {
             dispatch({
                 type: GET_CHECK_CODE,
+                data: resp.body,
+            });
+        });
+    };
+}
+
+export function checkPwd(pwd) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/checkpwd')
+        .send({userPwd: pwd})
+        .end((err, resp) => {
+            dispatch({
+                type: CHECK_PWD,
                 data: resp.body,
             });
         });

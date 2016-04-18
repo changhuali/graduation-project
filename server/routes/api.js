@@ -105,6 +105,8 @@ var checkRegist = function(req, callback) {
             if(err){
                 console.log(err);
                 callback(500);
+            }else if(data == null){
+                callback(401001, '验证码错误');
             }else if(checkCode == data.checkCode) {
                 //验证手机是否已经注册
                 userModel.find({phone: phoneNum}, function(err, data){
@@ -239,6 +241,57 @@ router.post('/client/checkCode', function(req, res){
         }else if(status == 500) {
             res.statusCode = 500;
             res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            });
+        }
+    });
+})
+//查询用户信息
+function checkUserInfo(req, callback){
+    var pwd = req.body.userPwd;
+    var id  = req.cookies.info.id;
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        phone: String,
+        userPwd : String
+    });
+    var myModel = db.model('user', userSchema, "user");
+    myModel.findOne({_id: id}, function(err, data) {
+        if(err) {
+            console.log(err);
+            callback(500);
+        }else{
+            console.log(data, '=====================================================checkPwd');
+            if(data == null || (data instanceof Array && data.length == 0)) {
+                callback(404);
+            }else if(data.userPwd == pwd){
+                callback(200);
+            }else{
+                callback(404);
+            }
+        }
+    });
+}
+
+//验证个人设置用户原密码是否正确
+router.post('/client/checkPwd', function(req, res){
+    checkUserInfo(req, function(status) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                id: req.cookies.info.id,
+            });
+        }else if(status == 404){
+            res.statusCode = 404;
+            res.send({
+                errorCode: 404,
+                message: '原密码错误',
+            })
+        }else if(status == 500) {
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
                 message: '服务器内部错误',
             });
         }

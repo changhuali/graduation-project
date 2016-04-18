@@ -44,6 +44,10 @@ export default class ChangePwd extends Component {
         switch(e.target.name) {
             case "befPwd":
                 message = __FORMCHECK__.checkPwd(e.target.value, '原');
+                if(message.length == 0) {
+                    console.log('11111');
+                    this.props.userBoundAc.checkPwd(e.target.value);
+                }
                 this.setMessage('befPwd', message);
                 break;
             case "newPwd":
