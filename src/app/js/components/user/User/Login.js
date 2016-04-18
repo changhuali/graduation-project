@@ -10,7 +10,7 @@ export default class Login extends Component {
         this.state={
             logining: false,
             loginObj: {
-                userName: "",
+                phone: "",
                 userPwd: "",
             },
         }
@@ -31,16 +31,16 @@ export default class Login extends Component {
 
     login(e) {
         e.preventDefault();
-        var userName = this.state.loginObj.userName;
+        var phone = this.state.loginObj.phone;
         var pwd      = this.state.loginObj.userPwd;
-        if(!__FORMCHECK__.isEmpty(userName) && !__FORMCHECK__.isEmpty(pwd)){
+        if(!__FORMCHECK__.isEmpty(phone) && !__FORMCHECK__.isEmpty(pwd)){
             this.setState({
                 logining: true,
             })
             this.props.userBoundAc.login(this.state.loginObj);
         }else{
             notification.error({
-                description: "用户或密码不能为空",
+                description: "用户名或密码不能为空",
                 duration: 2,
             })
         }
@@ -66,11 +66,11 @@ export default class Login extends Component {
             <div className="user-right-loginForm">
                 <input className="user-right-user"
                     type='text'
-                    name="userName"
+                    name="phone"
                     onChange={this.setLoginParams.bind(this)}
-                    value={this.state.loginObj.userName}
+                    value={this.state.loginObj.phone}
                     placeholder="手机号"
-                    autoComplete="off" />
+                    autocomplete="off" />
                 <input className="user-right-pwd"
                     type='password'
                     name="userPwd"
@@ -78,7 +78,7 @@ export default class Login extends Component {
                     onChange={this.setLoginParams.bind(this)}
                     value={this.state.loginObj.userPwd}
                     placeholder="密码"
-                    autoComplete="off" />
+                    autocomplete="off" />
                 <p className="user-right-autoLogin clearfix">
                     <input className="user-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
                     <a className="user-right-forgetPwd" href="#">忘记密码?</a>

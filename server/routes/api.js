@@ -16,21 +16,20 @@ db.once('open', function(){
 var checkLogin = function(req, callback){
     var userSchema = new mongoose.Schema({
         userName: String,
+        phone: String,
         userPwd : String
     });
     var myModel = db.model('user', userSchema, "user");
-    myModel.findOne({userName: req.body.userName},function(err, data){
+    myModel.findOne({phone: req.body.phone},function(err, data){
+        console.log(data.userName, "===========================================================================login data");
         if(err){
             console.log(err);
+            callback(500);
         }else{
             if(data == null){
-                callback("error");
+                callback(401003);
             }else if(req.body.userPwd == data.userPwd){
-                console.log(data);
-                callback({id: data._id, userName: data.userName});
-            }else{
-                console.log(data);
-                callback("error");
+                callback(200, {id: data._id , userName: data.userName});
             }
         }
     })
@@ -38,14 +37,22 @@ var checkLogin = function(req, callback){
 
 //用户登录
 router.post('/client/login', function(req, res){
-    checkLogin(req, function (data) {
-        if(data != "error") {
-            res.statusCode = "200";
-            res.cookie('info', {id: data.id, userName: data.userName}, {path: '/', maxAge: 30*60*1000});
+    checkLogin(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.cookie('info', data, {path: '/', maxAge: 30*60*1000});
+            console.log(data, '===');
             res.send(data);
-        }else{
-            res.statusCode = "401";
-            res.send({errorCode: 401, message: "用户名或密码错误"});
+        }else if(status == 401003) {
+            res.statusCode = 401003;
+            res.send({
+                message: data,
+            });
+        }else if(status == 500) {
+            res.statusCode == 500;
+            res.send({
+                message: data,
+            });
         }
     });
 })
@@ -66,136 +73,166 @@ router.delete('/client/logout', function(req, res){
     res.statusCode = '200';
     res.send({meesage: "logout success"});
 })
-
+//用户注册数据库操作
 var checkRegist = function(req, callback) {
     var userSchema = new mongoose.Schema({
         userName: String,
+        phone: String,
         userPwd : String
     });
-    var myModel = db.model('user', userSchema, "user");
-    var checkSchema = new mongoose.Schema({
-        userName: String,
+    var checkCodeSchema = new mongoose.Schema({
+        phone: String,
         checkCode : String
     });
-    var checkModel = db.model('checkCode', checkSchema, "checkCode");
+    var userModel = db.model('user', userSchema, "user");
+    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
     if(req.cookies.checkCode) {
-      checkModel.findOne({userName: req.body.userName}, function(err, data){
-        console.log(req.body.checkCode, data);
-        if(err){
-          console.log(err);
-        }else if(req.body.checkCode == data.checkCode) {
-          myModel.find({userName: req.body.userName}, function(err, data){
+        var userName = req.body.userName;
+        var phoneNum = req.body.phone;
+        var checkCode= req.body.checkCode;
+        checkModel.findOne({phone: phoneNum}, function(err, data){
+            console.log(data, "=========================================================checkCode in dataBase");
             if(err){
-              console.log(err);
-            }else{
-              console.log(data, '=======data');
-              if(data == null || data.length == 0){
-
-                myModel.create({userName: req.body.userName, userPwd: req.body.userPwd}, function(err, data){
-                  if(err){
-                    console.log(err, "-------------regist insert error");
-                    callback("error");
-                  }else{
-                    callback("ok", {id: data._id, userName: data.userName});
-                  }
+                console.log(err);
+                callback(500);
+            }else if(checkCode == data.checkCode) {
+                //验证手机是否已经注册
+                userModel.find({phone: phoneNum}, function(err, data){
+                    console.log(data, "=========================================================phone registed?");
+                    if(err){
+                        console.log(err);
+                        callback(500);
+                    }else if(data instanceof Array && data.length > 0){
+                        console.log('该手机已经注册');
+                        callback(401002, '该手机已经注册,请用其它手机号码');
+                    }else{
+                        //保存用户信息到数据库
+                        userModel.create({userName: userName, phone: phoneNum, userPwd: req.body.userPwd}, function(err, data){
+                            console.log(data, "=========================================================regist data");
+                            if(err){
+                                console.log(err, "-------------regist insert error");
+                                callback(500);
+                            }else{
+                                console.log(err, "-------------regist insert success");
+                                callback(200, {id: data._id, phone: data.phone});
+                            }
+                        });
+                    }
                 });
-
-              }else{
-                callback("exist");
-              }
+            }else{
+                callback(401001, '验证码错误');
             }
-          });
-        }else{
-          callback("checkFail");
-        }
-      });
+        });
     }else{
-      callback("checkInvalid");
+        callback(401001, '验证码错误');
     }
 }
 
-//用户注册
+//用户注册返回结果
 router.post('/client/regist', function(req, res){
     checkRegist(req, function(status, data){
-        if(status == "exist") {
-            res.statusCode = "401";
-            res.send({errorCode: "401", message: "用户名已存在"})
-        }else if(status == "ok"){
-            res.statusCode = "200";
-            res.send(data)
-        }else if(status == "error"){
-            res.statusCode == "500";
-            res.send({errorCode: "500", message: "服务器内部错误"})
-        }else if(status == "checkInvalid") {
-            res.statusCode == "401001";
-            res.send({errorCode: "401", message: "验证码失效,请重新获取"});
-        }else if(status == "checkFail") {
-            res.statusCode == "401002";
-            res.send({errorCode: "401", message: "验证码错误"});
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send(data);
+        }else if(status == 401001) {
+            res.statusCode = 401,
+            res.send({
+                errorCode: 401001,
+                message: data,
+            });
+        }else if(status == 401002){
+            res.statusCode = 401;
+            res.send({
+                errorCode: 401002,
+                message: data,
+            });
+        }else if(status == 500) {
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            });
         }
     });
 })
 
 //生成验证码
-function createCheckCode(base, len) {
+function createCheckCode(len) {
     var str = '';
     for(var i = 1; i <= len; i++) {
-        str += Math.round(base*Math.random());
+        str = str + Math.round(10*Math.random());
     }
+    console.log(len, str, "================================================================================================createCheckCode()");
     return str;
 }
+//保存验证码到数据库
+function saveCheckCode(phoneNum, random, callback) {
+    var checkCodeSchema = new mongoose.Schema({
+        phone: String,
+        checkCode : String
+    });
+    var myModel = db.model('checkCode', checkCodeSchema, "checkCode");
+    //查找数据库是否有重复验证码
+    myModel.findOne({phone: phoneNum}, function(err, data){
+        if(err) {
+            callback(500);
+            console.log(err);
+        }else{
+            myModel.remove({phone: phoneNum}, function(err, data){
+                if(err){
+                    callback(500);
+                    console.log(err);
+                }else{
+                    console.log(data, '================================================================================================saveCheckCode()');
+                    myModel.create({phone: phoneNum, checkCode: random}, function(err, data){
+                        if(err){
+                            callback(500);
+                            console.log(err, "-------------insert checkCode error");
+                        }else{
+                            callback(200);
+                            console.log(data, "-------------insert checkCode success");
+                        }
+                    })
+                }
+            })
+        }
+    });
+}
 //发送并保存验证码
-function postCheckCode(phone, random) {
+function postCheckCode(phoneNum, random, callback) {
     alidayu.execute('alibaba.aliqin.fc.sms.num.send', {
         'extend':'123456',
         'sms_type':'normal',
         'sms_free_sign_name':'大鱼测试',
         'sms_param': {"code":random,"product":"国风装修"},
-        'rec_num': phone,
+        'rec_num': phoneNum,
         'sms_template_code':'SMS_7760522'
     }, function(error, response) {
         if (!error) {
-            console.log(response);
-            var checkSchema = new mongoose.Schema({
-                userName: String,
-                checkCode : String
-            });
-            var myModel = db.model('checkCode', checkSchema, "checkCode");
-            myModel.findOne({userName: phone}, function(err, data){
-              if(err) {
-                console.log(err);
-              }else{
-                myModel.remove({userName: phone}, function(err, data){
-                  if(err){
-                    console.log(err);
-                  }else{
-                    console.log('====drop checkCode success');
-                  }
-                })
-              }
-            })
-            myModel.create({userName: phone, checkCode: random}, function(err, data){
-                if(err){
-                    console.log(err, "-------------insert checkCode error");
-                }else{
-                    console.log(data, "-------------insert checkCode success");
-                }
-            })
-
+            console.log(response, "================================================================================================postCheckCode()");
+            saveCheckCode(phoneNum, random, callback);
         }else {
+            callback(500);
             console.log(error, '======postCheckCode_error')
         };
     })
 }
 //获取验证码
 router.post('/client/checkCode', function(req, res){
-    var phone = req.body.phone;
-    var random = createCheckCode(10, 6);
-    postCheckCode(phone, random);
-    res.statusCode = '200';
-    res.cookie('checkCode', phone, {maxAge: 24*60*60*1000});
-    res.end();
-    console.log(random, '===random');
+    var phoneNum = req.body.phone;
+    var random = createCheckCode(4);
+    postCheckCode(phoneNum, random, function(status){
+        if(status == 200) {
+            res.statusCode = 200;
+            res.cookie('checkCode', phoneNum, {maxAge: 24*60*60*1000});
+            res.end();
+        }else if(status == 500) {
+            res.statusCode = 500;
+            res.send({
+                message: '服务器内部错误',
+            });
+        }
+    });
 })
 
 module.exports = router;

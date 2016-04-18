@@ -97,3 +97,11 @@
     position: relative;
     top: 2px;
 }
+.user-right-settingForm{
+    width: 970px;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+.user-pane{
+    padding: 20px 40px;
+}

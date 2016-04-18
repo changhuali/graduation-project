@@ -86,8 +86,8 @@ class UserSetting extends Component{
                     {this.state.showUserSet ?
                     <ul style={{marginLeft: this.state.margin}} className="header-user-ul">
                         <span className="header-user-arrow"></span>
-                        <li><a className="color_theme" href="/">个人设置</a></li>
-                        <li><a className="color_theme" onClick={this.logout.bind(this)} href="javascript:;">退出</a></li>
+                        <Link to={{pathname: "user"}}><li className="color_theme">个人设置</li></Link>
+                        <a className="color_theme" onClick={this.logout.bind(this)} href="javascript:;"><li>退出</li></a>
                     </ul>
                     : ""}
                 </li>

@@ -69,10 +69,11 @@ export function regist(params) {
         .post('/api/client/regist')
         .send(params)
         .end((err, resp) => {
+            console.log(resp);
             if (resp.ok) {
                 message.success("注册成功");
             } else {
-                message.erorr(resp.body.message);
+                message.error(resp.body.message);
             }
             var data = interceptorAction(err, resp);
             dispatch({

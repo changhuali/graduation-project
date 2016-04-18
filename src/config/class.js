@@ -7,6 +7,10 @@ var __FORMCHECK__ = {
             return false;
         }
     },
+    uNameFormat: function(value) {
+        var regExp = /([a-zA-z_]){5,12}/;
+        return regExp.test(value);
+    },
     isPhoneNum: function(value) {
         var regExp = /^1[3|4|5|7|8]\d{9}/;
         return regExp.test(value);
@@ -24,18 +28,27 @@ var __FORMCHECK__ = {
     },
     checkUser: function(value) {
         if(this.isEmpty(value)){
-            return "不能为空";
-        }else if(!this.isPhoneNum(value) && !this.isEmail(value)){
-            return "格式错误";
+            return "用户名不能为空";
+        }else if(!this.uNameFormat(value)){
+            return "用户名格式错误";
+        }else{
+            return "";
+        }
+    },
+    checkPhone: function(value) {
+        if(this.isEmpty(value)) {
+            return "手机号码不能为空";
+        }else if(!this.isPhoneNum(value)){//暂时只支持手机号码验证
+            return "手机号码格式错误";
         }else{
             return "";
         }
     },
     checkPwd: function(value) {
         if(this.isEmpty(value)){
-            return "不能为空";
+            return "密码不能为空";
         }else if(!this.pwdLessThan(value, 6, 12)){
-            return "长度应该为 6-12 位";
+            return "密码长度 6-12 位";
         }else{
             return "";
         }
