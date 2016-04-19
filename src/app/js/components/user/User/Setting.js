@@ -49,7 +49,7 @@ export default class Regist extends Component {
                     </div>
                     <div className="user-set-right">
                         {this.props.user.info.id ?
-                            <Tabs size="small">
+                            <Tabs tabPosition="left">
                                 <TabPane tab="修改密码" key="1">
                                     <div className="user-pane">
                                         <ChangePwd {...this.props} />
@@ -67,7 +67,7 @@ export default class Regist extends Component {
                                 </TabPane>
                             </Tabs>
                             :
-                            <Tabs size="small">
+                            <Tabs tabPosition="left">
                                 <TabPane tab="找回密码" key="1">
                                     <div className="user-pane">
                                         <FindPwd {...this.props} />
