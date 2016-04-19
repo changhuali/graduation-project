@@ -55,7 +55,7 @@
   height: 45px;
   line-height: 45px;
   cursor: pointer;
-  transition: all 1s;
+  transition: all .2s;
 }
 .about-nav .active{
   background: #7fd894;
