@@ -6,6 +6,7 @@ export const REGIST      = "REGIST";
 export const RESET_REGIST   = "RESET_REGIST";
 export const GET_CHECK_CODE = 'GET_CHECK_CODE';
 export const CHECK_PWD   = 'CHECK_PWD';
+export const CHANGE_PWD  = 'CHANGE_PWD';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
 import {message} from 'antd';
@@ -113,6 +114,24 @@ export function checkPwd(pwd) {
             });
         });
     };
+}
+
+export function changePwd(params) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/changePwd')
+        .send(params)
+        .end((err, resp) => {
+            if(resp.ok) {
+                message.info('密码修改成功,请重新登录', 3);
+                setTimeout(()=>{location.href='/login'}, 3000);
+            }
+            dispatch({
+                type: CHANGE_PWD,
+                data: resp.body,
+            })
+        })
+    }
 }
 
 export function resetRegistInfo() {

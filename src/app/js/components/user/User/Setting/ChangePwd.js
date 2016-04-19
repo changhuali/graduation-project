@@ -83,7 +83,7 @@ export default class ChangePwd extends Component {
             this.setState({
                 registing: true,
             })
-            this.props.userBoundAc.regist(this.state.registObj);
+            this.props.userBoundAc.changePwd(this.state.changeObj);
         }else{
             notification.error({
                 description: "请完善用户信息",

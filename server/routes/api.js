@@ -297,5 +297,62 @@ router.post('/client/checkPwd', function(req, res){
         }
     });
 })
+//修改用户数据库密码
+function changePwd(req, callback) {
+    var userPwd = req.body.befPwd;
+    var newPwd  = req.body.newPwd;
+    var id = req.cookies.info.id;
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        phone: String,
+        userPwd : String
+    });
+    var myModel = db.model('user', userSchema, "user");
+    myModel.findOne({_id: id}, function(err, data) {
+        if(err) {
+            console.log(err);
+            callback(500);
+        }else {
+            if(userPwd == data.userPwd) {
+                myModel.findByIdAndUpdate(id, {$set:{userPwd: newPwd}}, function(err, data) {
+                    if(err) {
+                        console.log(err);
+                        callback(500);
+                    }else{
+                        callback(200);
+                    }
+                })
+            }else{
+                callback(404);
+            }
+        }
+    });
+
+}
+
+//修改密码
+router.post('/client/changePwd', function(req, res) {
+    changePwd(req, function(status) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.clearCookie('info');
+            res.send({
+                id: req.cookies.info.id,
+            })
+        }else if(status == 404) {
+            res.statusCode = 404;
+            res.send({
+                errorCode: 404,
+                message: '原密码错误',
+            })
+        }else if(status == 500){
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    });
+})
 
 module.exports = router;
