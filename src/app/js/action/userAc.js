@@ -14,6 +14,7 @@ export const RESET_PWD   = 'RESET_PWD';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
 import {message} from 'antd';
+import __has from 'lodash/has';
 
 export function login(params) {
     return dispatch => {
@@ -180,6 +181,8 @@ export function resetPwd(params) {
         .end((err, resp) => {
             if(resp.ok) {
                 message.info('密码找回成功');
+            }else if(__has(resp.body, 'errorCode')){
+                message.error(resp.body.message);
             }
             dispatch({
                 type: RESET_PWD,

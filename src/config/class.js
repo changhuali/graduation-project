@@ -8,7 +8,7 @@ var __FORMCHECK__ = {
         }
     },
     uNameFormat: function(value) {
-        var regExp = /([a-zA-z_]){5,12}/;
+        var regExp = /^[a-zA-z_]{5,10}$/;
         return regExp.test(value);
     },
     isPhoneNum: function(value) {

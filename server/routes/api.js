@@ -502,14 +502,16 @@ function findPwd(req, callback) {
     var userModel = db.model('user', userSchema, "user");
     var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
     userModel.findOne({phone: phone}, function(err, data) {
+        console.log(data, '=======================================findPwd data');
         if(err){
             console.log(err);
         }else{
             if(data == null) {
                 callback(404003);
-            }else if(data.id) {
-                var id = data.id;
+            }else{
+                var id = data._id;
                 checkModel.findOne({phone: phone}, function(err, data){
+                    console.log(data, '=====================================find checkCode');
                     if(err) {
                         console.log(err);
                     }else{
@@ -523,6 +525,8 @@ function findPwd(req, callback) {
                                     callback(200, id)
                                 }
                             })
+                        }else{
+                            callback(401001);
                         }
                     }
                 })
@@ -545,7 +549,7 @@ router.post('/client/resetPwd', function(req, res) {
                 message: '该手机号码暂未注册',
             })
         }else if(status == 401001){
-            res.status = 401;
+            res.statusCode = 401;
             res.send({
                 errorCode: 401,
                 message: '验证码错误',
