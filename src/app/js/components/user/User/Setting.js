@@ -44,28 +44,33 @@ export default class Regist extends Component {
                         <Link to={{pathname: '/'}}><img src={img_left} alt="" /></Link>
                     </div>
                     <div className="user-set-right">
-                        <Tabs tabPosition="left">
-                            <TabPane tab="修改密码" key="1">
-                                <div className="user-pane">
-                                    <ChangePwd {...this.props} />
-                                </div>
-                            </TabPane>
-                            <TabPane tab="修改用户名" key="2">
-                                <div className="user-pane">
-                                    <ChangeName {...this.props} />
-                                </div>
-                            </TabPane>
-                            <TabPane tab="更换手机" key="3">
-                                <div className="user-pane">
-                                    <ChangePhone {...this.props} />
-                                </div>
-                            </TabPane>
-                            <TabPane tab="找回密码" key="4">
-                                <div className="user-pane">
-                                    <FindPwd {...this.props} />
-                                </div>
-                            </TabPane>
-                        </Tabs>
+                        {this.props.user.info.id ?
+                            <Tabs tabPosition="left">
+                                <TabPane tab="修改密码" key="1">
+                                    <div className="user-pane">
+                                        <ChangePwd {...this.props} />
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="修改用户名" key="2">
+                                    <div className="user-pane">
+                                        <ChangeName {...this.props} />
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="更换手机" key="3">
+                                    <div className="user-pane">
+                                        <ChangePhone {...this.props} />
+                                    </div>
+                                </TabPane>
+                            </Tabs>
+                            :
+                            <Tabs tabPosition="left">
+                                <TabPane tab="找回密码" key="1">
+                                    <div className="user-pane">
+                                        <FindPwd {...this.props} />
+                                    </div>
+                                </TabPane>
+                            </Tabs>
+                        }
                     </div>
                 </div>
             </div>
