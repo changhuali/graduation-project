@@ -16,7 +16,6 @@ export function login(params) {
         .post('/api/client/login')
         .send(params)
         .end((err, resp) => {
-            console.log(resp, "login()");
             var data = interceptorAction(err, resp);
             dispatch({
                type: LOGIN,
@@ -54,7 +53,11 @@ export function logout() {
         HttpRequest
         .del('/api/client/logout')
         .end((err, resp) => {
-            console.log(resp, "logout");
+            if(resp.ok) {
+                message.success('退出成功');
+            }else{
+                message.error('退出失败')
+            }
             dispatch({
                 type: LOGOUT,
                 data: {}
@@ -70,7 +73,6 @@ export function regist(params) {
         .post('/api/client/regist')
         .send(params)
         .end((err, resp) => {
-            console.log(resp);
             if (resp.ok) {
                 message.success("注册成功");
             } else {

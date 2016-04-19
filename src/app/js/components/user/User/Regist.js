@@ -101,7 +101,6 @@ export default class Regist extends Component {
                 this.setMessage('checkCode', message);
                 break;
         }
-        console.log(Object.assign(this.state.registTag, {[e.target.name]: message.length != 0 ? false : true}), '=================================');
         this.setState({
             registTag: Object.assign(this.state.registTag, {[e.target.name]: message.length != 0 ? false : true}),
         })
@@ -166,7 +165,6 @@ export default class Regist extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.user.registInfo);
         if(nextProps.user.registInfo.id != undefined) {
             this.setState({
                 registing: false,
@@ -183,7 +181,6 @@ export default class Regist extends Component {
     }
 
     render() {
-        console.log(this.state.message);
         var formObj = this.state.registObj;
         return(
             <div className="user-right-registForm">
@@ -245,7 +242,7 @@ export default class Regist extends Component {
                 <p className="user-right-autoLogin clearfix">
                     <input className="user-remenberPwd"
                         type="checkBox"
-                        name="agreement" />&nbsp;&nbsp;我已阅读并同意<Link to={{pathname: "/"}}>《土巴兔用户服务协议》</Link>
+                        name="agreement" />&nbsp;&nbsp;我已阅读并同意<Link to={{pathname: "/"}}>《国风用户服务协议》</Link>
                 </p>
                 <button className="user-right-sub"
                     onClick={this.regist.bind(this)}

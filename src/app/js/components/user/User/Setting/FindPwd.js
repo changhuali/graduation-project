@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
 import { notification } from 'antd';
-import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
 
-export default class ChangePwd extends Component {
+export default class FindPwd extends Component {
     constructor(props) {
         super(props);
         this.state = {
             changeObj: {
-                befPwd: "",
+                phone: "",
                 newPwd: "",
-                rePwd: "",
+                checkCode: "",
             },
             changeTag: {
-                befPwd: false,
+                phone: false,
                 newPwd: false,
-                rePwd: false,
+                checkCode: false,
             },
-            message: {
-                befPwd: "",
-                newPwd: "",
-                rePwd: "",
-            },
+            checking: 61,
             changing: false,
-            showCheck: false,
-            checkPass: false,
+            message: {
+                phone: "",
+                newPwd: "",
+                checkCode: "",
+            }
         }
     }
 
@@ -45,32 +43,56 @@ export default class ChangePwd extends Component {
     checkFormat(e) {
         var message = "";
         switch(e.target.name) {
-            case "befPwd":
-                message = __FORMCHECK__.checkPwd(e.target.value, '原');
-                if(message.length == 0 && this.props.user.info.id != undefined) {
-                    console.log('11111');
-                    this.props.userBoundAc.checkPwd(e.target.value);
-                }
-                this.setMessage('befPwd', message);
+            case "phone":
+                message = __FORMCHECK__.checkPhone(e.target.value, '原');
+                this.setMessage('phone', message);
                 break;
             case "newPwd":
-                message = __FORMCHECK__.checkPwd(e.target.value, '新');
-                var str = __FORMCHECK__.checkRePwd(e.target.value, this.state.changeObj.befPwd);
-                console.log(str);
-                if(str.length == 0) {
-                    message = '新密码不能与原密码相同'
-                }
+                message = __FORMCHECK__.checkPhone(e.target.value, '新');
                 this.setMessage('newPwd', message);
                 break;
-            case "rePwd":
-                message = __FORMCHECK__.checkRePwd(e.target.value, this.state.changeObj.newPwd);
-                this.setMessage('rePwd', message);
+            case "checkCode":
+                message = __FORMCHECK__.checkCode(e.target.value);
+                this.setMessage('checkCode', message);
                 break;
         }
         console.log(message, '====');
         this.setState({
             changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
         })
+    }
+
+    getCheckCode() {
+        var phone = this.state.changeObj.phone;
+        if(phone != ''){
+            this.props.userBoundAc.getCheckCode(phone);
+            this.setState({
+                checking: 60,
+            });
+            this.changeChecking();
+        }else{
+            notification.warn({
+                description: '请输入手机号码',
+            })
+        }
+    }
+
+    changeChecking() {
+        var time = this.state.checking;
+        if(time > 0) {
+            setTimeout(
+                () => {
+                    this.setState({
+                        checking: time-1,
+                    });
+                    this.changeChecking();
+                }, 1000
+            );
+        }else if(time == 0) {
+            this.setState({
+                checking: 61,
+            });
+        }
     }
 
     change(e) {
@@ -95,25 +117,6 @@ export default class ChangePwd extends Component {
         this.setState({
             message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
         })
-        if(e.target.name == 'bePwd') {
-            this.setState({
-                showCheck: false,
-            })
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.user.checkPwd.id != undefined) {
-            this.setState({
-                showCheck: true,
-                checkPass: true,
-            });
-        }else if(__has(nextProps.user.checkPwd, 'errorCode')) {
-            this.setState({
-                showCheck: true,
-                checkPass: false,
-            })
-        }
     }
 
     render() {
@@ -122,35 +125,37 @@ export default class ChangePwd extends Component {
             <div>
                 <input className="user-right-user"
                     type='text'
-                    name="befPwd"
+                    name="phone"
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.befPwd}
+                    value={formObj.phone}
                     autoComplete="off"
-                    placeholder="原密码" />
-                {this.state.showCheck?<i style={{color: this.state.checkPass ? '#52ab0d' : '#dd3103', position: 'absolute', right: '25px', top: '20px'}} className="fa  fa-info-circle"></i>:""}
-                <p className="user-msg">{this.state.message.befPwd}</p>
-                <input className="user-right-pwd"
+                    placeholder="手机号码" />
+                <p className="user-msg">{this.state.message.phone}</p>
+                <input className="user-right-user"
                     type='text'
                     name="newPwd"
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.newPwd}
+                    value={formObj.phone}
                     autoComplete="off"
                     placeholder="新密码" />
                 <p className="user-msg">{this.state.message.newPwd}</p>
-                <input className="user-right-pwd"
+                <input className="user-right-checkCode"
                     type='text'
-                    name="rePwd"
+                    name="checkCode"
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.rePwd}
+                    value={formObj.checkCode}
                     autoComplete="off"
-                    placeholder="确认密码" />
-                <p className="user-msg">{this.state.message.rePwd}</p>
+                    placeholder="验证码" />
+                <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
+                    {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
+                </button>
+                <p className="user-msg">{this.state.message.checkCode}</p>
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>

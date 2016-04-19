@@ -47,7 +47,6 @@ export default class User extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if(nextProps.location.pathname == '/regist' || nextProps.location.pathname == 'regist') {
             this.setState({
                 tabActive: 'regist',

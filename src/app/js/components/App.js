@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { routerShape } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -37,11 +38,6 @@ class App extends Component {
             routeChangeToLR: false,
         }
     }
-
-    jugeRouteIsLogin() {
-
-    }
-
 
     hideNav(tag) {
         this.setState({

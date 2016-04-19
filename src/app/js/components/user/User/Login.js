@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, routerShape } from 'react-router';
 import { __FORMCHECK__ } from '../../../../../config/class';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import __has from 'lodash/has';
 import __assign from 'lodash/assign';
-
+var t = '';
 export default class Login extends Component {
     constructor(props){
         super(props);
@@ -55,7 +55,6 @@ export default class Login extends Component {
         }else{
             Object.keys(this.state.loginObj).map(key => {
                 var msg = key == "phone" ? "手机号码不能为空" : "密码不能为空";
-                console.log(key, this.state.loginObj[key], '=1');
                 if(this.state.loginObj[key] == "") {
                     this.setState({
                         message: Object.assign(this.state.message, {[key]: msg}),
@@ -73,12 +72,13 @@ export default class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.user.info.id != undefined) {
-            window.location.href = "/";
-        }else if(__has(nextProps.user.info, "errorCode")){
-            notification.error({
-                description: nextProps.user.info.message,
-                duration: 3,
+            this.setState({
+                logining: false,
             });
+            this.props.userBoundAc.resetInfo();
+            location.href = '/';
+        }else if(__has(nextProps.user.info, "errorCode")){
+            message.error(nextProps.user.info.message, 2);
             this.setState({
                 logining: false,
             })
@@ -87,7 +87,6 @@ export default class Login extends Component {
     }
 
     render() {
-        console.log(this.state.message);
         return(
             <div className="user-right-loginForm">
                 <input className="user-right-user"
@@ -124,4 +123,8 @@ export default class Login extends Component {
             </div>
         )
     }
+}
+
+Login.contextTypes = {
+  router: routerShape.isRequired
 }

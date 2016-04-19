@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import ChangePwd from './Setting/ChangePwd';
 import ChangeName from './Setting/ChangeName';
 import ChangePhone from './Setting/ChangePhone';
+import FindPwd from './Setting/FindPwd';
 import img_left from '../../../../images/login_left.jpg';
 import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
@@ -57,6 +58,11 @@ export default class Regist extends Component {
                             <TabPane tab="更换手机" key="3">
                                 <div className="user-pane">
                                     <ChangePhone {...this.props} />
+                                </div>
+                            </TabPane>
+                            <TabPane tab="找回密码" key="4">
+                                <div className="user-pane">
+                                    <FindPwd {...this.props} />
                                 </div>
                             </TabPane>
                         </Tabs>
