@@ -38,6 +38,9 @@ export default class ChangeName extends Component {
         switch(e.target.name) {
             case "userName":
                 message = __FORMCHECK__.checkUser(e.target.value);
+                if(e.target.value == this.props.user.info.userName) {
+                    message = '新用户名不能与原名称相同';
+                }
                 this.setMessage('userName', message);
                 break;
         }
@@ -57,7 +60,7 @@ export default class ChangeName extends Component {
             this.setState({
                 registing: true,
             })
-            this.props.userBoundAc.regist(this.state.registObj);
+            this.props.userBoundAc.changeName(this.state.changeObj);
         }else{
             notification.error({
                 description: "请完善用户信息",
@@ -69,6 +72,13 @@ export default class ChangeName extends Component {
         this.setState({
             message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.user.changeName.id != undefined) {
+            this.props.userBoundAc.resetChangeName();
+            this.props.userBoundAc.checkInfo();
+        }
     }
 
     render() {

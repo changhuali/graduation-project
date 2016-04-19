@@ -355,4 +355,46 @@ router.post('/client/changePwd', function(req, res) {
     });
 })
 
+//修改用户名称
+function changeName(req, callback) {
+    var id = req.cookies.info.id;
+    var userName = req.body.userName;
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        phone: String,
+        userPwd : String
+    });
+    var myModel = db.model('user', userSchema, "user");
+    myModel.update({_id: id}, {$set:{userName: userName}}, function(err) {
+        if(err) {
+            console.log(err);
+            callback(500);
+        }else{
+            callback(200);
+        }
+    })
+}
+
+//修改用户名
+router.post('/client/changeName', function(req, res) {
+    var userName = req.body.userName;
+    changeName(req, function(status) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.cookie('info', {id: req.cookies.info.id, userName: userName});
+            console.log(userName, '------------------');
+            res.send({
+                id: req.cookies.info.id,
+                userName: userName
+            })
+        }else if(status == 500){
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    });
+})
+
 module.exports = router;

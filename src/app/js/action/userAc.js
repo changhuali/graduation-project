@@ -7,6 +7,8 @@ export const RESET_REGIST   = "RESET_REGIST";
 export const GET_CHECK_CODE = 'GET_CHECK_CODE';
 export const CHECK_PWD   = 'CHECK_PWD';
 export const CHANGE_PWD  = 'CHANGE_PWD';
+export const CHANGE_NAME = 'CHANGE_NAME';
+export const RESET_CHANGE_NAME = 'RESET_CHANGE_NAME';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
 import {message} from 'antd';
@@ -134,10 +136,36 @@ export function changePwd(params) {
     }
 }
 
+export function changeName(params) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/changeName')
+        .send(params)
+        .end((err, resp) => {
+            if(resp.ok) {
+                message.info('用户名修改成功' , 3);
+            }
+            dispatch({
+                type: CHANGE_NAME,
+                data: resp.body,
+            })
+        })
+    }
+}
+
 export function resetRegistInfo() {
     return dispatch => {
         dispatch({
             type: RESET_REGIST,
+            data: {},
+        })
+    }
+}
+
+export function resetChangeName() {
+    return dispatch => {
+        dispatch({
+            type: RESET_CHANGE_NAME,
             data: {},
         })
     }
