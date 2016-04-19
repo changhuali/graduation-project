@@ -4,7 +4,7 @@ import Login from './Login';
 import { notification } from 'antd';
 import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../config/class';
-
+let t = '';
 export default class Regist extends Component {
     constructor(props){
         super(props);
@@ -125,7 +125,7 @@ export default class Regist extends Component {
     changeChecking() {
         var time = this.state.checking;
         if(time > 0) {
-            setTimeout(
+            t = setTimeout(
                 () => {
                     this.setState({
                         checking: time-1,
@@ -171,6 +171,8 @@ export default class Regist extends Component {
             this.setState({
                 registing: false,
             });
+            this.props.userBoundAc.resetRegistInfo();
+            clearTimeout(t);
             this.resetState();
         }else if(__has(nextProps.user.registInfo, "errorCode")) {
             this.setState({
@@ -234,8 +236,10 @@ export default class Regist extends Component {
                     value={formObj.checkCode}
                     autoComplete="off"
                     placeholder="验证码" />
-                <button onClick={this.getCheckCode.bind(this)} className="user-right-sub user-checkCode">
-                    {this.state.checking == 61 ? '获取验证码' : this.state.checking + ' s后重新获取'}
+                <button onClick={this.getCheckCode.bind(this)}
+                    className="user-right-sub user-checkCode"
+                    disabled={this.state.checking != 61 ? "disabled" : ""}>
+                    {this.state.checking == 61 ? '获取验证码' : this.state.checking + 's后重新获取'}
                 </button>
                 <p className="user-msg">{this.state.message.checkCode}</p>
                 <p className="user-right-autoLogin clearfix">
