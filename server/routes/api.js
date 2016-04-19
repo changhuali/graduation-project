@@ -172,7 +172,8 @@ router.post('/client/regist', function(req, res){
 function createCheckCode(len) {
     var str = '';
     for(var i = 1; i <= len; i++) {
-        str = str + Math.round(10*Math.random());
+        str = str + Math.floor(10*Math.random());
+        console.log(str, '====str');
     }
     console.log(len, str, "================================================================================================createCheckCode()");
     return str;
@@ -211,14 +212,28 @@ function saveCheckCode(phoneNum, random, callback) {
     });
 }
 //发送并保存验证码
-function postCheckCode(phoneNum, random, callback) {
+function postCheckCode(phoneNum, random, type, callback) {
+    var config = {
+        regist: {
+            sms_free_sign_name: '大鱼测试',
+            sms_template_code: 'SMS_7760522',
+        },
+        changePhone: {
+            sms_free_sign_name: '大鱼测试',
+            sms_template_code: 'SMS_7760522',
+        },
+        findPwd: {
+            sms_free_sign_name: '大鱼测试',
+            sms_template_code: 'SMS_7760522',
+        }
+    };
     alidayu.execute('alibaba.aliqin.fc.sms.num.send', {
         'extend':'123456',
         'sms_type':'normal',
-        'sms_free_sign_name':'大鱼测试',
-        'sms_param': {"code":random,"product":"国风装修"},
+        'sms_free_sign_name': config[type]['sms_free_sign_name'],
+        'sms_param': {"code": random,"product": "国风装修"},
         'rec_num': phoneNum,
-        'sms_template_code':'SMS_7760522'
+        'sms_template_code': config[type]['sms_template_code']
     }, function(error, response) {
         if (!error) {
             console.log(response, "================================================================================================postCheckCode()");
@@ -233,7 +248,9 @@ function postCheckCode(phoneNum, random, callback) {
 router.post('/client/checkCode', function(req, res){
     var phoneNum = req.body.phone;
     var random = createCheckCode(4);
-    postCheckCode(phoneNum, random, function(status){
+    var type = req.body.type;
+    console.log(req.body, '===req');
+    postCheckCode(phoneNum, random, type, function(status) {
         if(status == 200) {
             res.statusCode = 200;
             res.cookie('checkCode', phoneNum, {maxAge: 24*60*60*1000});
@@ -314,7 +331,7 @@ function changePwd(req, callback) {
             callback(500);
         }else {
             if(userPwd == data.userPwd) {
-                myModel.findByIdAndUpdate(id, {$set:{userPwd: newPwd}}, function(err, data) {
+                myModel.findByIdAndUpdate(id, {$set: {userPwd: newPwd}}, function(err, data) {
                     if(err) {
                         console.log(err);
                         callback(500);
@@ -365,7 +382,7 @@ function changeName(req, callback) {
         userPwd : String
     });
     var myModel = db.model('user', userSchema, "user");
-    myModel.update({_id: id}, {$set:{userName: userName}}, function(err) {
+    myModel.update({_id: id}, {$set: {userName: userName}}, function(err) {
         if(err) {
             console.log(err);
             callback(500);
@@ -395,6 +412,146 @@ router.post('/client/changeName', function(req, res) {
             })
         }
     });
+})
+function changePhone(req, callback) {
+    var befPhone = req.body.befPhone;
+    var newPhone = req.body.newPhone;
+    var checkCode= req.body.checkCode;
+    var id = req.cookies.info.id;
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        phone: String,
+        userPwd : String
+    });
+    var checkCodeSchema = new mongoose.Schema({
+        phone: String,
+        checkCode : String
+    });
+    var userModel = db.model('user', userSchema, "user");
+    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
+    if(req.cookies.checkCode) {
+        checkModel.findOne({phone: befPhone}, function(err, data) {
+            if(err){
+                console.log(err);
+                callback(500);
+            }else{
+                if(data == null){
+                    callback(401002);
+                }else if(data.checkCode == checkCode){
+                    userModel.update({_id: id}, {$set: {phone: newPhone}}, function(err){
+                        if(err){
+                            console.log(err);
+                            callback(500);
+                        }else{
+                            callback(200);
+                        }
+                    })
+                }else{
+                    callback(401002);
+                }
+            }
+        })
+    }else{
+        callback(401001);
+    }
+
+}
+
+//修改手机号码
+router.post('/client/changePhone', function(req, res) {
+    changePhone(req, function(status){
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                id: req.cookies.info.id,
+            })
+        }else if(status == 401001){
+            res.status = 401;
+            res.send({
+                errorCode: 401,
+                message: '验证码错误',
+            })
+        }else if(status == 404002){
+            res.statusCode == 404;
+            res.send({
+                errorCode: 404,
+                message: '用户不存在',
+            })
+        }else if(status == 500){
+            res.status = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+function findPwd(req, callback) {
+    var phone = req.body.phone;
+    var checkCode = req.body.checkCode;
+    var newPwd = req.body.newPwd;
+    var userSchema = new mongoose.Schema({
+        userName: String,
+        phone: String,
+        userPwd : String
+    });
+    var checkCodeSchema = new mongoose.Schema({
+        phone: String,
+        checkCode : String
+    });
+    var userModel = db.model('user', userSchema, "user");
+    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
+    userModel.findOne({phone: phone}, function(err, data) {
+        if(err){
+            console.log(err);
+        }else{
+            if(data == null) {
+                callback(404003);
+            }else if(data.id) {
+                var id = data.id;
+                checkModel.findOne({phone: phone}, function(err, data){
+                    if(err) {
+                        console.log(err);
+                    }else{
+                        if(data == null){
+                            callback(401001);
+                        }else if(data.checkCode == checkCode) {
+                            userModel.update({_id: id}, {$set:{userPwd: newPwd}}, function(err){
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    callback(200, id)
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        }
+    })
+}
+//找回密码
+router.post('/client/resetPwd', function(req, res) {
+    findPwd(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                id: data,
+            })
+        }else if(status == 404003) {
+            res.statusCode = 404;
+            res.send({
+                errorCode: 404,
+                message: '该手机号码暂未注册',
+            })
+        }else if(status == 401001){
+            res.status = 401;
+            res.send({
+                errorCode: 401,
+                message: '验证码错误',
+            })
+        }
+    })
 })
 
 module.exports = router;

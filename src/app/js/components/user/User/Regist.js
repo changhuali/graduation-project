@@ -109,7 +109,7 @@ export default class Regist extends Component {
     getCheckCode() {
         var phone = this.state.registObj.phone;
         if(phone != ''){
-            this.props.userBoundAc.getCheckCode(phone);
+            this.props.userBoundAc.getCheckCode(phone, 'regist');
             this.setState({
                 checking: 60,
             });

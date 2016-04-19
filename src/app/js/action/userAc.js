@@ -9,6 +9,8 @@ export const CHECK_PWD   = 'CHECK_PWD';
 export const CHANGE_PWD  = 'CHANGE_PWD';
 export const CHANGE_NAME = 'CHANGE_NAME';
 export const RESET_CHANGE_NAME = 'RESET_CHANGE_NAME';
+export const CHANGE_PHONE = 'CHANGE_PHONE';
+export const RESET_PWD   = 'RESET_PWD';
 import HttpRequest from 'superagent';
 import interceptorAction from './interceptorAction';
 import {message} from 'antd';
@@ -90,11 +92,11 @@ export function regist(params) {
     }
 }
 
-export function getCheckCode(phone) {
+export function getCheckCode(phone, forWhat) {
     return dispatch => {
         HttpRequest
         .post('/api/client/checkCode')
-        .send({phone: phone})
+        .send({phone: phone, type: forWhat})
         .end((err, resp) => {
             dispatch({
                 type: GET_CHECK_CODE,
@@ -148,6 +150,40 @@ export function changeName(params) {
             dispatch({
                 type: CHANGE_NAME,
                 data: resp.body,
+            })
+        })
+    }
+}
+
+export function changePhone(params) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/changePhone')
+        .send(params)
+        .end((err, resp) => {
+            if(resp.ok) {
+                message.info('手机号码更改成功');
+            }
+            dispatch({
+                type: CHANGE_PHONE,
+                data: resp.data,
+            })
+        })
+    }
+}
+
+export function resetPwd(params) {
+    return dispatch => {
+        HttpRequest
+        .post('/api/client/resetPwd')
+        .send(params)
+        .end((err, resp) => {
+            if(resp.ok) {
+                message.info('密码找回成功');
+            }
+            dispatch({
+                type: RESET_PWD,
+                data: resp.data,
             })
         })
     }

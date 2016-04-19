@@ -44,11 +44,11 @@ export default class FindPwd extends Component {
         var message = "";
         switch(e.target.name) {
             case "phone":
-                message = __FORMCHECK__.checkPhone(e.target.value, '原');
+                message = __FORMCHECK__.checkPhone(e.target.value);
                 this.setMessage('phone', message);
                 break;
             case "newPwd":
-                message = __FORMCHECK__.checkPhone(e.target.value, '新');
+                message = __FORMCHECK__.checkPwd(e.target.value, '新');
                 this.setMessage('newPwd', message);
                 break;
             case "checkCode":
@@ -65,7 +65,7 @@ export default class FindPwd extends Component {
     getCheckCode() {
         var phone = this.state.changeObj.phone;
         if(phone != ''){
-            this.props.userBoundAc.getCheckCode(phone);
+            this.props.userBoundAc.getCheckCode(phone, 'findPwd');
             this.setState({
                 checking: 60,
             });
@@ -105,7 +105,7 @@ export default class FindPwd extends Component {
             this.setState({
                 registing: true,
             })
-            this.props.userBoundAc.regist(this.state.registObj);
+            this.props.userBoundAc.resetPwd(this.state.changeObj);
         }else{
             notification.error({
                 description: "请完善用户信息",
@@ -139,7 +139,7 @@ export default class FindPwd extends Component {
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.phone}
+                    value={formObj.newPwd}
                     autoComplete="off"
                     placeholder="新密码" />
                 <p className="user-msg">{this.state.message.newPwd}</p>
@@ -159,7 +159,7 @@ export default class FindPwd extends Component {
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>
-                    {this.state.changing ? "修改中" : "立即修改"}
+                    {this.state.changing ? "找回中" : "找回密码"}
                 </button>
             </div>
         )

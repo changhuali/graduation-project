@@ -47,9 +47,9 @@ export default class ChangePhone extends Component {
                 message = __FORMCHECK__.checkPhone(e.target.value, '原');
                 this.setMessage('befPhone', message);
                 break;
-            case "afPhone":
+            case "newPhone":
                 message = __FORMCHECK__.checkPhone(e.target.value, '新');
-                this.setMessage('afPhone', message);
+                this.setMessage('newPhone', message);
                 break;
             case "checkCode":
                 message = __FORMCHECK__.checkCode(e.target.value);
@@ -63,9 +63,9 @@ export default class ChangePhone extends Component {
     }
 
     getCheckCode() {
-        var phone = this.state.changeObj.phone;
+        var phone = this.state.changeObj.befPhone;
         if(phone != ''){
-            this.props.userBoundAc.getCheckCode(phone);
+            this.props.userBoundAc.getCheckCode(phone, 'changePhone');
             this.setState({
                 checking: 60,
             });
@@ -105,7 +105,7 @@ export default class ChangePhone extends Component {
             this.setState({
                 registing: true,
             })
-            this.props.userBoundAc.regist(this.state.registObj);
+            this.props.userBoundAc.changePhone(this.state.changeObj);
         }else{
             notification.error({
                 description: "请完善用户信息",
@@ -135,14 +135,14 @@ export default class ChangePhone extends Component {
                 <p className="user-msg">{this.state.message.befPhone}</p>
                 <input className="user-right-user"
                     type='text'
-                    name="afPhone"
+                    name="newPhone"
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
                     value={formObj.phone}
                     autoComplete="off"
                     placeholder="新手机号" />
-                <p className="user-msg">{this.state.message.afPhone}</p>
+                <p className="user-msg">{this.state.message.newPhone}</p>
                 <input className="user-right-checkCode"
                     type='text'
                     name="checkCode"
@@ -159,7 +159,7 @@ export default class ChangePhone extends Component {
                 <button className="user-right-sub"
                     onClick={this.change.bind(this)}
                     disabled={this.state.changing ? "disabled" : ""}>
-                    {this.state.changing ? "修改中" : "立即修改"}
+                    {this.state.changing ? "更换中" : "更换手机"}
                 </button>
             </div>
         )
