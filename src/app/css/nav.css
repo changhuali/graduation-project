@@ -16,18 +16,16 @@
     border-top-right-radius: 5px;
 }
 .nav-item:hover{
-  color: #fff;
-    background: #01af63;
+    color: #01130b;
     transition: all .5s;
     cursor: pointer;
 }
 .nav-item:hover a{
-    color: #fff;
+    color: #01130b;
     transition: all .5s;
 }
 .nav-item-active{
-    color: #fff;
-    background: #01af63;
+    color: #01130b;
     transition: all .5s;
 }
 .nav-item-active a{

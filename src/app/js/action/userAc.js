@@ -130,6 +130,8 @@ export function changePwd(params) {
             if(resp.ok) {
                 message.info('密码修改成功,请重新登录', 3);
                 setTimeout(()=>{location.href='/login'}, 3000);
+            }else if(__has(resp.body, 'errorCode')){
+                message.error(resp.body.message);
             }
             dispatch({
                 type: CHANGE_PWD,
@@ -164,6 +166,8 @@ export function changePhone(params) {
         .end((err, resp) => {
             if(resp.ok) {
                 message.info('手机号码更改成功');
+            }else if(__has(resp.body, 'errorCode')){
+                message.error(resp.body.message);
             }
             dispatch({
                 type: CHANGE_PHONE,

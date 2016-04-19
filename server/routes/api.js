@@ -11,16 +11,20 @@ db.on('error', function(error){
 db.once('open', function(){
     console.log("graduation_project connect success");
 });
-
+var userSchema = new mongoose.Schema({
+    userName: String,
+    phone: String,
+    userPwd : String
+});
+var userModel = db.model('user', userSchema, "user");
+var checkCodeSchema = new mongoose.Schema({
+    phone: String,
+    checkCode : String
+});
+var checkCodeModel = db.model('checkCode', checkCodeSchema, "checkCode");
 //查询用户名并核对用户密码
 var checkLogin = function(req, callback){
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var myModel = db.model('user', userSchema, "user");
-    myModel.findOne({phone: req.body.phone},function(err, data){
+    userModel.findOne({phone: req.body.phone},function(err, data){
         console.log(data, "===========================================================================login data");
         if(err){
             console.log(err);
@@ -85,22 +89,11 @@ router.delete('/client/logout', function(req, res){
 })
 //用户注册数据库操作
 var checkRegist = function(req, callback) {
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var checkCodeSchema = new mongoose.Schema({
-        phone: String,
-        checkCode : String
-    });
-    var userModel = db.model('user', userSchema, "user");
-    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
     if(req.cookies.checkCode) {
         var userName = req.body.userName;
         var phoneNum = req.body.phone;
         var checkCode= req.body.checkCode;
-        checkModel.findOne({phone: phoneNum}, function(err, data){
+        checkCodeModel.findOne({phone: phoneNum}, function(err, data){
             console.log(data, "=========================================================checkCode in dataBase");
             if(err){
                 console.log(err);
@@ -180,24 +173,19 @@ function createCheckCode(len) {
 }
 //保存验证码到数据库
 function saveCheckCode(phoneNum, random, callback) {
-    var checkCodeSchema = new mongoose.Schema({
-        phone: String,
-        checkCode : String
-    });
-    var myModel = db.model('checkCode', checkCodeSchema, "checkCode");
     //查找数据库是否有重复验证码
-    myModel.findOne({phone: phoneNum}, function(err, data){
+    checkCodeModel.findOne({phone: phoneNum}, function(err, data){
         if(err) {
             callback(500);
             console.log(err);
         }else{
-            myModel.remove({phone: phoneNum}, function(err, data){
+            checkCodeModel.remove({phone: phoneNum}, function(err, data){
                 if(err){
                     callback(500);
                     console.log(err);
                 }else{
                     console.log(data, '================================================================================================saveCheckCode()');
-                    myModel.create({phone: phoneNum, checkCode: random}, function(err, data){
+                    checkCodeModel.create({phone: phoneNum, checkCode: random}, function(err, data){
                         if(err){
                             callback(500);
                             console.log(err, "-------------insert checkCode error");
@@ -268,13 +256,7 @@ router.post('/client/checkCode', function(req, res){
 function checkUserInfo(req, callback){
     var pwd = req.body.userPwd;
     var id  = req.cookies.info.id;
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var myModel = db.model('user', userSchema, "user");
-    myModel.findOne({_id: id}, function(err, data) {
+    userModel.findOne({_id: id}, function(err, data) {
         if(err) {
             console.log(err);
             callback(500);
@@ -319,19 +301,13 @@ function changePwd(req, callback) {
     var userPwd = req.body.befPwd;
     var newPwd  = req.body.newPwd;
     var id = req.cookies.info.id;
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var myModel = db.model('user', userSchema, "user");
-    myModel.findOne({_id: id}, function(err, data) {
+    userModel.findOne({_id: id}, function(err, data) {
         if(err) {
             console.log(err);
             callback(500);
         }else {
             if(userPwd == data.userPwd) {
-                myModel.findByIdAndUpdate(id, {$set: {userPwd: newPwd}}, function(err, data) {
+                userModel.findByIdAndUpdate(id, {$set: {userPwd: newPwd}}, function(err, data) {
                     if(err) {
                         console.log(err);
                         callback(500);
@@ -376,13 +352,7 @@ router.post('/client/changePwd', function(req, res) {
 function changeName(req, callback) {
     var id = req.cookies.info.id;
     var userName = req.body.userName;
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var myModel = db.model('user', userSchema, "user");
-    myModel.update({_id: id}, {$set: {userName: userName}}, function(err) {
+    userModel.update({_id: id}, {$set: {userName: userName}}, function(err) {
         if(err) {
             console.log(err);
             callback(500);
@@ -418,25 +388,16 @@ function changePhone(req, callback) {
     var newPhone = req.body.newPhone;
     var checkCode= req.body.checkCode;
     var id = req.cookies.info.id;
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var checkCodeSchema = new mongoose.Schema({
-        phone: String,
-        checkCode : String
-    });
-    var userModel = db.model('user', userSchema, "user");
-    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
     if(req.cookies.checkCode) {
-        checkModel.findOne({phone: befPhone}, function(err, data) {
+        console.log(befPhone);
+        checkCodeModel.findOne({phone: befPhone}, function(err, data) {
+            console.log(data, '============================changePhone data');
             if(err){
                 console.log(err);
                 callback(500);
             }else{
                 if(data == null){
-                    callback(401002);
+                    callback(401001);
                 }else if(data.checkCode == checkCode){
                     userModel.update({_id: id}, {$set: {phone: newPhone}}, function(err){
                         if(err){
@@ -447,7 +408,7 @@ function changePhone(req, callback) {
                         }
                     })
                 }else{
-                    callback(401002);
+                    callback(401001);
                 }
             }
         })
@@ -466,19 +427,19 @@ router.post('/client/changePhone', function(req, res) {
                 id: req.cookies.info.id,
             })
         }else if(status == 401001){
-            res.status = 401;
+            res.statusCode = 401;
             res.send({
                 errorCode: 401,
                 message: '验证码错误',
             })
-        }else if(status == 404002){
-            res.statusCode == 404;
+        }else if(status == 401002){
+            res.statusCode = 401;
             res.send({
-                errorCode: 404,
+                errorCode: 401,
                 message: '用户不存在',
             })
         }else if(status == 500){
-            res.status = 500;
+            res.statusCode = 500;
             res.send({
                 errorCode: 500,
                 message: '服务器内部错误',
@@ -490,17 +451,6 @@ function findPwd(req, callback) {
     var phone = req.body.phone;
     var checkCode = req.body.checkCode;
     var newPwd = req.body.newPwd;
-    var userSchema = new mongoose.Schema({
-        userName: String,
-        phone: String,
-        userPwd : String
-    });
-    var checkCodeSchema = new mongoose.Schema({
-        phone: String,
-        checkCode : String
-    });
-    var userModel = db.model('user', userSchema, "user");
-    var checkModel = db.model('checkCode', checkCodeSchema, "checkCode");
     userModel.findOne({phone: phone}, function(err, data) {
         console.log(data, '=======================================findPwd data');
         if(err){
@@ -510,7 +460,7 @@ function findPwd(req, callback) {
                 callback(404003);
             }else{
                 var id = data._id;
-                checkModel.findOne({phone: phone}, function(err, data){
+                checkCodeModel.findOne({phone: phone}, function(err, data){
                     console.log(data, '=====================================find checkCode');
                     if(err) {
                         console.log(err);

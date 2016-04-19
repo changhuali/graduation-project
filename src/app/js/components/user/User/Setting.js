@@ -31,6 +31,10 @@ export default class Regist extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.hideNav(false);
+    }
+
     render() {
         var style= {minHeight: this.state.bodyHeight};
         var formObj = this.state.registObj;
@@ -45,7 +49,7 @@ export default class Regist extends Component {
                     </div>
                     <div className="user-set-right">
                         {this.props.user.info.id ?
-                            <Tabs tabPosition="left">
+                            <Tabs size="small">
                                 <TabPane tab="修改密码" key="1">
                                     <div className="user-pane">
                                         <ChangePwd {...this.props} />
@@ -63,7 +67,7 @@ export default class Regist extends Component {
                                 </TabPane>
                             </Tabs>
                             :
-                            <Tabs tabPosition="left">
+                            <Tabs size="small">
                                 <TabPane tab="找回密码" key="1">
                                     <div className="user-pane">
                                         <FindPwd {...this.props} />

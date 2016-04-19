@@ -103,12 +103,13 @@
     padding-top: 100px;
 }
 .user-pane{
-    padding: 10px 40px;
+    padding: 40px 10px;
+    box-sizing: border-box;
 }
 .user-set-right{
     float: right;
-    width: 450px;
-    padding: 30px;
+    width: 400px;
+    padding-top: 10px;
     color: #666;
 }
 .user-msg{

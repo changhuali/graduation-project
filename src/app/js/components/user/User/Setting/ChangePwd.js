@@ -59,8 +59,6 @@ export default class ChangePwd extends Component {
                 console.log(str);
                 if(str.length == 0) {
                     message = '新密码不能与原密码相同'
-                }else if(this.state.changeObj.rePwd != "" && this.state.changeObj.rePwd != e.target.value){
-                    message = '两次密码输入不一致'
                 }
                 this.setMessage('newPwd', message);
                 break;
