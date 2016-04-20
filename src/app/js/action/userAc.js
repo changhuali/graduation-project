@@ -68,7 +68,6 @@ export function logout() {
                 type: LOGOUT,
                 data: {}
             })
-            location.href = '/login';
         })
     }
 }
@@ -169,9 +168,10 @@ export function changePhone(params) {
             }else if(__has(resp.body, 'errorCode')){
                 message.error(resp.body.message);
             }
+            console.log(resp);
             dispatch({
                 type: CHANGE_PHONE,
-                data: resp.data,
+                data: resp.body,
             })
         })
     }
@@ -190,7 +190,7 @@ export function resetPwd(params) {
             }
             dispatch({
                 type: RESET_PWD,
-                data: resp.data,
+                data: resp.body,
             })
         })
     }

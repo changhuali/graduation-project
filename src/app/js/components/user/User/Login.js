@@ -77,7 +77,7 @@ export default class Login extends Component {
             });
             this.props.userBoundAc.resetInfo();
             location.href = '/';
-        }else if(__has(nextProps.user.info, "errorCode")){
+        }else if(__has(nextProps.user.info, "errorCode") && nextProps.user.info.errorCode != 401005){
             message.error(nextProps.user.info.message, 2);
             this.setState({
                 logining: false,

@@ -28,6 +28,29 @@ export default class ChangePwd extends Component {
         }
     }
 
+    resetState() {
+        this.setState({
+            changeObj: {
+                befPwd: "",
+                newPwd: "",
+                rePwd: "",
+            },
+            changeTag: {
+                befPwd: false,
+                newPwd: false,
+                rePwd: false,
+            },
+            message: {
+                befPwd: "",
+                newPwd: "",
+                rePwd: "",
+            },
+            changing: false,
+            showCheck: false,
+            checkPass: false,
+        })
+    }
+
     setChangeObj(e) {
         var newObj = Object.assign({}, this.state.changeObj, {[e.target.name]: e.target.value});
         this.setState({
@@ -81,7 +104,7 @@ export default class ChangePwd extends Component {
         })
         if(tag){
             this.setState({
-                registing: true,
+                changing: true,
             })
             this.props.userBoundAc.changePwd(this.state.changeObj);
         }else{
@@ -112,6 +135,13 @@ export default class ChangePwd extends Component {
             this.setState({
                 showCheck: true,
                 checkPass: false,
+            })
+        }
+        if(nextProps.user.changePwd.id != undefined) {
+            this.resetState();
+        }else if(__has(nextProps.user.changePwd, 'errorCode')){
+            this.setState({
+                changing: false,
             })
         }
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { notification } from 'antd';
+import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
 
 export default class ChangePhone extends Component {
@@ -24,6 +25,28 @@ export default class ChangePhone extends Component {
                 checkCode: "",
             }
         }
+    }
+
+    resetState() {
+        this.setState({
+            changeObj: {
+                befPhone: "",
+                newPhone: "",
+                checkCode: "",
+            },
+            changeTag: {
+                befPhone: false,
+                newPhone: false,
+                checkCode: false,
+            },
+            checking: 61,
+            changing: false,
+            message: {
+                befPhone: "",
+                newPhone: "",
+                checkCode: "",
+            }
+        })
     }
 
     setChangeObj(e) {
@@ -103,7 +126,7 @@ export default class ChangePhone extends Component {
         })
         if(tag){
             this.setState({
-                registing: true,
+                changing: true,
             })
             this.props.userBoundAc.changePhone(this.state.changeObj);
         }else{
@@ -119,6 +142,20 @@ export default class ChangePhone extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        if(nextProps.user.changePhone.id != undefined) {
+            this.setState({
+                changing: false,
+            })
+            this.resetState();
+        }else if(__has(nextProps.user.changePhone, 'errorCode')) {
+            this.setState({
+                changing: false,
+            })
+        }
+    }
+
     render() {
         var formObj = this.state.changeObj;
         return (
@@ -129,7 +166,7 @@ export default class ChangePhone extends Component {
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.phone}
+                    value={formObj.befPhone}
                     autoComplete="off"
                     placeholder="原手机号" />
                 <p className="user-msg">{this.state.message.befPhone}</p>
@@ -139,7 +176,7 @@ export default class ChangePhone extends Component {
                     onChange={this.setChangeObj.bind(this)}
                     onFocus={this.resetMessage.bind(this)}
                     onBlur={this.checkFormat.bind(this)}
-                    value={formObj.phone}
+                    value={formObj.newPhone}
                     autoComplete="off"
                     placeholder="新手机号" />
                 <p className="user-msg">{this.state.message.newPhone}</p>

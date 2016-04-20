@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { notification } from 'antd';
+import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
 
 export default class ChangeName extends Component {
@@ -17,6 +18,21 @@ export default class ChangeName extends Component {
                 userName: false,
             }
         }
+    }
+
+    resetState(){
+        this.setState({
+            changeObj: {
+                userName: "",
+            },
+            changeTag: {
+                userName: false,
+            },
+            changing: false,
+            message: {
+                userName: false,
+            }
+        })
     }
 
     setChangeObj(e) {
@@ -44,7 +60,6 @@ export default class ChangeName extends Component {
                 this.setMessage('userName', message);
                 break;
         }
-        console.log(message, '====');
         this.setState({
             changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
         })
@@ -58,7 +73,7 @@ export default class ChangeName extends Component {
         })
         if(tag){
             this.setState({
-                registing: true,
+                changing: true,
             })
             this.props.userBoundAc.changeName(this.state.changeObj);
         }else{
@@ -78,6 +93,14 @@ export default class ChangeName extends Component {
         if(nextProps.user.changeName.id != undefined) {
             this.props.userBoundAc.resetChangeName();
             this.props.userBoundAc.checkInfo();
+            this.setState({
+                changing: false,
+            })
+            this.resetState();
+        }else if(__has(nextProps.user.changeName, 'errorCode')){
+            this.setState({
+                changing: false,
+            })
         }
     }
 
