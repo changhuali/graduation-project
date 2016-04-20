@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { notification } from 'antd';
+import { message } from 'antd';
 import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
-
+var t = "";
 export default class ChangePhone extends Component {
     constructor(props) {
         super(props);
@@ -93,16 +93,14 @@ export default class ChangePhone extends Component {
             });
             this.changeChecking();
         }else{
-            notification.warn({
-                description: '请输入手机号码',
-            })
+            message.warn('请检查您输入信息格式是否错误', 3);
         }
     }
 
     changeChecking() {
         var time = this.state.checking;
         if(time > 0) {
-            setTimeout(
+            t= setTimeout(
                 () => {
                     this.setState({
                         checking: time-1,
@@ -129,9 +127,7 @@ export default class ChangePhone extends Component {
             })
             this.props.userBoundAc.changePhone(this.state.changeObj);
         }else{
-            notification.error({
-                description: "请完善用户信息",
-            })
+            message.warn('请检查您输入信息格式是否错误', 3);
         }
     }
 
@@ -146,6 +142,7 @@ export default class ChangePhone extends Component {
             this.setState({
                 changing: false,
             })
+            clearTimeout(t);
             this.resetState();
         }else if(__has(nextProps.user.changePhone, 'errorCode')) {
             this.setState({

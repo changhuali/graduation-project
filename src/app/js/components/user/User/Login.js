@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, routerShape } from 'react-router';
 import { __FORMCHECK__ } from '../../../../../config/class';
-import { notification, message } from 'antd';
+import { message } from 'antd';
 import __has from 'lodash/has';
 import __assign from 'lodash/assign';
 var t = '';

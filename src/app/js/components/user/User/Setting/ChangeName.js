@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { notification } from 'antd';
+import { message } from 'antd';
 import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
 
@@ -77,9 +77,7 @@ export default class ChangeName extends Component {
             })
             this.props.userBoundAc.changeName(this.state.changeObj);
         }else{
-            notification.error({
-                description: "请完善用户信息",
-            })
+            message.warn('请检查您输入信息格式是否错误', 3);
         }
     }
 

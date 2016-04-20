@@ -93,9 +93,10 @@ export function regist(params) {
 }
 
 export function getCheckCode(phone, forWhat) {
+    var url = forWhat == 'changePhone' ? '/api/user/checkCode' : '/api/client/checkCode';
     return dispatch => {
         HttpRequest
-        .post('/api/client/checkCode')
+        .post(url)
         .send({phone: phone, type: forWhat})
         .end((err, resp) => {
             dispatch({
@@ -109,7 +110,7 @@ export function getCheckCode(phone, forWhat) {
 export function checkPwd(pwd) {
     return dispatch => {
         HttpRequest
-        .post('/api/client/checkpwd')
+        .post('/api/user/checkpwd')
         .send({userPwd: pwd})
         .end((err, resp) => {
             dispatch({
@@ -123,7 +124,7 @@ export function checkPwd(pwd) {
 export function changePwd(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/client/changePwd')
+        .post('/api/user/changePwd')
         .send(params)
         .end((err, resp) => {
             if(resp.ok) {
@@ -143,7 +144,7 @@ export function changePwd(params) {
 export function changeName(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/client/changeName')
+        .post('/api/user/changeName')
         .send(params)
         .end((err, resp) => {
             if(resp.ok) {
@@ -160,7 +161,7 @@ export function changeName(params) {
 export function changePhone(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/client/changePhone')
+        .post('/api/user/changePhone')
         .send(params)
         .end((err, resp) => {
             if(resp.ok) {
@@ -180,7 +181,7 @@ export function changePhone(params) {
 export function resetPwd(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/client/resetPwd')
+        .post('/api/user/resetPwd')
         .send(params)
         .end((err, resp) => {
             if(resp.ok) {

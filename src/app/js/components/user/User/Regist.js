@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Login from './Login';
-import { notification } from 'antd';
+import { message } from 'antd';
 import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../config/class';
 let t = '';
@@ -115,9 +115,7 @@ export default class Regist extends Component {
             });
             this.changeChecking();
         }else{
-            notification.warn({
-                description: '请输入手机号码',
-            })
+            message.warn('请输入手机号');
         }
     }
 
@@ -152,9 +150,7 @@ export default class Regist extends Component {
             })
             this.props.userBoundAc.regist(this.state.registObj);
         }else{
-            notification.error({
-                description: "请完善用户信息",
-            })
+            message.warn('请检查您输入信息格式是否错误', 3);
         }
     }
 

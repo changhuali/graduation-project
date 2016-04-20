@@ -117,11 +117,12 @@ function getCheckCode(phoneNum, checkCode, type, callback) {
         };
     })
 }
-//获取验证码
-router.post('/client/checkCode', function(req, res){
+
+function checkCodeRoute(req, res) {
     var phoneNum = req.body.phone;
     var checkCode = createCheckCode(4);
     var type = req.body.type;
+    console.log(type, '=====type');
     console.log(req.body, '===req');
     getCheckCode(phoneNum, checkCode, type, function(status) {
         if(status == 200){
@@ -136,10 +137,17 @@ router.post('/client/checkCode', function(req, res){
             });
         }
     });
-})
+}
 
+//获取验证码
+router.post('/client/checkCode', function(req, res){
+    checkCodeRoute(req, res);
+})
+router.post('/user/checkCode', function(req, res){
+    checkCodeRoute(req, res);
+})
 //验证个人设置用户原密码是否正确
-router.post('/client/checkPwd', function(req, res){
+router.post('/user/checkPwd', function(req, res){
     Model.checkBePwd(req, function(status) {
         if(status == 200) {
             res.statusCode = 200;
@@ -157,7 +165,7 @@ router.post('/client/checkPwd', function(req, res){
 })
 
 //修改密码
-router.post('/client/changePwd', function(req, res) {
+router.post('/user/changePwd', function(req, res) {
     Model.changePwd(req, function(status) {
         if(status == 200) {
             res.statusCode = 200;
@@ -176,7 +184,7 @@ router.post('/client/changePwd', function(req, res) {
 })
 
 //修改用户名
-router.post('/client/changeName', function(req, res) {
+router.post('/user/changeName', function(req, res) {
     var userName = req.body.userName;
     Model.changeName(req, function(status) {
         if(status == 200) {
@@ -198,7 +206,7 @@ router.post('/client/changeName', function(req, res) {
 })
 
 //修改手机号码
-router.post('/client/changePhone', function(req, res) {
+router.post('/user/changePhone', function(req, res) {
     Model.changePhone(req, function(status){
         if(status == 200) {
             res.statusCode = 200;
@@ -222,7 +230,7 @@ router.post('/client/changePhone', function(req, res) {
 })
 
 //找回密码
-router.post('/client/resetPwd', function(req, res) {
+router.post('/user/resetPwd', function(req, res) {
     Model.findPwd(req, function(status, data) {
         if(status == 200) {
             res.statusCode = 200;
