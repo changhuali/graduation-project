@@ -112,7 +112,7 @@ export default class Login extends Component {
                 <p className="user-msg">{this.state.message.userPwd}</p>
                 <p className="user-right-autoLogin clearfix">
                     <input className="user-remenberPwd" type="checkBox" name="autoLogin" />&nbsp;&nbsp;记住密码
-                    <a className="user-right-forgetPwd" href="#">忘记密码?</a>
+                    <span className="user-right-forgetPwd" href="#"><Link to={{pathname: 'user'}}>忘记密码?</Link></span>
                 </p>
                 <button onClick={this.login.bind(this)}
                     className="user-right-sub"

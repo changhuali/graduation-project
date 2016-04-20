@@ -31,8 +31,8 @@ export default class Header extends Component {
                 <div className="header clearfix">
                     <div className="header-left">
                         <i className="fa fa-map-marker color_theme"></i>
-                        <span className="header-left-location">{this.state.location}</span>
-                        <a className="header-left-tog" href="javascript:;">[切换城市]</a>
+                        <span className="header-left-location">当前城市</span>
+                        <span className="header-left-tog">{'['+this.state.location+']'}</span>
                     </div>
                     {this.props.user.info.id ?
                         <UserSetting {...this.props} logout={this.logout.bind(this)} />

@@ -32,7 +32,7 @@ export default class Nav extends Component {
     }
 
     getActiveIndex(pathname) {
-      var arr = ['/', '/familyPro', '/familyCase', '/onlineDemo', '/budget', '/imformation', '/promotion', '/about', '/contact'];
+      var arr = ['/', '/familyCase', '/onlineDemo', '/budget', '/imformation', '/promotion', '/about', '/contact'];
       var active = 0;
       arr.map((str, idx) => {
         if(str == pathname || str+'/' == pathname) {
@@ -61,7 +61,7 @@ export default class Nav extends Component {
 
     const DATA = [
     {"key": "首页","src": "/"},
-    {"key": "家装产品","src": "/familyPro"},
+    // {"key": "家装产品","src": "/familyPro"},
     {"key": "家装案例","src": "/familyCase"},
     {"key": "在线样板房","src": "/onlineDemo"},
     {"key": "装修预算","src": "/budget"},

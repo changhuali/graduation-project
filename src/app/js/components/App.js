@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import * as userAc from '../action/userAc';
+import * as contactAc from '../action/contactAc';
 
 import Header from './common/Header';
 import Nav    from './common/Nav';
@@ -81,12 +82,14 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
+        contact: state.contact,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         userBoundAc: bindActionCreators(userAc, dispatch),
+        contactBoundAc: bindActionCreators(contactAc, dispatch),
     }
 }
 

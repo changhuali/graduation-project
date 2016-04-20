@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //处理api路由
 app.use('/api', apiRoute);
-
 //处理静态路由
 app.use('*', clientRoute);
+
 
 //服务器错误处理器
 app.use(function(err, req, res, next){
