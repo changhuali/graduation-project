@@ -79,7 +79,6 @@ export default class ChangePhone extends Component {
                 this.setMessage('checkCode', message);
                 break;
         }
-        console.log(message, '====');
         this.setState({
             changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
         })
@@ -143,7 +142,6 @@ export default class ChangePhone extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if(nextProps.user.changePhone.id != undefined) {
             this.setState({
                 changing: false,

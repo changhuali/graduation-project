@@ -71,7 +71,6 @@ export default class ChangePwd extends Component {
             case "befPwd":
                 message = __FORMCHECK__.checkPwd(e.target.value, '原');
                 if(message.length == 0 && this.props.user.info.id != undefined) {
-                    console.log('11111');
                     this.props.userBoundAc.checkPwd(e.target.value);
                 }
                 this.setMessage('befPwd', message);
@@ -79,7 +78,6 @@ export default class ChangePwd extends Component {
             case "newPwd":
                 message = __FORMCHECK__.checkPwd(e.target.value, '新');
                 var str = __FORMCHECK__.checkRePwd(e.target.value, this.state.changeObj.befPwd);
-                console.log(str);
                 if(str.length == 0) {
                     message = '新密码不能与原密码相同'
                 }
@@ -90,7 +88,6 @@ export default class ChangePwd extends Component {
                 this.setMessage('rePwd', message);
                 break;
         }
-        console.log(message, '====');
         this.setState({
             changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
         })

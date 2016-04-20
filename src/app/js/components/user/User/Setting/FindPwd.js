@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { notification } from 'antd';
+import __has from 'lodash/has';
 import { __FORMCHECK__ } from '../../../../../../config/class';
 
 export default class FindPwd extends Component {
@@ -24,6 +25,28 @@ export default class FindPwd extends Component {
                 checkCode: "",
             }
         }
+    }
+
+    resetState() {
+        this.setState({
+            changeObj: {
+                phone: "",
+                newPwd: "",
+                checkCode: "",
+            },
+            changeTag: {
+                phone: false,
+                newPwd: false,
+                checkCode: false,
+            },
+            checking: 61,
+            changing: false,
+            message: {
+                phone: "",
+                newPwd: "",
+                checkCode: "",
+            }
+        })
     }
 
     setChangeObj(e) {
@@ -56,7 +79,6 @@ export default class FindPwd extends Component {
                 this.setMessage('checkCode', message);
                 break;
         }
-        console.log(message, '====');
         this.setState({
             changeTag: Object.assign(this.state.changeTag, {[e.target.name]: message.length != 0 ? false : true}),
         })
@@ -103,7 +125,7 @@ export default class FindPwd extends Component {
         })
         if(tag){
             this.setState({
-                registing: true,
+                changing: true,
             })
             this.props.userBoundAc.resetPwd(this.state.changeObj);
         }else{
@@ -117,6 +139,16 @@ export default class FindPwd extends Component {
         this.setState({
             message: Object.assign({}, this.state.message, {[e.target.name]: ""}),
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.user.resetPwd.id != undefined) {
+            this.resetState();
+        }else if(__has(nextProps.user.resetPwd, 'errorCode')){
+            this.setState({
+                changing: false,
+            })
+        }
     }
 
     render() {
