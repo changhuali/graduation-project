@@ -230,7 +230,7 @@ router.post('/user/changePhone', function(req, res) {
 })
 
 //找回密码
-router.post('/user/resetPwd', function(req, res) {
+router.post('/client/resetPwd', function(req, res) {
     Model.findPwd(req, function(status, data) {
         if(status == 200) {
             res.statusCode = 200;

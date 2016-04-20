@@ -17,7 +17,25 @@ app.use(express.static(path.join(__dirname, '../src/config')));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
+//动态刷新cookie时间
+app.all('*', function(req, res, next) {
+    if(req.cookies.info) {
+        res.cookie('info', req.cookies.info, {maxAge: 30*60*1000});
+        next();
+    }
+})
+//判断cookie是否失效
+app.all('/api/user/*', function(req, res, next) {
+    if(req.cookies.info) {
+        next();
+    }else{
+        res.statusCode = 401;
+        res.send({
+            errorCode: 401006,
+            message: '登录超时',
+        })
+    }
+})
 //处理api路由
 app.use('/api', apiRoute);
 //处理静态路由

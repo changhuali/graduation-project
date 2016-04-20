@@ -181,7 +181,7 @@ export function changePhone(params) {
 export function resetPwd(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/user/resetPwd')
+        .post('/api/client/resetPwd')
         .send(params)
         .end((err, resp) => {
             if(resp.ok) {
