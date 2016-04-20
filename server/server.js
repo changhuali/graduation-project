@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.all('*', function(req, res, next) {
     if(req.cookies.info) {
         res.cookie('info', req.cookies.info, {maxAge: 30*60*1000});
-        next();
     }
+    next();
 })
 //判断cookie是否失效
 app.all('/api/user/*', function(req, res, next) {
