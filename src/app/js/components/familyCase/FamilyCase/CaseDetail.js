@@ -7,7 +7,7 @@ export default class CaseDetail extends Component {
         }
     }
 
-    createItem() {
+    createItem(DATA) {
         var list = [];
         DATA.data.map((obj, idx) => {
             list.push(
@@ -23,6 +23,7 @@ export default class CaseDetail extends Component {
     }
 
     render() {
+        var DATA = JSON.parse(localStorage.getItem('caseDetail'));
         return (
             <div className="caseDetail-wrap">
                 <h1 className="caseDetail-title">{DATA.title}</h1>
@@ -31,14 +32,13 @@ export default class CaseDetail extends Component {
                         {DATA.description}
                     </div>
                     <div className="caseDetail-con">
-                        {this.createItem()}
+                        {this.createItem(DATA)}
                     </div>
                 </div>
             </div>
         )
     }
 }
-var DATA = JSON.parse(localStorage.getItem('caseDetail'));
 class Title extends Component {
     render() {
         return (

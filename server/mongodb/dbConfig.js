@@ -307,7 +307,6 @@ Model.getPromotionDetail = function(req, callback) {
 
 //家装案列
 Model.getFamilyCaseList = function(req, callback) {
-
     Model.familyCaseModel.find({}, function(err, data) {
         console.log(data, '==========家装案列list data');
         if(err) {
