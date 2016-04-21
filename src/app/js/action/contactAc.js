@@ -11,9 +11,14 @@ export function contactUs(params) {
         .post('/api/contact/contactUs')
         .send(params)
         .end((err, resp) => {
+            if(resp.ok) {
+                message.success(resp.body.message);
+            }else if(__has(resp.body, 'errorCode')) {
+                message.error(resp.body.message);
+            }
             dispatch({
                 type: CONTACT_US,
-                data: resp.data,
+                data: resp.body,
             })
         })
     }

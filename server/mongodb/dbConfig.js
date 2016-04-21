@@ -22,10 +22,18 @@ var checkCodeSchema = new mongoose.Schema({
     checkCode : String
 });
 
+//联系我们collection Schema
+var contactSchema = new mongoose.Schema({
+    name: String,
+    phone: String,
+    advice: String,
+});
+
 //生成的Model对象
 var Model = {
     userModel: db.model('user', userSchema, "user"),
     checkCodeModel: db.model('checkCode', checkCodeSchema, "checkCode"),
+    contactModel: db.model('contact', contactSchema, "contact"),
 }
 //用户登录
 Model.login = function(req, callback) {
@@ -229,6 +237,23 @@ Model.findPwd = function(req, callback) {
                     }
                 })
             }
+        }
+    })
+}
+
+//联系我们
+Model.contactUs = function(req, callback) {
+    var obj = {
+        name   : req.body.name,
+        phone  : req.body.phone,
+        advice : req.body.advice,
+    };
+    Model.contactModel.create(obj, function(err, data) {
+        if(err) {
+            console.log(err);
+        }else{
+            console.log(data, '==========存储联系我们数据data');
+            callback(200);
         }
     })
 }

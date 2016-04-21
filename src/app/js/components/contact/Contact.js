@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {message} from 'antd';
+import __has from 'lodash/has';
 
 export default class Contact extends Component {
     constructor(props) {
@@ -7,12 +8,24 @@ export default class Contact extends Component {
         this.state = {
             contactInfo: {
                 name: "",
-                contact: "",
+                phone: "",
                 advice: "",
             },
             loading: false,
         }
     }
+
+    resetState() {
+        this.setState({
+            contactInfo: {
+                name: "",
+                phone: "",
+                advice: "",
+            },
+            loading: false,
+        })
+    }
+
     componentDidMount() {
         var map = new BMap.Map("contactMap");          // 创建地图实例
         var point = new BMap.Point(106.3315440000, 29.5978260000);  // 创建点坐标
@@ -36,9 +49,22 @@ export default class Contact extends Component {
             return params[key] != "";
         })
         if(tag){
+            this.setState({
+                loading: true,
+            })
             this.props.contactBoundAc.contactUs(this.state.contactInfo);
         }else{
             message.warn('请您完成所有内容后再进行提交', 2.5);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.contact.contactUs.ok) {
+            this.resetState();
+        }else if(__has(nextProps.contact.contactUs, 'errorCode')) {
+            this.setState({
+                loading: false,
+            })
         }
     }
 
@@ -57,16 +83,16 @@ export default class Contact extends Component {
                                 value={formObj.name}
                                 placeholder="您的称呼" />
                             <input type="text"
-                                name="contact"
+                                name="phone"
                                 onChange={this.setContactParams.bind(this)}
-                                value={formObj.contact}
+                                value={formObj.phone}
                                 placeholder="手机号码"  />
                             <textarea name="advice"
                                 onChange={this.setContactParams.bind(this)}
                                 value={formObj.advice}
                                 placeholder="您的建议或者遇到的问题">
                             </textarea>
-                            <input onClick={this.contactUs.bind(this)} type="button" value={this.state.loading ? "提交中" : "提交"} />
+                            <input onClick={this.contactUs.bind(this)} type="button" value={this.state.loading ? "提交中" : "提交"} disabled={this.state.loading ? "disabled" : ""} />
                         </div>
                         <p className="contact-item"><i className="fa fa-phone"></i><span>电话: 11111111</span></p>
                         <p className="contact-item"><i className="fa fa-envelope-o"></i><span>传真: 22222222</span></p>

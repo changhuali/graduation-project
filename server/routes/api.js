@@ -253,4 +253,23 @@ router.post('/client/resetPwd', function(req, res) {
     })
 })
 
+//联系我们
+router.post('/contact/contactUs', function(req, res) {
+    Model.contactUs(req, function(status) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                ok: 'ok',
+                message: '信息提交成功',
+            })
+        }else{
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+
 module.exports = router;
