@@ -32,10 +32,10 @@ export default class Nav extends Component {
     }
 
     getActiveIndex(pathname) {
-      var arr = ['/', '/familyCase', '/onlineDemo', '/budget', '/imformation', '/promotion', '/about', '/contact'];
+      var arr = ['', 'familyCase', 'onlineDemo', 'budget', 'imformation', 'promotion', 'about', 'contact'];
       var active = 0;
       arr.map((str, idx) => {
-        if(str == pathname || str+'/' == pathname) {
+        if(str == pathname.split('/')[1]) {
           active = idx;
         }
       });
