@@ -10,6 +10,7 @@ import OnlineDemo  from '../components/onlineDemo/OnlineDemo';
 import Budget      from '../components/budget/Budget';
 import Imformation from '../components/imformation/Imformation';
 import Promotion   from '../components/promotion/Promotion';
+import PmDetail    from '../components/promotion/Promotion/PmDetail';
 import About       from '../components/about/About';
 import Contact     from '../components/contact/Contact';
 
@@ -25,6 +26,7 @@ var routes = (
         <Route path='budget' component={Budget} />
         <Route path='imformation' component={Imformation} />
         <Route path='promotion' component={Promotion} />
+        <Route path='promotion/:id' component={PmDetail} />
         <Route path='about' component={About} />
         <Route path='contact' component={Contact} />
         <Redirect from='/*' to='/' />
