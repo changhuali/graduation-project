@@ -34,3 +34,34 @@
   background: rgb(63, 163, 54);
   cursor: pointer;
 }
+.promotion-key{
+    margin-right: 10px;
+    color: rgb(159, 24, 85);
+}
+.promotion-value{
+    color: rgb(195, 110, 21);
+}
+/*详情*/
+.proDetail-wrap{
+    width: 100%;
+}
+.proDetail{
+    width: 1020px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+.proDetail-left{
+    float: left;
+    width: 720px;
+}
+.proDetail-right{
+    float: right;
+    width: 300px;
+    min-height: 800px;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.proDetail-right p {
+    margin-bottom: 20px;
+    font-size: 14px;
+}

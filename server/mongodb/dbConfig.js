@@ -294,16 +294,6 @@ Model.getPromotionList = function(req, callback) {
         }
     })
 }
-Model.getPromotionDetail = function(req, callback) {
-    var id = req.query.id;
-    Model.promotionModel.find({_id: id}, function(err, data) {
-        if(err) {
-            console.log(err);
-        }else{
-            callback(200, data);
-        }
-    })
-}
 
 //家装案列
 Model.getFamilyCaseList = function(req, callback) {
