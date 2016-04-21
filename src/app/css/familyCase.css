@@ -24,8 +24,7 @@
   left: 0;
   width: 200px;
   height: 200px;
-  padding-left: 20px;
-  padding-top: 80px;
+  padding: 80px 20px 20px;
   background: #fff;
   box-sizing: border-box;
 }
@@ -75,4 +74,52 @@
 }
 .familyCase-pagination{
   margin-top: 40px;
+}
+
+
+
+/*案列详情*/
+.caseDetail-wrap{
+    width: 100%;
+    padding-bottom: 100px;
+    background: url(../images/familyCase/caseDetail/caseDetails_bg.jpg) no-repeat;
+}
+.caseDetail-title{
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    font-size: 30px;
+    color: #000;
+    font-weight: bold;
+}
+.caseDetail{
+    width: 970px;
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 45px 100px;
+    background: #fff;
+    box-sizing: border-box;
+}
+.caseDetail-head{
+    padding: 20px 60px;
+    text-align: center;
+}
+.caseDetail-con{
+
+}
+.caseDetail-headTit{
+    padding: 20px 0;
+}
+.caseDetail-item{
+    text-align: center;
+    margin-bottom: 40px;
+}
+.caseDetail-itemImg{
+    width: 700px;
+    height: 466px;
+    margin: 0 auto;
+}
+.caseDetail-itemImg img{
+    width: 100%;
+    height: 100%;
 }

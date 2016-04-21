@@ -306,4 +306,22 @@ router.get('/promotion/getDetail', function(req, res) {
     })
 })
 
+//家装案例
+router.get('/family/caseList', function(req, res) {
+    Model.getFamilyCaseList(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                data: data,
+            })
+        }else{
+            statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+
 module.exports = router;

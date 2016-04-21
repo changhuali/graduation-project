@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import * as userAc from '../action/userAc';
 import * as contactAc from '../action/contactAc';
 import * as promotionAc from '../action/promotionAc';
+import * as familyCaseAc from '../action/familyCaseAc';
 
 import Header from './common/Header';
 import Nav    from './common/Nav';
@@ -85,6 +86,7 @@ function mapStateToProps(state) {
         user: state.user,
         contact: state.contact,
         promotion: state.promotion,
+        familyCase: state.familyCase,
     }
 }
 
@@ -93,6 +95,7 @@ function mapDispatchToProps(dispatch) {
         userBoundAc: bindActionCreators(userAc, dispatch),
         contactBoundAc: bindActionCreators(contactAc, dispatch),
         promotionBoundAc: bindActionCreators(promotionAc, dispatch),
+        familyCaseBoundAc: bindActionCreators(familyCaseAc, dispatch),
     }
 }
 
