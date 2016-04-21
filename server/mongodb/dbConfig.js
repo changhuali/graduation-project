@@ -29,11 +29,22 @@ var contactSchema = new mongoose.Schema({
     advice: String,
 });
 
+//优惠活动collection Schema
+var promotionSchema = new mongoose.Schema({
+    id: String,
+    title: String,
+    content: String,
+    location: String,
+    time: String,
+    img: String,
+})
+
 //生成的Model对象
 var Model = {
     userModel: db.model('user', userSchema, "user"),
     checkCodeModel: db.model('checkCode', checkCodeSchema, "checkCode"),
     contactModel: db.model('contact', contactSchema, "contact"),
+    promotionModel: db.model('promotion', promotionSchema, "promotion"),
 }
 //用户登录
 Model.login = function(req, callback) {
@@ -257,5 +268,31 @@ Model.contactUs = function(req, callback) {
         }
     })
 }
+
+//优惠活动
+Model.getPromotionList = function(req, callback) {
+    Model.promotionModel.find({}, function(err, data) {
+        if(err) {
+            console.log(err);
+        }else{
+            var data = data;
+            if(data == null) {
+                data = [];
+            }
+            callback(200, data);
+        }
+    })
+}
+Model.getPromotionDetail = function(req, callback) {
+    var id = req.query.id;
+    Model.promotionModel.find({_id: id}, function(err, data) {
+        if(err) {
+            console.log(err);
+        }else{
+            callback(200, data);
+        }
+    })
+}
+
 
 module.exports = { Model };

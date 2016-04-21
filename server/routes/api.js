@@ -272,4 +272,38 @@ router.post('/contact/contactUs', function(req, res) {
     })
 })
 
+//优惠活动
+router.get('/promotion/getList', function(req, res) {
+    Model.getPromotionList(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                data: data,
+            })
+        }else{
+            statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+router.get('/promotion/getDetail', function(req, res) {
+    Model.getPromotionDetail(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                data: data,
+            })
+        }else{
+            statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+
 module.exports = router;

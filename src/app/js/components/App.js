@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 
 import * as userAc from '../action/userAc';
 import * as contactAc from '../action/contactAc';
+import * as promotionAc from '../action/promotionAc';
 
 import Header from './common/Header';
 import Nav    from './common/Nav';
@@ -83,6 +84,7 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         contact: state.contact,
+        promotion: state.promotion,
     }
 }
 
@@ -90,6 +92,7 @@ function mapDispatchToProps(dispatch) {
     return {
         userBoundAc: bindActionCreators(userAc, dispatch),
         contactBoundAc: bindActionCreators(contactAc, dispatch),
+        promotionBoundAc: bindActionCreators(promotionAc, dispatch),
     }
 }
 
