@@ -150,7 +150,6 @@ export default class Budget extends Component {
                         <div className="budget-con">
                             <div className='budget-tit clearfix'>
                                 <span className="budget-base">房屋基础信息</span>
-                                <span className="budget-count">今天已经有<span className="color_theme">2561</span>位业主免费成功获取报价清单</span>
                             </div>
                             <div className="budget-item">
                                 <span className="budget-key">装修种类</span>

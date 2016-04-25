@@ -30,6 +30,7 @@
     border: none;
     width: 550px;
     height: 30px;
+    outline: none;
 }
 .budget-tit{
     margin-bottom: 20px;
