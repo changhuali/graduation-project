@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Radio, Input, Select, message, Modal } from 'antd';
 const RadioGroup = Radio.Group;
 const priceWeight = {
-    base: 0.5,
+    base: 0.7,
     type: {
         "1": 1,
         "2": 1.2,
@@ -23,26 +23,26 @@ const priceWeight = {
     },
     livingRoom: {
         "1": 1,
-        "2": 2,
-        "3": 3,
+        "2": 1.8,
+        "3": 2.5,
     },
     bedRoom: {
-        "1": 1,
-        "2": 2,
-        "3": 3,
-        "4": 4,
-        "5": 5,
-        "6": 6,
+        "1": 0.8,
+        "2": 1.5,
+        "3": 2.2,
+        "4": 2.8,
+        "5": 3.3,
+        "6": 3.8,
     },
     kitchenRoom: {
-        "1": 1,
-        "2": 2,
-        "3": 3,
+        "1": 0.6,
+        "2": 1.1,
+        "3": 1.5,
     },
     bathRoom: {
-        "1": 1,
-        "2": 2,
-        "3": 3,
+        "1": 0.4,
+        "2": 0.7,
+        "3": 1.0,
     },
     grade: {
         "1": 1,
@@ -124,7 +124,7 @@ export default class Budget extends Component {
             var price = this.computePrice();
             Modal.info({
                 title: '获取报价成功',
-                content: '当前房屋报价 '+price+' 万元',
+                content: '当前房屋报价 '+price.toFixed(2)+' 万元',
             });
         }
     }
