@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, Input, Select, message } from 'antd';
+import { Radio, Input, Select, message, Modal } from 'antd';
 const RadioGroup = Radio.Group;
 
 export default class Budget extends Component {
@@ -9,9 +9,9 @@ export default class Budget extends Component {
             budgetForm: {
                 type: "1",
                 area: "",
-                demand: "7",
+                demand: "1",
                 address: "",
-                layout: "0",
+                layout: "1",
                 livingRoom: "1",
                 bedRoom: "1",
                 kitchenRoom: "1",
@@ -20,6 +20,24 @@ export default class Budget extends Component {
                 style: "1",
             }
         }
+    }
+
+    resetState() {
+        this.setState({
+            budgetForm: {
+                type: "1",
+                area: "",
+                demand: "1",
+                address: "",
+                layout: "1",
+                livingRoom: "1",
+                bedRoom: "1",
+                kitchenRoom: "1",
+                bathRoom: "1",
+                grade: "1",
+                style: "1",
+            }
+        })
     }
 
     radioChange(e) {
@@ -44,13 +62,103 @@ export default class Budget extends Component {
         var formObj = this.state.budgetForm;
         if(formObj.area == "") {
             message.warn('请填写装修面积');
-        }else if(formObj.demand == "7") {
-            message.warn('请选择装修状态');
         }else if(formObj.address == "") {
             message.warn('请填写装修地址');
         }else{
-            message.info('获取报价成功');
+            var price = this.computePrice();
+            Modal.info({
+                title: '获取报价成功',
+                content: '当前房屋报价 '+price+' 万元',
+            });
         }
+    }
+
+    enumeArea() {
+        var area = this.state.budgetForm.area;
+        if(area >= 0 && area <= 60) {
+            return "1";
+        }else if(area > 60 && area <= 75) {
+            return "2";
+        }else if(area > 75 && area <= 90) {
+            return "3";
+        }else if(area > 90 && area <= 105) {
+            return "4";
+        }else if(area > 105 && area <= 120) {
+            return "5";
+        }else{
+            return "6";
+        }
+    }
+
+    computePrice() {
+        var formObj = this.state.budgetForm;
+        var areaKey = this.enumeArea();
+        var priceTable = {
+            type: {
+                "1": {
+                    area: {
+                        "1": {
+                            demand: {
+                                "1": {
+                                    layout: {
+                                        "1": {
+                                            bedRoom: {
+                                                "1": {
+                                                    livingRoom: {
+                                                        "1": {
+                                                            kitchenRoom: {
+                                                                "1": {
+                                                                    bathRoom: {
+                                                                        "1": {
+                                                                            grade: {
+                                                                                "1": {
+                                                                                    style: {
+                                                                                        "1": 2,
+                                                                                        "2": 2.5,
+                                                                                        "3": 2.5,
+                                                                                        "4": 3,
+                                                                                        "5": 3,
+                                                                                    }
+                                                                                },
+                                                                                "2": {
+                                                                                    style: {
+                                                                                        "1": 3,
+                                                                                        "2": 3.5,
+                                                                                        "3": 3.5,
+                                                                                        "4": 4,
+                                                                                        "5": 4,
+                                                                                    }
+                                                                                },
+                                                                                "3": {
+                                                                                    style: {
+                                                                                        "1": 4,
+                                                                                        "2": 4.5,
+                                                                                        "3": 4.5,
+                                                                                        "4": 5,
+                                                                                        "5": 5,
+                                                                                    }
+                                                                                },
+                                                                            }
+                                                                        },
+                                                                    }
+                                                                },
+                                                            }
+                                                        },
+                                                    }
+                                                },
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        },
+                    }
+                },
+            }
+        };
+        return priceTable.type[formObj.type].area[areaKey].demand[formObj.demand].layout[formObj
+            .layout].bedRoom[formObj.bedRoom].livingRoom[formObj.livingRoom].kitchenRoom[formObj.kitchenRoom]
+            .bathRoom[formObj.bathRoom].grade[formObj.grade].style[formObj.style];
     }
 
     render() {
@@ -80,14 +188,13 @@ export default class Budget extends Component {
                             </div>
                             <div className="budget-item">
                                 <span className="budget-key">装修需求</span>
-                                <Select style={{ width: 150 }} defaultValue="7" onChange={this.selectChange.bind(this, 'demand')}>
+                                <Select style={{ width: 150 }} value={formObj.demand} onChange={this.selectChange.bind(this, 'demand')}>
                                     <Option value="1">没交房,提前了解</Option>
                                     <Option value="2">毛胚房,装修出租</Option>
                                     <Option value="3">毛胚房,装修自住</Option>
                                     <Option value="4">毛胚房,豪装自住</Option>
                                     <Option value="5">旧房整体翻新重装</Option>
                                     <Option value="6">旧房局部改造装修</Option>
-                                    <Option value="7">请选择装修状态</Option>
                                 </Select>
                             </div>
                             <div className="budget-item">
@@ -96,13 +203,13 @@ export default class Budget extends Component {
                             </div>
                             <div className="budget-item">
                                 <span className="budget-key">房屋户型</span>
-                                <Select style={{width: '85px'}} defaultValue='0' onChange={this.selectChange.bind(this, 'layout')}>
+                                <Select style={{width: '85px'}} value={formObj.layout} onChange={this.selectChange.bind(this, 'layout')}>
                                     <Option value="1">小户型</Option>
                                     <Option value="2">公寓</Option>
                                     <Option value="3">别墅</Option>
-                                    <Option value="0">普通住宅</Option>
+                                    <Option value="4">普通住宅</Option>
                                 </Select>
-                                <Select style={{marginLeft: '20px'}} defaultValue='1' onChange={this.selectChange.bind(this, 'bedRoom')}>
+                                <Select style={{marginLeft: '20px'}} value={formObj.bedRoom} onChange={this.selectChange.bind(this, 'bedRoom')}>
                                     <Option value="1">1</Option>
                                     <Option value="2">2</Option>
                                     <Option value="3">3</Option>
@@ -110,17 +217,17 @@ export default class Budget extends Component {
                                     <Option value="5">5</Option>
                                     <Option value="6">6</Option>
                                 </Select> 室
-                                <Select style={{marginLeft: '20px'}} defaultValue='1' onChange={this.selectChange.bind(this, 'livingRoom')}>
+                                <Select style={{marginLeft: '20px'}} value={formObj.livingRoom} onChange={this.selectChange.bind(this, 'livingRoom')}>
                                     <Option value="1">1</Option>
                                     <Option value="2">2</Option>
                                     <Option value="3">3</Option>
                                 </Select> 厅
-                                <Select style={{marginLeft: '20px'}} defaultValue='1' onChange={this.selectChange.bind(this, 'kitchenRoom')}>
+                                <Select style={{marginLeft: '20px'}} value={formObj.kitchenRoom} onChange={this.selectChange.bind(this, 'kitchenRoom')}>
                                     <Option value="1">1</Option>
                                     <Option value="2">2</Option>
                                     <Option value="3">3</Option>
                                 </Select> 厨
-                                <Select style={{marginLeft: '20px'}} defaultValue='1' onChange={this.selectChange.bind(this, 'bathRoom')}>
+                                <Select style={{marginLeft: '20px'}} value={formObj.bathRoom} onChange={this.selectChange.bind(this, 'bathRoom')}>
                                     <Option value="1">1</Option>
                                     <Option value="2">2</Option>
                                     <Option value="3">3</Option>
