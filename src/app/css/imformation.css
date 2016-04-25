@@ -14,7 +14,7 @@
 }
 .imformation-left{
     float: left;
-    width: 280px;
+    width: 300px;
     padding: 30px 20px;
     box-sizing: border-box;
     border: 1px solid #eee;
@@ -22,7 +22,7 @@
 }
 .imformation-right{
     float: right;
-    width: 890px;
+    width: 870px;
 }
 .imformation-item{
   padding: 30px 20px;

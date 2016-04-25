@@ -19,7 +19,12 @@ export default class Index extends Component{
     }
 
     render(){
-        var imgArr  = [section_head_1, section_head_2, section_head_3, section_head_4]
+        var imgArr  = [
+            {img: section_head_1},
+            {img: section_head_2},
+            {img: section_head_3},
+            {img: section_head_4},
+        ];
         return(
             <div className="index-wrap">
                 <div className="index">

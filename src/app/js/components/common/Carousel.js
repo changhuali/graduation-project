@@ -41,9 +41,10 @@ export default class Carousel extends Component{
             width: this.props.width,
             height: this.props.height
         };
-        imgSource.map((imgSrc, idx) => {
+        imgSource.map((obj, idx) => {
             list.push(<div key={"img"+idx} style={styles} className="carousel-itemImg">
-                        <img style={{width: "100%", height: "100%"}} src={imgSrc} />
+                        <img style={{width: "100%", height: "100%"}} src={obj.img} />
+                        {obj.desc ? <p style={{position: 'absolute', bottom: '0px', color: '#fff', background: 'rgba(62, 62, 62, 0.5)', padding: "5px 10px"}}>{obj.desc}</p> : ""}
                       </div>)
         });
         return list;
@@ -78,8 +79,9 @@ export default class Carousel extends Component{
     render() {
         var imgSource = this.props.imgSource;
         var imgLength = imgSource.length;
+        var btnLayout = this.props.btnRight ? {right: '20px', width: imgLength*10+(imgLength-1)*15} : this.props.btnLeft ? {left: '20px'} : {marginLeft: -(imgLength*10+(imgLength-1)*15)/2, left: '50%'};
         return (
-            <div onMouseOver={this.pauseAnimate.bind(this)} onMouseLeave={this.continueAnimate.bind(this)} className="carousel">
+            <div style={this.props.style} onMouseOver={this.pauseAnimate.bind(this)} onMouseLeave={this.continueAnimate.bind(this)} className="carousel">
                 <div ref="carousel"
                      style={{width: Number(this.props.width*imgSource.length),
                             height: this.props.height,
@@ -89,7 +91,7 @@ export default class Carousel extends Component{
                      className="clearfix">
                     {this.createImgItem(imgSource)}
                 </div>
-                <ul style={{marginLeft: -(imgLength*10+(imgLength-1)*15)/2}} className="carousel-itemBtn-ul clearfix">
+                <ul style={btnLayout} className="carousel-itemBtn-ul clearfix">
                   {this.createImgItemBtn(imgLength)}
                 </ul>
             </div>

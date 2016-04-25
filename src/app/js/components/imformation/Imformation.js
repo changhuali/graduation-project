@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { Pagination } from 'antd';
+import Carousel from '../common/Carousel';
+
+import section_head_1 from '../../../images/section_head_1.jpg';
+import section_head_2 from '../../../images/section_head_2.jpg';
+import section_head_3 from '../../../images/section_head_3.jpg';
+import section_head_4 from '../../../images/section_head_4.jpg';
 
 export default class Imformation extends Component {
     constructor(props) {
@@ -120,6 +126,12 @@ export default class Imformation extends Component {
     }
 
     render() {
+        var imgArr  = [
+            {img: section_head_1, desc: "CAN TV高色域电视上市 重点在画质和音质"},
+            {img: section_head_2, desc: "首批家居五金团体标准“顺德造” 推动产业升级"},
+            {img: section_head_3, desc: "智能家居难以落地 要降低硬件价格打破平台壁垒"},
+            {img: section_head_4, desc: "第二届平板电视技术发展趋势论坛将举行"},
+        ];
         return (
             <div className="imformation-wrap">
                 <div className="imformation clearfix">
@@ -143,6 +155,7 @@ export default class Imformation extends Component {
                         </div>
                     </div>
                     <div className="imformation-right">
+                        <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="2000" />
                         {this.createItem()}
                         <div className="imformation-pagination">
                             <Pagination current={this.state.current}
