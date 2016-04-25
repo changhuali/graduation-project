@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Pagination } from 'antd';
+import {routerShape} from 'react-router';
 import Carousel from '../common/Carousel';
 
-import section_head_1 from '../../../images/section_head_1.jpg';
-import section_head_2 from '../../../images/section_head_2.jpg';
-import section_head_3 from '../../../images/section_head_3.jpg';
-import section_head_4 from '../../../images/section_head_4.jpg';
+import section_head_1 from '../../../images/imformation/carousel/item_1.jpg';
+import section_head_2 from '../../../images/imformation/carousel/item_2.jpg';
+import section_head_3 from '../../../images/imformation/carousel/item_3.jpg';
+import section_head_4 from '../../../images/imformation/carousel/item_4.jpg';
 
 export default class Imformation extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class Imformation extends Component {
             showIndex: 0,
             rotate: 0,
             data: [],
+            showType: '公司新闻',
         }
     }
 
@@ -34,13 +36,13 @@ export default class Imformation extends Component {
         var data = this.getCurrData();
         data.map((obj, idx) => {
             list.push(
-                <div key={idx} className="imformation-item clearfix">
+                <div key={idx} onClick={this.viewDetail.bind(this, obj)} className="imformation-item clearfix">
                     <div className="imformation-img">
                         <img src={obj.img} />
                     </div>
                     <div className="information-con">
                         <h3 className="imformation-title"><a href="javascript:;">{obj.title}</a></h3>
-                        <p className="imformation-text">{obj.content}</p>
+                        <p className="imformation-text">{obj.desc}</p>
                         <div className="imformation-other">
                             <span>{'['+obj.type+']'}</span>
                             <span>{obj.time}</span>
@@ -105,12 +107,17 @@ export default class Imformation extends Component {
             if(obj.type == type){
                 list.push(
                     <div key={idx}>
-                        <a className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
+                        <a onClick={this.viewDetail.bind(this, obj)} className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
                     </div>
                 );
             }
         });
         return list;
+    }
+
+    viewDetail(data) {
+        localStorage.setItem('imformation', JSON.stringify(data));
+        this.context.router.push({pathname: '/imformation/'+data._id});
     }
 
     componentDidMount() {
@@ -155,7 +162,7 @@ export default class Imformation extends Component {
                         </div>
                     </div>
                     <div className="imformation-right">
-                        <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="2000" />
+                        <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="5000" />
                         {this.createItem()}
                         <div className="imformation-pagination">
                             <Pagination current={this.state.current}
@@ -170,7 +177,18 @@ export default class Imformation extends Component {
         )
     }
 }
+Imformation.contextTypes = {
+    router: routerShape.isRequired,
+}
 var INDUSTRY_DATA = ['公司', '行业', '国际', '国外'];
 var DATA = [
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_1.jpg'},
+    {
+        title: '中广测创新红木鉴定技术 解决种',
+        type: '行业新闻',
+        viewNum: 1,
+        time: '2016-05-05',
+        desc: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',
+        img: '/imformation/item_2.jpg',
+        content:""
+    },
 ];

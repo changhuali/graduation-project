@@ -4,6 +4,7 @@ import {message} from 'antd';
 import __has from 'lodash/has';
 
 export const GET_IMFORMATION_LIST = 'GET_IMFORMATION_LIST';
+export const ADD_VIEW_NUM = 'ADD_VIEW_NUM';
 
 export function getImformationList() {
     return dispatch => {
@@ -12,6 +13,18 @@ export function getImformationList() {
         .end((err, resp) => {
             dispatch({
                 type: GET_IMFORMATION_LIST,
+                data: resp.body,
+            })
+        })
+    }
+}
+export function addViewNum() {
+    return dispatch => {
+        HttpRequest
+        .get('/api/imformation/viewNum')
+        .end((err, resp) => {
+            dispatch({
+                type: ADD_VIEW_NUM,
                 data: resp.body,
             })
         })
