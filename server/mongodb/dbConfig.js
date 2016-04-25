@@ -52,6 +52,17 @@ var familyCaseSchama = new mongoose.Schema({
     data: Array,
 })
 
+//新闻资讯collection Schema
+var imformationSchema = new mongoose.Schema({
+    id: String,
+    title: String,
+    type: String,
+    viewNum: Number,
+    time: String,
+    content: String,
+    img: String,
+})
+
 //生成的Model对象
 var Model = {
     userModel: db.model('user', userSchema, "user"),
@@ -59,7 +70,9 @@ var Model = {
     contactModel: db.model('contact', contactSchema, "contact"),
     promotionModel: db.model('promotion', promotionSchema, "promotion"),
     familyCaseModel: db.model('familyCase', familyCaseSchama, "familyCase"),
+    imformationModel: db.model('imformation', imformationSchema, "imformation"),
 }
+
 //用户登录
 Model.login = function(req, callback) {
     Model.userModel.findOne({phone: req.body.phone},function(err, data){
@@ -299,6 +312,18 @@ Model.getPromotionList = function(req, callback) {
 Model.getFamilyCaseList = function(req, callback) {
     Model.familyCaseModel.find({}, function(err, data) {
         console.log(data, '==========家装案列list data');
+        if(err) {
+            console.log(err);
+        }else{
+            callback(200, data);
+        }
+    })
+}
+
+//新闻资讯
+Model.getImformationList = function(req, callback) {
+    Model.imformationModel.find({}, function(err, data) {
+        console.log(data, '==========资讯中心list data');
         if(err) {
             console.log(err);
         }else{

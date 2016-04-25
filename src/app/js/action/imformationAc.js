@@ -3,15 +3,15 @@ import interceptorAction from './interceptorAction';
 import {message} from 'antd';
 import __has from 'lodash/has';
 
-export const GET_PROMOTION_LIST = 'GET_PROMOTION_LIST';
+export const GET_IMFORMATION_LIST = 'GET_IMFORMATION_LIST';
 
-export function getPromotionList() {
+export function getImformationList() {
     return dispatch => {
         HttpRequest
-        .get('/api/promotion/promotionList')
+        .get('/api/imformation/list')
         .end((err, resp) => {
             dispatch({
-                type: GET_PROMOTION_LIST,
+                type: GET_IMFORMATION_LIST,
                 data: resp.body,
             })
         })

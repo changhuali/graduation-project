@@ -5,15 +5,16 @@ export default class Imformation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          current: 1,
-          pageSize: 10,
-          showIndex: 0,
-          rotate: 0,
+            current: 1,
+            pageSize: 10,
+            showIndex: 0,
+            rotate: 0,
+            data: [],
         }
     }
 
     getCurrData() {
-      return DATA.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
+        return this.state.data.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
     }
 
     changePage(value) {
@@ -91,17 +92,31 @@ export default class Imformation extends Component {
         return posArr;
     }
 
-    createNews() {
+    createNews(type) {
         var list = [];
         var data = this.getCurrData();
         data.map((obj, idx) => {
-            list.push(
-                <div key={idx}>
-                    <a className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
-                </div>
-            );
+            if(obj.type == type){
+                list.push(
+                    <div key={idx}>
+                        <a className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
+                    </div>
+                );
+            }
         });
         return list;
+    }
+
+    componentDidMount() {
+        this.props.imformationBoundAc.getImformationList();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.imformation.list.data != undefined) {
+            this.setState({
+                data: nextProps.imformation.list.data,
+            })
+        }
     }
 
     render() {
@@ -112,13 +127,13 @@ export default class Imformation extends Component {
                         <div className="imformation-left-con">
                             <h1 className='imformation-left-tit'>公司新闻</h1>
                             <div>
-                                {this.createNews()}
+                                {this.createNews('公司新闻')}
                             </div>
                         </div>
                         <div className="imformation-left-con">
                             <h1 className='imformation-left-tit'>行业新闻</h1>
                             <div>
-                                {this.createNews()}
+                                {this.createNews('行业新闻')}
                             </div>
                         </div>
                         <div className="imformation-left-axis">
@@ -133,7 +148,7 @@ export default class Imformation extends Component {
                             <Pagination current={this.state.current}
                                 pageSize={this.state.pageSize}
                                 defaultCurrent={1}
-                                total={DATA.length}
+                                total={this.state.data.length}
                                 onChange={this.changePage.bind(this)} />
                         </div>
                     </div>
@@ -145,15 +160,4 @@ export default class Imformation extends Component {
 var INDUSTRY_DATA = ['公司', '行业', '国际', '国外'];
 var DATA = [
   {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_1.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_2.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_3.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_4.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_1.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_2.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_3.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_4.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_1.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_2.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_3.jpg'},
-  {title: '中广测创新红木鉴定技术 解决种', type: '行业新闻', viewNum: 1, time: '2016-05-05', content: '如今，购买红木家具的家庭多了起来，但是市场上五花八门的木材让普通消费者一时难以辨别。以次充好、假冒伪劣的红木家具不仅扰乱了市场秩序，也影响了整个红木行业的信誉',img: '/imformation/item_4.jpg'},
 ];

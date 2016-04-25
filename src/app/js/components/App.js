@@ -8,6 +8,7 @@ import * as userAc from '../action/userAc';
 import * as contactAc from '../action/contactAc';
 import * as promotionAc from '../action/promotionAc';
 import * as familyCaseAc from '../action/familyCaseAc';
+import * as imformationAc from '../action/imformationAc';
 
 import Header from './common/Header';
 import Nav    from './common/Nav';
@@ -87,6 +88,7 @@ function mapStateToProps(state) {
         contact: state.contact,
         promotion: state.promotion,
         familyCase: state.familyCase,
+        imformation: state.imformation,
     }
 }
 
@@ -96,6 +98,7 @@ function mapDispatchToProps(dispatch) {
         contactBoundAc: bindActionCreators(contactAc, dispatch),
         promotionBoundAc: bindActionCreators(promotionAc, dispatch),
         familyCaseBoundAc: bindActionCreators(familyCaseAc, dispatch),
+        imformationBoundAc: bindActionCreators(imformationAc, dispatch),
     }
 }
 
