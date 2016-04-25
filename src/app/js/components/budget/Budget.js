@@ -1,6 +1,62 @@
 import React, { Component } from 'react';
 import { Radio, Input, Select, message, Modal } from 'antd';
 const RadioGroup = Radio.Group;
+const priceWeight = {
+    base: 0.5,
+    type: {
+        "1": 1,
+        "2": 1.2,
+    },
+    demand: {
+        "1": 1,
+        "2": 1,
+        "3": 1.2,
+        "4": 1.5,
+        "5": 1.2,
+        "6": 0.8,
+    },
+    layout: {
+        "1": 1,
+        "2": 1.2,
+        "3": 1.5,
+        "4": 1.1,
+    },
+    livingRoom: {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+    },
+    bedRoom: {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+    },
+    kitchenRoom: {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+    },
+    bathRoom: {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+    },
+    grade: {
+        "1": 1,
+        "2": 1.5,
+        "3": 2,
+    },
+    style: {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 1.8,
+    }
+}
 
 export default class Budget extends Component {
     constructor(props) {
@@ -73,97 +129,18 @@ export default class Budget extends Component {
         }
     }
 
-    enumeArea() {
-        var area = this.state.budgetForm.area;
-        if(area >= 0 && area <= 60) {
-            return "1";
-        }else if(area > 60 && area <= 75) {
-            return "2";
-        }else if(area > 75 && area <= 90) {
-            return "3";
-        }else if(area > 90 && area <= 105) {
-            return "4";
-        }else if(area > 105 && area <= 120) {
-            return "5";
-        }else{
-            return "6";
-        }
-    }
-
     computePrice() {
         var formObj = this.state.budgetForm;
-        var areaKey = this.enumeArea();
-        var priceTable = {
-            type: {
-                "1": {
-                    area: {
-                        "1": {
-                            demand: {
-                                "1": {
-                                    layout: {
-                                        "1": {
-                                            bedRoom: {
-                                                "1": {
-                                                    livingRoom: {
-                                                        "1": {
-                                                            kitchenRoom: {
-                                                                "1": {
-                                                                    bathRoom: {
-                                                                        "1": {
-                                                                            grade: {
-                                                                                "1": {
-                                                                                    style: {
-                                                                                        "1": 2,
-                                                                                        "2": 2.5,
-                                                                                        "3": 2.5,
-                                                                                        "4": 3,
-                                                                                        "5": 3,
-                                                                                    }
-                                                                                },
-                                                                                "2": {
-                                                                                    style: {
-                                                                                        "1": 3,
-                                                                                        "2": 3.5,
-                                                                                        "3": 3.5,
-                                                                                        "4": 4,
-                                                                                        "5": 4,
-                                                                                    }
-                                                                                },
-                                                                                "3": {
-                                                                                    style: {
-                                                                                        "1": 4,
-                                                                                        "2": 4.5,
-                                                                                        "3": 4.5,
-                                                                                        "4": 5,
-                                                                                        "5": 5,
-                                                                                    }
-                                                                                },
-                                                                            }
-                                                                        },
-                                                                    }
-                                                                },
-                                                            }
-                                                        },
-                                                    }
-                                                },
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        },
-                    }
-                },
-            }
-        };
-        return priceTable.type[formObj.type].area[areaKey].demand[formObj.demand].layout[formObj
-            .layout].bedRoom[formObj.bedRoom].livingRoom[formObj.livingRoom].kitchenRoom[formObj.kitchenRoom]
-            .bathRoom[formObj.bathRoom].grade[formObj.grade].style[formObj.style];
+        var weightCount = priceWeight.type[formObj.type]
+            *priceWeight.demand[formObj.demand]*priceWeight.layout[formObj.layout]
+            *(priceWeight.livingRoom[formObj.livingRoom]+priceWeight.bedRoom[formObj.bedRoom]
+            +priceWeight.kitchenRoom[formObj.kitchenRoom]+priceWeight.bathRoom[formObj.bathRoom])
+            *priceWeight.grade[formObj.grade]*priceWeight.style[formObj.style];
+        return weightCount*priceWeight.base*formObj.area/100;
     }
 
     render() {
         var formObj = this.state.budgetForm;
-        console.log(formObj);
         return (
             <div className="budget-wrap">
                 <div className="budget">
