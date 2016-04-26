@@ -63,6 +63,13 @@ var imformationSchema = new mongoose.Schema({
     img: String,
 })
 
+//装修效果图collection Schema
+var onlineDemoSchema = new mongoose.Schema({
+    id: String,
+    title: String,
+    img: String,
+})
+
 //生成的Model对象
 var Model = {
     userModel: db.model('user', userSchema, "user"),
@@ -71,6 +78,7 @@ var Model = {
     promotionModel: db.model('promotion', promotionSchema, "promotion"),
     familyCaseModel: db.model('familyCase', familyCaseSchama, "familyCase"),
     imformationModel: db.model('imformation', imformationSchema, "imformation"),
+    onlineDemoModel: db.model('onlineDemo', onlineDemoSchema, 'onlineDemo'),
 }
 
 //用户登录
@@ -348,9 +356,9 @@ Model.getImformationList = function(req, callback) {
         }
     })
 }
+
 //新闻浏览数添加
 Model.addImformationNum = function(req, callback) {
-    console.log(req.body._id, '--');
     Model.imformationModel.findOne({_id: req.body._id}, function(err, data) {
         console.log(data, '==========资讯中心 num data');
         if(err) {
@@ -365,6 +373,18 @@ Model.addImformationNum = function(req, callback) {
                     callback(200);
                 }
             })
+        }
+    })
+}
+
+//装修效果图
+Model.getOnlineDemoList = function(req, callback) {
+    Model.onlineDemoModel.find({}, function(err, data) {
+        console.log(data, '==========装修效果图list data');
+        if(err) {
+            console.log(500);
+        }else{
+            callback(200, data);
         }
     })
 }
