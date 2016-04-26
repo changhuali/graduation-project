@@ -8,6 +8,7 @@ import FaminyPro   from '../components/familyPro/FamilyPro';
 import FaminyCase  from '../components/familyCase/FamilyCase';
 import CaseDetail  from '../components/familyCase/FamilyCase/CaseDetail';
 import OnlineDemo  from '../components/onlineDemo/OnlineDemo';
+import DemoDetail  from '../components/onlineDemo/OnlineDemo/DemoDetail';
 import Budget      from '../components/budget/Budget';
 import Imformation from '../components/imformation/Imformation';
 import ImforDetail from '../components/imformation/Imformation/ImfoDetail';
@@ -26,7 +27,7 @@ var routes = (
         <Route path='familyCase' component={FaminyCase} />
         <Route path='familyCase/:id' component={CaseDetail} />
         <Route path='onlineDemo' component={OnlineDemo} />
-        <Route path='onlineDemo/:id' component={OnlineDemo} />
+        <Route path='onlineDemo/:id' component={DemoDetail} />
         <Route path='budget' component={Budget} />
         <Route path='imformation' component={Imformation} />
         <Route path='imformation/:id' component={ImforDetail} />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {routerShape} from 'react-router';
 import { Pagination } from 'antd';
 
 export default class OnlineDemo extends Component {
@@ -45,13 +46,18 @@ export default class OnlineDemo extends Component {
         })
     }
 
+    viewDetail(idx) {
+        localStorage.setItem('demoDetail', JSON.stringify(this.getCurrData()))
+        this.context.router.push({pathname: '/onlineDemo/'+idx});
+    }
+
     createItem() {
         var arrObj={col0:[], col1:[], col2:[], col3:[]};
         var list = [];
         var data = this.getCurrData();
         data.map((obj, idx) => {
             arrObj['col'+idx%4].push(
-                <div key={'col_' + idx} className="onlineDemo-item">
+                <div key={'col_' + idx} onClick={this.viewDetail.bind(this, idx)} className="onlineDemo-item">
                     <div className="onlineDemo-imgBox">
                         <img className="img_full onlineDemo-img" src={obj.img} />
                     </div>
@@ -104,7 +110,6 @@ export default class OnlineDemo extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         var arr = this.state.selected;
         var params = {space: arr[0], part: arr[1], style: arr[2]};
         this.props.onlineDemoBoundAc.getList(params);
@@ -149,6 +154,9 @@ export default class OnlineDemo extends Component {
             </div>
         )
     }
+}
+OnlineDemo.contextTypes = {
+    router: routerShape.isRequired,
 }
 var SPACE = ['客厅', '卧室', '餐厅', '厨房', '卫生间', '阳台', '书房', '玄关', '儿童房', '衣帽间', '花园'];
 var PART  = ['背景墙', '吊顶', '隔断', '窗帘', '飘窗', '榻榻米', '橱柜', '博古架', '阁楼', '隐形门', '吧台', '酒柜', '鞋柜', '衣柜', '窗户', '相片墙', '楼梯', '其它'];
