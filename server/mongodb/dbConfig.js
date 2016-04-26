@@ -327,10 +327,46 @@ Model.getImformationList = function(req, callback) {
         if(err) {
             console.log(err);
         }else{
-            callback(200, data);
+            var industryHot = [];
+            var companyHot  = [];
+            var otherHot    = [];
+            data.map(function(obj) {
+                if(obj.type == '行业新闻') {
+                    industryHot.push(obj);
+                }else if(obj.type == '公司新闻') {
+                    companyHot.push(obj);
+                }else{
+                    otherHot.push(obj);
+                }
+            })
+            var obj = {
+                industryHot: industryHot,
+                companyHot: companyHot,
+                otherHot: otherHot
+            }
+            callback(200, obj);
         }
     })
 }
-
+//新闻浏览数添加
+Model.addImformationNum = function(req, callback) {
+    console.log(req.body._id, '--');
+    Model.imformationModel.findOne({_id: req.body._id}, function(err, data) {
+        console.log(data, '==========资讯中心 num data');
+        if(err) {
+            console.log(err);
+        }else{
+            var newNum = data.viewNum+1;
+            Model.imformationModel.update({_id: req.body._id}, {$set:{viewNum: newNum}}, function(err, data) {
+                if(err) {
+                    console.log(err);
+                    callback(500);
+                }else{
+                    callback(200);
+                }
+            })
+        }
+    })
+}
 
 module.exports = { Model };

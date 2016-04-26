@@ -3,6 +3,9 @@ import { Pagination } from 'antd';
 import {routerShape} from 'react-router';
 import Carousel from '../common/Carousel';
 
+import Loading from '../common/Loading';
+import NotFound from '../common/NotFound';
+
 import section_head_1 from '../../../images/imformation/carousel/item_1.jpg';
 import section_head_2 from '../../../images/imformation/carousel/item_2.jpg';
 import section_head_3 from '../../../images/imformation/carousel/item_3.jpg';
@@ -16,13 +19,14 @@ export default class Imformation extends Component {
             pageSize: 10,
             showIndex: 0,
             rotate: 0,
-            data: [],
+            data: {},
             showType: '公司新闻',
         }
     }
 
     getCurrData() {
-        return this.state.data.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
+        var data = this.state.data.otherHot;
+        return data.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
     }
 
     changePage(value) {
@@ -100,23 +104,21 @@ export default class Imformation extends Component {
         return posArr;
     }
 
-    createNews(type) {
+    createNews(data) {
         var list = [];
-        var data = this.getCurrData();
         data.map((obj, idx) => {
-            if(obj.type == type){
-                list.push(
-                    <div key={idx}>
-                        <a onClick={this.viewDetail.bind(this, obj)} className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
-                    </div>
-                );
-            }
+            list.push(
+                <div key={idx}>
+                    <a onClick={this.viewDetail.bind(this, obj)} className="news-title" href="javascript:;">{'['+obj.title+']'}</a>
+                </div>
+            );
         });
         return list;
     }
 
     viewDetail(data) {
         localStorage.setItem('imformation', JSON.stringify(data));
+        this.props.imformationBoundAc.addViewNum(data._id);
         this.context.router.push({pathname: '/imformation/'+data._id});
     }
 
@@ -143,35 +145,62 @@ export default class Imformation extends Component {
             <div className="imformation-wrap">
                 <div className="imformation clearfix">
                     <div className="imformation-left">
-                        <div className="imformation-left-con">
-                            <h1 className='imformation-left-tit'>公司新闻</h1>
-                            <div>
-                                {this.createNews('公司新闻')}
+                        {this.state.data.companyHot == undefined
+                            ?
+                            <Loading />
+                            :
+                        this.state.data.companyHot.length == 0
+                            ?
+                            <NotFound />
+                            :
+                            <div className="imformation-left-con">
+                                <h1 className='imformation-left-tit'>公司新闻</h1>
+                                <div>
+                                    {this.createNews(this.state.data.companyHot)}
+                                </div>
                             </div>
-                        </div>
-                        <div className="imformation-left-con">
-                            <h1 className='imformation-left-tit'>行业新闻</h1>
-                            <div>
-                                {this.createNews('行业新闻')}
+                        }
+                        {this.state.data.industryHot == undefined
+                            ?
+                            <Loading />
+                            :
+                        this.state.data.industryHot.length == 0
+                            ?
+                            <NotFound />
+                            :
+                            <div className="imformation-left-con">
+                                <h1 className='imformation-left-tit'>行业新闻</h1>
+                                <div>
+                                    {this.createNews(this.state.data.industryHot)}
+                                </div>
                             </div>
-                        </div>
+                        }
                         <div className="imformation-left-axis">
                             <div style={{transform: 'rotate('+this.state.rotate+'deg)'}} className="imformation-circle">
                                 {this.createAxis()}
                             </div>
                         </div>
                     </div>
-                    <div className="imformation-right">
-                        <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="5000" />
-                        {this.createItem()}
-                        <div className="imformation-pagination">
-                            <Pagination current={this.state.current}
-                                pageSize={this.state.pageSize}
-                                defaultCurrent={1}
-                                total={this.state.data.length}
-                                onChange={this.changePage.bind(this)} />
+                    {this.state.data.otherHot == undefined
+                        ?
+                        <Loading />
+                        :
+                    this.state.data.otherHot.length == 0
+                        ?
+                        <NotFound />
+                        :
+                        <div className="imformation-right">
+                            <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="5000" />
+                            {this.createItem()}
+                            <div className="imformation-pagination">
+                                <Pagination current={this.state.current}
+                                    pageSize={this.state.pageSize}
+                                    defaultCurrent={1}
+                                    total={this.state.data.otherHot.length}
+                                    onChange={this.changePage.bind(this)} />
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         )

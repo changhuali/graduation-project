@@ -18,10 +18,11 @@ export function getImformationList() {
         })
     }
 }
-export function addViewNum() {
+export function addViewNum(id) {
     return dispatch => {
         HttpRequest
-        .get('/api/imformation/viewNum')
+        .put('/api/imformation/viewNum')
+        .send({_id: id})
         .end((err, resp) => {
             dispatch({
                 type: ADD_VIEW_NUM,
