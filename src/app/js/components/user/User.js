@@ -28,7 +28,7 @@ export default class User extends Component {
     }
 
     getBodyHeight() {
-        var bodyHeight = window.innerHeight-370 < 500 ? 500 : window.innerHeight - 370;
+        var bodyHeight = window.innerHeight-342 < 500 ? 500 : window.innerHeight - 342;
         this.setState({
             bodyHeight: bodyHeight,
         })
