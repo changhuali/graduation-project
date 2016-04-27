@@ -104,8 +104,12 @@
     color: #01af63;
     box-sizing: border-box;
     border: 1px solid rgb(67, 185, 18);
+    transition: all .5s;
 }
-
+.onlineDemo-selectedItem:hover{
+    color: #fff;
+    background: rgb(67, 185, 18);
+}
 
 .demoDetail{
     width: 1220px;
@@ -129,17 +133,50 @@
     height: 100%;
 }
 .demoDetail-listBox{
-    bottom: 0;
+    position: relative;
     width: 1220px;
     height: 80px;
     overflow: hidden;
+    box-sizing: border-box;
     background: rgba(51, 52, 49, 0.49);
+}
+.demoDetail-listBox-con{
+    width: 1125px;
+    margin: 0 auto;
+}
+.demoDetail-listIcon{
+    position: absolute;
+    top: 22.5px;
+    width: 30px;
+    height: 30px;
+    transform: rotate(45deg);
+    border: 4px solid #fff;
+    cursor: pointer;
+    z-index: 1;
+}
+.demoDetail-listIcon:hover{
+    border: 4px solid rgba(39, 249, 96, 0.25);
+}
+.demoDetail-listBox .leftIcon{
+    left: 15px;
+    border-top: none;
+    border-right: none;
+}
+.demoDetail-listBox .rightIcon{
+    right: 15px;
+    border-left: none;
+    border-bottom: none;
 }
 .demoDetail-listItem{
     float: left;
-    margin: 10px;
+    margin: 10px 7.5px;
     height: 60px;
     width: 60px;
+}
+.demoDetail-listBox .active{
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    transition: all .1s;
 }
 .demoDetail-listItem img{
     width: 100%;

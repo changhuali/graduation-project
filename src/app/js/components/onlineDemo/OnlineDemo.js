@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {routerShape} from 'react-router';
+import Loading from '../common/Loading';
+import NotFound from '../common/NotFound';
 import { Pagination } from 'antd';
 
 export default class OnlineDemo extends Component {
@@ -116,6 +118,7 @@ export default class OnlineDemo extends Component {
     }
 
     render() {
+        var data = this.getCurrData();
         return (
             <div className="onlineDemo-wrap">
               <div className="onlineDemo">
@@ -141,15 +144,20 @@ export default class OnlineDemo extends Component {
                     </div>
                   </div>
                 </div>
-                {this.createItem()}
-                <div className="onlineDemo-pagination">
-                  <Pagination
-                    current={this.state.current}
-                    defaultCurrent={1}
-                    pageSize={this.state.pageSize}
-                    total={DATA.length}
-                    onChange={this.changePage.bind(this)} />
+                {data.length > 0 ?
+                <div>
+                    {this.createItem()}
+                    <div className="onlineDemo-pagination">
+                        <Pagination
+                            current={this.state.current}
+                            defaultCurrent={1}
+                            pageSize={this.state.pageSize}
+                            total={DATA.length}
+                            onChange={this.changePage.bind(this)} />
+                    </div>
                 </div>
+                :
+                <NotFound />}
               </div>
             </div>
         )
