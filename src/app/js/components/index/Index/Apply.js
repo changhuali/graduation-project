@@ -17,7 +17,12 @@ export default class Apply extends Component {
         e.preventDefault();
         if(this.state.applyName != "" && this.state.applyPhone != "") {
             if(__FORMCHECK__.isPhoneNum(this.state.applyPhone)) {
-                this.props.contactBoundAc.apply({});
+                this.props.contactBoundAc.apply({applyItem: this.state.applyItem, applyName: this.state.applyName, applyPhone: this.state.applyPhone});
+                this.setState({
+                    applyItem: "免费设计",
+                    applyName: "",
+                    applyPhone: "",
+                })
             }else{
                 message.warn('手机号码格式错误');
             }

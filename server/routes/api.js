@@ -343,12 +343,31 @@ router.put('/imformation/viewNum', function(req, res) {
     })
 })
 
+//效果图
 router.post('/onlineDemo/getList', function(req, res) {
     Model.getOnlineDemoList(req, function(status, data) {
         if(status == 200) {
             res.statusCode = 200;
             res.send({
                 data: data,
+            })
+        }else{
+            res.statusCode = 500;
+            res.send({
+                errorCode: 500,
+                message: '服务器内部错误',
+            })
+        }
+    })
+})
+
+//申请
+router.post('/contact/apply', function(req, res) {
+    Model.apply(req, function(status, data) {
+        if(status == 200) {
+            res.statusCode = 200;
+            res.send({
+                message: '申请成功,请等待我们的客服与您联系',
             })
         }else{
             res.statusCode = 500;

@@ -70,6 +70,14 @@ var onlineDemoSchema = new mongoose.Schema({
     img: String,
 })
 
+//申请collection Schema
+var applySchema = new mongoose.Schema({
+    id: String,
+    applyItem: String,
+    applyName: String,
+    applyPhone: String,
+})
+
 //生成的Model对象
 var Model = {
     userModel: db.model('user', userSchema, "user"),
@@ -79,6 +87,7 @@ var Model = {
     familyCaseModel: db.model('familyCase', familyCaseSchama, "familyCase"),
     imformationModel: db.model('imformation', imformationSchema, "imformation"),
     onlineDemoModel: db.model('onlineDemo', onlineDemoSchema, 'onlineDemo'),
+    applyModel: db.model('apply', applySchema, 'apply'),
 }
 
 //用户登录
@@ -385,6 +394,18 @@ Model.getOnlineDemoList = function(req, callback) {
             console.log(500);
         }else{
             callback(200, data);
+        }
+    })
+}
+
+//申请
+Model.apply = function(req, callback) {
+    Model.applyModel.create(req.body, function(err, data) {
+        console.log(data, '==========申请 data');
+        if(err) {
+            console.log(err);
+        }else{
+            callback(200);
         }
     })
 }
