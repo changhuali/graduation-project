@@ -11,7 +11,7 @@ export default class Loading extends Component {
 
     render() {
         return (
-            <div style={{width: '960px', margin: '0 auto', textAlign: 'center', padding: '100px 0', minHeight: '400px'}}>
+            <div>
                 <Spin />
             </div>
         )

@@ -11,7 +11,7 @@ export default class NotFound extends Component {
 
     render() {
         return (
-            <div style={{width: '960px', margin: '0 auto', padding: '100px 0', minHeight: '400px'}}>
+            <div>
                 <Alert type={this.props.type} message={this.props.message} />
             </div>
         )
