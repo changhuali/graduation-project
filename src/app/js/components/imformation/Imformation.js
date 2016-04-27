@@ -35,6 +35,10 @@ export default class Imformation extends Component {
         });
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     createItem() {
         var list = [];
         var data = this.getCurrData();

@@ -10,8 +10,16 @@ export default class OnlineDemo extends Component {
         this.state = {
             current: 1,
             pageSize: 30,
-            selected: ["", "", ""],
+            selected: this.initSelected(),
         }
+    }
+
+    initSelected() {
+        var arr = ["", "", ""];
+        if(this.props.location.query.type) {
+            arr[0] = this.props.location.query.type;
+        }
+        return arr;
     }
 
     valueNotInArr(arr, value) {
@@ -115,6 +123,10 @@ export default class OnlineDemo extends Component {
         var arr = this.state.selected;
         var params = {space: arr[0], part: arr[1], style: arr[2]};
         this.props.onlineDemoBoundAc.getList(params);
+    }
+
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
     }
 
     render() {

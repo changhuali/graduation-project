@@ -44,6 +44,10 @@ export default class Promotion extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     createItem() {
         var data = this.getCurrData();
         var list = [];

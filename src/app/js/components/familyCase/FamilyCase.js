@@ -44,6 +44,10 @@ export default class FamilyCase extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     createItem() {
         var list = [];
         var data = this.getCurrData();

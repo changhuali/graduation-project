@@ -139,6 +139,10 @@ export default class Budget extends Component {
         return weightCount*priceWeight.base*formObj.area/100;
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         var formObj = this.state.budgetForm;
         return (

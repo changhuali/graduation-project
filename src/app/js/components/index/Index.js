@@ -18,6 +18,10 @@ export default class Index extends Component{
         }
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     render(){
         var imgArr  = [
             {img: section_head_1},

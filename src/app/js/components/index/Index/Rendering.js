@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {routerShape} from 'react-router';
+
 import rendering_1 from '../../../../images/rendering_1.jpg';
 import rendering_2 from '../../../../images/rendering_2.jpg';
 import rendering_3 from '../../../../images/rendering_3.jpg';
@@ -16,11 +18,15 @@ export default class Rendering extends Component {
         }
     }
 
+    viewDetail(text) {
+        this.context.router.push({pathname: '/onlineDemo',query: {type: text}});
+    }
+
     createItem() {
         var list = [];
         DATA.map((obj, idx) => {
             list.push(
-                <div key={obj.text+idx} className="index-rendering-item">
+                <div key={obj.text+idx} onClick={this.viewDetail.bind(this, obj.text)} className="index-rendering-item">
                     <img src={obj.img} />
                     <p>{obj.text}</p>
                 </div>
@@ -38,6 +44,10 @@ export default class Rendering extends Component {
     }
 }
 
+Rendering.contextTypes = {
+    router: routerShape.isRequired,
+}
+
 const DATA = [
     {img: rendering_1, text: '客厅'},
     {img: rendering_2, text: '卧室'},
@@ -45,6 +55,6 @@ const DATA = [
     {img: rendering_4, text: '厨房'},
     {img: rendering_5, text: '卫生间'},
     {img: rendering_6, text: '阳台'},
-    {img: rendering_7, text: '背景墙'},
-    {img: rendering_8, text: '吊顶'},
+    {img: rendering_7, text: '书房'},
+    {img: rendering_8, text: '花园'},
 ];

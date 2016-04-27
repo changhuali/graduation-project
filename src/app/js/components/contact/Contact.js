@@ -68,6 +68,10 @@ export default class Contact extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         var formObj = this.state.contactInfo;
         return (
