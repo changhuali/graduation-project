@@ -197,6 +197,7 @@
     margin-right: 60px;
     border: 1px solid #eee;
     box-sizing: border-box;
+    cursor: pointer;
 }
 .index-case-item:last-child{
     margin-right: 0;
