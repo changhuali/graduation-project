@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { __FORMCHECK__ } from '../../../../../config/class';
+import {message} from 'antd';
 
 export default class Apply extends Component {
     constructor(props) {
@@ -8,6 +10,19 @@ export default class Apply extends Component {
             applyMsg: "10秒登记，免费获取专业设计方案",
             applyName: "",
             applyPhone: "",
+        }
+    }
+
+    apply(e) {
+        e.preventDefault();
+        if(this.state.applyName != "" && this.state.applyPhone != "") {
+            if(__FORMCHECK__.isPhoneNum(this.state.applyPhone)) {
+                this.props.contactBoundAc.apply({});
+            }else{
+                message.warn('手机号码格式错误');
+            }
+        }else{
+            message.warn('请输入您的信息,方便我们联系您')
         }
     }
 
@@ -50,11 +65,11 @@ export default class Apply extends Component {
                     <div className="index-head-applyForm">
                         <input type="text" name="applyName" onChange={this.setApplyInput.bind(this)} value={this.state.applyName} placeholder="您的称呼" />
                         <input type="text" name="applyPhone" onChange={this.setApplyInput.bind(this)} value={this.state.applyPhone} placeholder="您的电话" />
-                        <input type="submit" value="立即申请" />
+                        <input onClick={this.apply.bind(this)} type="submit" value="立即申请" />
                     </div>
                     <div className="index-head-applyBottom">
                         <ul>
-                            <li>风投C轮投资2亿美金，装修就上土巴兔</li>
+                            <li>风投C轮投资2亿美金，装修就上国风</li>
                             <li>更专业的装修服务平台，900万业主的共同选择</li>
                         </ul>
                     </div>

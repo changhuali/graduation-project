@@ -63,7 +63,7 @@ export default class Nav extends Component {
     {"key": "首页","src": "/"},
     // {"key": "家装产品","src": "/familyPro"},
     {"key": "家装案例","src": "/familyCase"},
-    {"key": "在线样板房","src": "/onlineDemo"},
+    {"key": "效果图","src": "/onlineDemo"},
     {"key": "装修预算","src": "/budget"},
     {"key": "资讯中心","src": "/imformation"},
     {"key": "优惠活动","src": "/promotion"},
