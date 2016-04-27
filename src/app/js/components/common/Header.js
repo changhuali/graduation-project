@@ -41,7 +41,6 @@ export default class Header extends Component {
                             <li><Link style={{color: "#999999"}} to={{pathname: "login"}}>请登录</Link></li>
                             <li><Link style={{color: "#999999"}} to={{pathname: "regist"}}>免费注册</Link></li>
                             <li>咨询热线:400-400-888</li>
-                            <li>关注微信</li>
                         </ul>
                     }
                 </div>
@@ -87,7 +86,6 @@ class UserSetting extends Component{
         return (
             <ul className="header-right">
                 <li>咨询热线:400-400-888</li>
-                <li>关注微信</li>
                 <li id="header_user" onMouseLeave={this.showUserSet.bind(this)} onMouseEnter={this.showUserSet.bind(this)} className="header-user">
                     <a  className="color_theme" href="javascript:;"><i className="fa fa-user"></i>&nbsp;&nbsp;{this.props.user.info.userName}</a>
                     {this.state.showUserSet ?
