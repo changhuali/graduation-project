@@ -9,7 +9,7 @@ export const ADD_VIEW_NUM = 'ADD_VIEW_NUM';
 export function getImformationList() {
     return dispatch => {
         HttpRequest
-        .get('/api/imformation/list')
+        .get('/api/imformation/newsList')
         .end((err, resp) => {
             dispatch({
                 type: GET_IMFORMATION_LIST,

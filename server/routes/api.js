@@ -309,7 +309,7 @@ router.get('/family/caseList', function(req, res) {
 })
 
 //新闻资讯
-router.get('/imformation/list', function(req, res) {
+router.get('/imformation/newsList', function(req, res) {
     Model.getImformationList(req, function(status, data) {
         if(status == 200) {
             res.statusCode = 200;
