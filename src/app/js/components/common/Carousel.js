@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-var t = undefined;
 export default class Carousel extends Component{
     constructor(props){
         super(props);
         this.state={
             right: 0,
             index: 0,
+            t: '',
         }
     }
 
@@ -14,11 +14,11 @@ export default class Carousel extends Component{
     }
 
     componentWillUnmount() {
-        clearTimeout(t);
+        clearTimeout(this.state.t);
     }
 
     startAnimate() {
-        t = setTimeout(()=>{
+        this.state.t = setTimeout(()=>{
             var newIndex = this.state.index + 1;
             if(this.state.index == this.props.imgSource.length-1){
                 this.setState({
@@ -50,7 +50,7 @@ export default class Carousel extends Component{
         return list;
     }
     changeIndex(idx) {
-        clearTimeout(t);
+        clearTimeout(this.state.t);
         this.setState({
             index: idx,
             right: idx*this.props.width,
@@ -59,7 +59,7 @@ export default class Carousel extends Component{
     }
 
     pauseAnimate() {
-        clearTimeout(t);
+        clearTimeout(this.state.t);
     }
 
     continueAnimate() {
