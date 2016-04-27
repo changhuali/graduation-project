@@ -19,11 +19,15 @@ export default class DemoDetail extends Component {
 
     showImg(obj, idx) {
         this.context.router.push('/onlineDemo/'+((this.state.currPage-1)*this.state.pageSize+idx));
-        this.setState({
-            imgUrl: obj.img,
-            title: obj.title,
-            active: idx,
-        })
+        setTimeout(() => {
+            document.getElementById('showImg').style.opacity = 1;
+            this.setState({
+                imgUrl: obj.img,
+                title: obj.title,
+                active: idx,
+            });
+        }, 300);
+        document.getElementById('showImg').style.opacity = 0;
     }
 
     getCurrData() {
@@ -75,13 +79,12 @@ export default class DemoDetail extends Component {
     }
 
     render() {
-        console.log(Number(this.props.location.pathname.split('/')[2]), this.state.currPage);
         return (
             <div className="demoDetail-wrap">
                 <div className="demoDetail">
                     <h2 className="demoDetail-title">{this.state.title}</h2>
                     <div className="demoDetail-imgBox">
-                        <img src={this.state.imgUrl} />
+                        <img id="showImg" className="showImg" src={this.state.imgUrl} />
                     </div>
                     <div className="demoDetail-listBox">
                         <div className="demoDetail-listBox-con clearfix">{this.createItem()}</div>

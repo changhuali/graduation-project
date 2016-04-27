@@ -131,6 +131,10 @@
 .demoDetail-imgBox img{
     width: 100%;
     height: 100%;
+    opacity: 1;
+}
+.demoDetail-imgBox .showImg{
+    transition: all .5s;
 }
 .demoDetail-listBox{
     position: relative;
