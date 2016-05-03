@@ -120,9 +120,8 @@ export default class OnlineDemo extends Component {
     }
 
     componentDidMount() {
-        var arr = this.state.selected;
-        var params = {space: arr[0], part: arr[1], style: arr[2]};
-        this.props.onlineDemoBoundAc.getList(params);
+        var keyword = this.props.location.query.keyword != undefined ? this.props.location.query.keyword : "";
+        this.props.onlineDemoBoundAc.getOnlineDemoList({keyword: keyword});
     }
 
     componentWillUnmount() {

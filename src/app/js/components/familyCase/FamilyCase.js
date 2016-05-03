@@ -33,7 +33,8 @@ export default class FamilyCase extends Component {
     }
 
     componentDidMount() {
-        this.props.familyCaseBoundAc.getFamilyCaseList();
+        var keyword = this.props.location.query.keyword != undefined ? this.props.location.query.keyword : "";
+        this.props.familyCaseBoundAc.getFamilyCaseList({keyword: keyword});
     }
 
     componentWillReceiveProps(nextProps) {

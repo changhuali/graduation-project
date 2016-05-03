@@ -127,7 +127,8 @@ export default class Imformation extends Component {
     }
 
     componentDidMount() {
-        this.props.imformationBoundAc.getImformationList();
+        var keyword = this.props.location.query.keyword != undefined ? this.props.location.query.keyword : "";
+        this.props.imformationBoundAc.getImformationList({keyword: keyword});
     }
 
     componentWillReceiveProps(nextProps) {

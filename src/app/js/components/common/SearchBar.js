@@ -10,7 +10,7 @@ export default class SearchBar extends Component {
         super(props);
         this.state={
             keyword: "",
-            selected: "效果图",
+            selected: "请选择",
             showOption: false,
         }
     }
@@ -18,16 +18,22 @@ export default class SearchBar extends Component {
     resetState(){
         this.setState({
             keyword: "",
-            selected: "效果图",
             showOption: false,
         })
     }
 
     selected(value) {
+        var dict = {
+            '家装案列': '/familyCase',
+            '效果图': '/onlineDemo',
+            '资讯': '/imformation',
+        };
         this.setState({
             selected: value,
             showOption: false,
         });
+        var pathname = dict[value];
+        this.context.router.push({pathname: pathname, query:{keyword: this.state.keyword}});
     }
 
     changeKeyword(e) {
@@ -37,7 +43,7 @@ export default class SearchBar extends Component {
     }
 
     createOption() {
-        var arr = ['家装案列', '效果图', '资讯', '优惠活动'];
+        var arr = ['家装案列', '效果图', '资讯'];
         var list = [];
         arr.map((key, idx) => {
             if(key != this.state.selected) {
@@ -58,19 +64,43 @@ export default class SearchBar extends Component {
     }
 
     search(e) {
-        var dict = {
-            '家装案列': '/familyCase',
-            '效果图': '/onlineDemo',
-            '资讯': '/imformation',
-            '优惠活动': '/promotion',
-        };
         e.preventDefault();
-        if(this.state.keyword == "") {
-            message.warn('关键字不能为空噢!')
+        if(this.state.selected == '请选择') {
+            message.warn('请选择您要搜索的类型');
         }else{
-            var pathname = dict[this.state.selected];
-            this.resetState();
-            this.context.router.push({pathname: pathname, query: {keyword: this.state.keyword}});
+            var handle = {
+                '家装案列': this.props.familyCaseBoundAc.getFamilyCaseList,
+                '效果图': this.props.onlineDemoBoundAc.getOnlineDemoList,
+                '资讯': this.props.imformationBoundAc.getImformationList,
+            };
+            handle[this.state.selected]({keyword: this.state.keyword});
+        }
+    }
+
+    jugeRoute(pathname) {
+        var dict = ['/familyCase', '/onlineDemo', '/imformation'];
+        var tag = dict.some((key) => {
+            var patt = new RegExp("^"+key);
+            return patt.test(pathname);
+        })
+        return tag;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        var dict = {
+            'familyCase': '家装案列',
+            'onlineDemo': '效果图',
+            'imformation': '资讯',
+        };
+        if(this.jugeRoute(nextProps.location.pathname)) {
+            this.setState({
+                selected: dict[nextProps.location.pathname.split('/')[1]],
+            })
+        }
+        if(!this.jugeRoute(nextProps.location.pathname)) {
+            this.setState({
+                selected: '请选择',
+            })
         }
     }
 

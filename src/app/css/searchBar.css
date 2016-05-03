@@ -61,6 +61,7 @@
     background: #eee;
 }
 .searchBar-input{
+    float: left;
     width: 300px;
     height: 100%;
     border: none;
@@ -69,6 +70,7 @@
     box-sizing: border-box;
 }
 .searchBar-btn{
+    float: left;
     width: 100px;
     height: 100%;
     border: none;

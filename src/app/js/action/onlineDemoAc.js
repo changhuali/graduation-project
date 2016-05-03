@@ -5,11 +5,11 @@ import __has from 'lodash/has';
 
 export const GET_ONLINEDEMO_LIST = 'GET_ONLINEDEMO_LIST';
 
-export function getList(params) {
+export function getOnlineDemoList(params) {
     return dispatch => {
         HttpRequest
-        .post('/api/onlineDemo/getList')
-        .send(params)
+        .get('/api/onlineDemo/getList')
+        .query(params)
         .end((err, resp) => {
             dispatch({
                 type: GET_ONLINEDEMO_LIST,

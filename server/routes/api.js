@@ -344,7 +344,7 @@ router.put('/imformation/viewNum', function(req, res) {
 })
 
 //效果图
-router.post('/onlineDemo/getList', function(req, res) {
+router.get('/onlineDemo/getList', function(req, res) {
     Model.getOnlineDemoList(req, function(status, data) {
         if(status == 200) {
             res.statusCode = 200;

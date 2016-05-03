@@ -6,10 +6,11 @@ import __has from 'lodash/has';
 export const GET_IMFORMATION_LIST = 'GET_IMFORMATION_LIST';
 export const ADD_VIEW_NUM = 'ADD_VIEW_NUM';
 
-export function getImformationList() {
+export function getImformationList(params) {
     return dispatch => {
         HttpRequest
         .get('/api/imformation/newsList')
+        .query(params)
         .end((err, resp) => {
             dispatch({
                 type: GET_IMFORMATION_LIST,
