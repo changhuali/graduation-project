@@ -24,14 +24,41 @@
     margin-top: 13px;
     border: 2px solid #01af63;
 }
+.pl10{
+    padding-left: 10px;
+}
 .searchBar-select{
+    position: relative;
     float: left;
     width: 100px;
     height: 100%;
     line-height: 40px;
-    background: #eee;
-    text-align: center;
+    background: #fff;
     color: #999;
+    border-right: 1px solid #eee;
+    box-sizing: border-box;
+}
+.searchBar-icon{
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    margin-top: -6px;
+}
+.searchBar-optionBox{
+    position: relative;
+    width: 100px;
+    z-index: 1;
+    background: #fff;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    border-top: none;
+}
+.searchBar-option{
+    cursor: pointer;
+    transition: all .3s;
+}
+.searchBar-option:hover{
+    background: #eee;
 }
 .searchBar-input{
     width: 300px;
