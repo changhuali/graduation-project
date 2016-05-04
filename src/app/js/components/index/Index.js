@@ -6,10 +6,10 @@ import Rendering from './Index/Rendering';
 import Case      from './Index/Case';
 import HotNews   from './Index/HotNews';
 import Exhibition from './Index/Exhibition';
-import section_head_1 from '../../../images/section_head_1.jpg';
-import section_head_2 from '../../../images/section_head_2.jpg';
-import section_head_3 from '../../../images/section_head_3.jpg';
-import section_head_4 from '../../../images/section_head_4.jpg';
+import section_head_1 from '../../../images/index/carousel/section_head_1.jpg';
+import section_head_2 from '../../../images/index/carousel/section_head_2.jpg';
+import section_head_3 from '../../../images/index/carousel/section_head_3.jpg';
+import section_head_4 from '../../../images/index/carousel/section_head_4.jpg';
 
 export default class Index extends Component{
     constructor(props) {

@@ -1,7 +1,6 @@
 import React , {Component} from 'react';
 import {routerShape} from 'react-router';
-import search_logo from '../../../images/search_login.jpg';
-import search_right from '../../../images/search_right.jpg';
+import search_right from '../../../images/index/header/search_right.jpg';
 
 import {message} from 'antd';
 
@@ -132,7 +131,7 @@ export default class SearchBar extends Component {
                         <input type="submit" onClick={this.search.bind(this)} className="searchBar-btn" value="搜索" />
                     </div>
                     <div className="searchBar-ad">
-
+                        <img src={search_right} />
                     </div>
                 </div>
             </div>

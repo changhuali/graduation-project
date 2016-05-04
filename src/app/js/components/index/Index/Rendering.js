@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {routerShape} from 'react-router';
 
-import rendering_1 from '../../../../images/rendering_1.jpg';
-import rendering_2 from '../../../../images/rendering_2.jpg';
-import rendering_3 from '../../../../images/rendering_3.jpg';
-import rendering_4 from '../../../../images/rendering_4.jpg';
-import rendering_5 from '../../../../images/rendering_5.jpg';
-import rendering_6 from '../../../../images/rendering_6.jpg';
-import rendering_7 from '../../../../images/rendering_7.jpg';
-import rendering_8 from '../../../../images/rendering_8.jpg';
+import rendering_1 from '../../../../images/index/render/rendering_1.jpg';
+import rendering_2 from '../../../../images/index/render/rendering_2.jpg';
+import rendering_3 from '../../../../images/index/render/rendering_3.jpg';
+import rendering_4 from '../../../../images/index/render/rendering_4.jpg';
+import rendering_5 from '../../../../images/index/render/rendering_5.jpg';
+import rendering_6 from '../../../../images/index/render/rendering_6.jpg';
+import rendering_7 from '../../../../images/index/render/rendering_7.jpg';
+import rendering_8 from '../../../../images/index/render/rendering_8.jpg';
 
 export default class Rendering extends Component {
     constructor(props) {

@@ -5,8 +5,8 @@ import Loading from '../../common/Loading';
 import NotFound from '../../common/NotFound';
 import Carousel from '../../common/Carousel';
 
-import news_ad from '../../../../images/news_ad.jpg';
-import news_ad2 from '../../../../images/news_ad2.jpg';
+import news_ad from '../../../../images/index/news/news_ad.jpg';
+import news_ad2 from '../../../../images/index/news/news_ad2.jpg';
 
 import section_head_1 from '../../../../images/imformation/carousel/item_1.jpg';
 import section_head_2 from '../../../../images/imformation/carousel/item_2.jpg';

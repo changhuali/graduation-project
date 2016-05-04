@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import exhibition_1 from '../../../../images/exhibition_1.jpg';
-import exhibition_2 from '../../../../images/exhibition_2.jpg';
-import exhibition_3 from '../../../../images/exhibition_3.jpg';
-import exhibition_4 from '../../../../images/exhibition_4.jpg';
-import exhibition_5 from '../../../../images/exhibition_5.jpg';
-import exhibition_6 from '../../../../images/exhibition_6.jpg';
+import exhibition_1 from '../../../../images/index/exhibition/exhibition_1.jpg';
+import exhibition_2 from '../../../../images/index/exhibition/exhibition_2.jpg';
+import exhibition_3 from '../../../../images/index/exhibition/exhibition_3.jpg';
+import exhibition_4 from '../../../../images/index/exhibition/exhibition_4.jpg';
+import exhibition_5 from '../../../../images/index/exhibition/exhibition_5.jpg';
+import exhibition_6 from '../../../../images/index/exhibition/exhibition_6.jpg';
 
 export default class Exhibition extends Component {
     constructor(props) {
