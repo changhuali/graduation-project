@@ -11,6 +11,7 @@ export default class OnlineDemo extends Component {
             current: 1,
             pageSize: 30,
             selected: this.initSelected(),
+            data: [],
         }
     }
 
@@ -39,7 +40,7 @@ export default class OnlineDemo extends Component {
                 condition[key] = params[key];
             }
         })
-        DATA.map((obj, idx) => {
+        this.state.data.map((obj, idx) => {
             var tag = Object.keys(condition).every(key => {
                 return obj[key] == condition[key];
             })
@@ -128,8 +129,16 @@ export default class OnlineDemo extends Component {
         window.scrollTo(0, 0);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.onlineDemo.list.data != undefined) {
+            this.setState({
+                data: nextProps.onlineDemo.list.data,
+            })
+        }
+    }
+
     render() {
-        var data = this.getCurrData();
+        var data = this.state.data;
         return (
             <div className="onlineDemo-wrap">
               <div className="onlineDemo">
@@ -155,7 +164,10 @@ export default class OnlineDemo extends Component {
                     </div>
                   </div>
                 </div>
-                {data.length > 0 ?
+                {data == undefined ?
+                    <Loading />
+                :
+                this.getCurrData()['length'] > 0 ?
                 <div>
                     {this.createItem()}
                     <div className="onlineDemo-pagination">

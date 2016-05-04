@@ -33,6 +33,7 @@ export default class SearchBar extends Component {
             showOption: false,
         });
         var pathname = dict[value];
+        document.getElementById('searchBar').focus();
         this.context.router.push({pathname: pathname, query:{keyword: this.state.keyword}});
     }
 
@@ -120,7 +121,7 @@ export default class SearchBar extends Component {
                             : ""}
                             <i className={"fa searchBar-icon fa-caret-"+arrow}></i>
                         </div>
-                        <input type="text" className="searchBar-input" onChange={this.changeKeyword.bind(this)} value={this.state.keyword} placeholder="请输入关键字" />
+                        <input id="searchBar" type="text" className="searchBar-input" onChange={this.changeKeyword.bind(this)} value={this.state.keyword} placeholder="请输入关键字" />
                         <input type="submit" onClick={this.search.bind(this)} className="searchBar-btn" value="搜索" />
                     </div>
                     <div className="searchBar-ad">

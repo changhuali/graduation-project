@@ -8,7 +8,7 @@ export const GET_ONLINEDEMO_LIST = 'GET_ONLINEDEMO_LIST';
 export function getOnlineDemoList(params) {
     return dispatch => {
         HttpRequest
-        .get('/api/onlineDemo/getList')
+        .get('/api/onlineDemo/getOnlineDemoList')
         .query(params)
         .end((err, resp) => {
             dispatch({
