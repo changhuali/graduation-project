@@ -65,6 +65,11 @@ export default class SearchBar extends Component {
     }
 
     search(e) {
+        var dict = {
+            '家装案列': '/familyCase',
+            '效果图': '/onlineDemo',
+            '资讯': '/imformation',
+        };
         e.preventDefault();
         if(this.state.selected == '请选择') {
             message.warn('请选择您要搜索的类型');
@@ -76,6 +81,8 @@ export default class SearchBar extends Component {
             };
             handle[this.state.selected]({keyword: this.state.keyword});
         }
+        var pathname = dict[this.state.selected];
+        this.context.router.push({pathname: pathname, query:{keyword: this.state.keyword}});
     }
 
     jugeRoute(pathname) {

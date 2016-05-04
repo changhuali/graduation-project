@@ -327,7 +327,8 @@ Model.getPromotionList = function(req, callback) {
 
 //家装案列
 Model.getFamilyCaseList = function(req, callback) {
-    Model.familyCaseModel.find({}, function(err, data) {
+    var regExp = new RegExp(req.query.keyword);
+    Model.familyCaseModel.find().or([{title: regExp}, {description: regExp}, {data: regExp}]).exec(function(err, data) {
         console.log(data, '==========家装案列list data');
         if(err) {
             console.log(err);
@@ -339,6 +340,7 @@ Model.getFamilyCaseList = function(req, callback) {
 
 //新闻资讯
 Model.getImformationList = function(req, callback) {
+    var regExp = new RegExp(req.query.keyword);
     Model.imformationModel.find({}, function(err, data) {
         console.log(data, '==========资讯中心list data');
         if(err) {
@@ -352,16 +354,26 @@ Model.getImformationList = function(req, callback) {
                     industryHot.push(obj);
                 }else if(obj.type == '公司新闻') {
                     companyHot.push(obj);
-                }else{
-                    otherHot.push(obj);
                 }
             })
-            var obj = {
-                industryHot: industryHot,
-                companyHot: companyHot,
-                otherHot: otherHot
-            }
-            callback(200, obj);
+            Model.imformationModel.find().or([{title: regExp}, {time: regExp}, {desc: regExp}, {type: regExp}]).exec(function(err, newData) {
+                console.log(data, '==========资讯中心模糊匹配list data');
+                if(err) {
+                    console.log(err);
+                }else{
+                    newData.map(function(obj) {
+                        if(obj.type == '其他') {
+                            otherHot.push(obj);
+                        }
+                    });
+                    var obj = {
+                        industryHot: industryHot,
+                        companyHot: companyHot,
+                        otherHot: otherHot
+                    }
+                    callback(200, obj);
+                }
+            })
         }
     })
 }
@@ -388,7 +400,8 @@ Model.addImformationNum = function(req, callback) {
 
 //装修效果图
 Model.getOnlineDemoList = function(req, callback) {
-    Model.onlineDemoModel.find({}, function(err, data) {
+    var regExp = new RegExp(req.query.keyword);
+    Model.onlineDemoModel.find().or([{title: regExp}, {space: regExp}, {part: regExp}, {style: regExp}]).exec(function(err, data) {
         console.log(data, '==========装修效果图list data');
         if(err) {
             console.log(500);

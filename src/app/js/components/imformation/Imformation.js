@@ -35,10 +35,6 @@ export default class Imformation extends Component {
         });
     }
 
-    componentWillUnmount() {
-        window.scrollTo(0, 0);
-    }
-
     createItem() {
         var list = [];
         var data = this.getCurrData();
@@ -67,7 +63,7 @@ export default class Imformation extends Component {
         console.log(360/INDUSTRY_DATA.length*idx);
         this.setState({
             showIndex: idx,
-            // rotate: 360-360/INDUSTRY_DATA.length*(idx),
+            rotate: 360-360/INDUSTRY_DATA.length*(idx),
         })
     }
 
@@ -139,6 +135,10 @@ export default class Imformation extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         var imgArr  = [
             {img: section_head_1, desc: "CAN TV高色域电视上市 重点在画质和音质"},
@@ -186,26 +186,28 @@ export default class Imformation extends Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.data.otherHot == undefined
-                        ?
-                        <Loading />
-                        :
-                    this.state.data.otherHot.length == 0
-                        ?
-                        <NotFound />
-                        :
                         <div className="imformation-right">
                             <Carousel style={{marginBottom: '40px'}} btnRight {...this.props} imgSource={imgArr} width="898" height="345" timeCycle="5000" />
-                            {this.createItem()}
-                            <div className="imformation-pagination">
-                                <Pagination current={this.state.current}
-                                    pageSize={this.state.pageSize}
-                                    defaultCurrent={1}
-                                    total={this.state.data.otherHot.length}
-                                    onChange={this.changePage.bind(this)} />
-                            </div>
+                            {this.state.data.otherHot == undefined
+                                ?
+                                <Loading />
+                                :
+                            this.state.data.otherHot.length == 0
+                                ?
+                                <NotFound />
+                                :
+                                <div>
+                                    {this.createItem()}
+                                    <div className="imformation-pagination">
+                                        <Pagination current={this.state.current}
+                                            pageSize={this.state.pageSize}
+                                            defaultCurrent={1}
+                                            total={this.state.data.otherHot.length}
+                                            onChange={this.changePage.bind(this)} />
+                                    </div>
+                                </div>
+                            }
                         </div>
-                    }
                 </div>
             </div>
         )

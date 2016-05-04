@@ -83,6 +83,7 @@ export default class FamilyCase extends Component {
     render() {
         return (
             <div className="familyCase-wrap">
+                <div className="familyCase">
                 {this.state.data == undefined
                     ?
                     <Loading />
@@ -91,7 +92,7 @@ export default class FamilyCase extends Component {
                     ?
                     <NotFound message="暂时没有相关案列" />
                     :
-                    <div className="familyCase">
+                    <div>
                         {this.createItem()}
                         <div className="familyCase-pagination">
                             <Pagination
@@ -103,6 +104,7 @@ export default class FamilyCase extends Component {
                         </div>
                     </div>
                 }
+                </div>
             </div>
         )
     }
