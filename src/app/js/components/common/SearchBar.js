@@ -63,6 +63,12 @@ export default class SearchBar extends Component {
         })
     }
 
+    enterSearch(e) {
+        if(e.keyCode == 13) {
+            this.search(e);
+        }
+    }
+
     search(e) {
         var dict = {
             '家装案列': '/familyCase',
@@ -127,7 +133,7 @@ export default class SearchBar extends Component {
                             : ""}
                             <i className={"fa searchBar-icon fa-caret-"+arrow}></i>
                         </div>
-                        <input id="searchBar" type="text" className="searchBar-input" onChange={this.changeKeyword.bind(this)} value={this.state.keyword} placeholder="请输入关键字" />
+                        <input id="searchBar" type="text" className="searchBar-input" onKeyUp={this.enterSearch.bind(this)} onChange={this.changeKeyword.bind(this)} value={this.state.keyword} placeholder="请输入关键字" />
                         <input type="submit" onClick={this.search.bind(this)} className="searchBar-btn" value="搜索" />
                     </div>
                     <div className="searchBar-ad">
