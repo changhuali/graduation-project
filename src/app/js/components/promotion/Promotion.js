@@ -42,7 +42,6 @@ export default class Promotion extends Component {
                 data: nextProps.promotion.list.data,
             })
         }
-        console.log(nextProps.location);
     }
 
     componentWillUnmount() {

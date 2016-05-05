@@ -21,12 +21,21 @@ export default class Imformation extends Component {
             rotate: 0,
             data: {},
             showType: '公司新闻',
+            indexArr: this.initArr(),
         }
     }
 
     getCurrData() {
         var data = this.state.data.otherHot;
         return data.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
+    }
+
+    initArr() {
+        var list = [];
+        for(var i=0; i<INDUSTRY_DATA.length; i++) {
+            list.push(i);
+        }
+        return list;
     }
 
     changePage(value) {
@@ -60,16 +69,19 @@ export default class Imformation extends Component {
     }
 
     changeIndex(idx) {
-        console.log(360/INDUSTRY_DATA.length*idx);
+        var len = INDUSTRY_DATA.length;
+        var showIndex = this.state.showIndex;
+        var diff = idx > showIndex ? len - idx + showIndex : idx == showIndex ? 0 : showIndex - idx;
+        console.log(diff);
         this.setState({
             showIndex: idx,
-            rotate: 360-360/INDUSTRY_DATA.length*(idx),
+            rotate: this.state.rotate+diff*360/len,
         })
     }
 
     createAxis() {
         var list = [];
-        var pos = this.computePos(INDUSTRY_DATA.length, 0);//改为零 动画改回this.state.showIndex
+        var pos = this.computePos(INDUSTRY_DATA.length);//改为零 动画改回this.state.showIndex
         INDUSTRY_DATA.map((key, idx) => {
             var classStr = this.state.showIndex == idx ? "imformation-axis active" : "imformation-axis";
             list.push(
@@ -81,24 +93,17 @@ export default class Imformation extends Component {
         return list;
     }
 
-    computePos(num, index) {
+    computePos(num) {
         var countArr = [];
         var posArr = [];
-        var tag1 = 0;
-        var tag2 = num-1;
-        for(var i=index;i<num;i++) {
-            countArr[i]=tag1;
-            tag1++;
-        }
-        for(var i=index-1;i>=0; i--) {
-            countArr[i]=tag2;
-            tag2--;
+        for(var i=0;i<num;i++) {
+            countArr[i]=i;
         }
         var PI  = Math.PI;
-        countArr.map((key) => {
+        countArr.map((idx) => {
             var obj = {};
-            obj.left = Math.cos(key*PI/180*(360/num)).toFixed(5)*70 + 47;
-            obj.top = Math.sin(key*PI/180*(360/num)).toFixed(5)*70 + 54;
+            obj.left = Math.cos(idx*PI/180*(360/num)).toFixed(5)*70 + 47;
+            obj.top = Math.sin(idx*PI/180*(360/num)).toFixed(5)*70 + 54;
             posArr.push(obj);
         })
         return posArr;
