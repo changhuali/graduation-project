@@ -69,6 +69,10 @@ export default class SearchBar extends Component {
         }
     }
 
+    trim(str){
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+
     search(e) {
         var dict = {
             '家装案列': '/familyCase',
@@ -87,7 +91,12 @@ export default class SearchBar extends Component {
             handle[this.state.selected]({keyword: this.state.keyword});
         }
         var pathname = dict[this.state.selected];
-        this.context.router.push({pathname: pathname, query:{keyword: this.state.keyword}});
+        if(this.trim(this.state.keyword) == "") {
+            this.setState({
+                keyword: "",
+            })
+        }
+        this.context.router.push({pathname: pathname, query:{keyword: this.trim(this.state.keyword)}});
     }
 
     jugeRoute(pathname) {
