@@ -30,7 +30,7 @@ export default class OnlineDemo extends Component {
         return tag;
     }
 
-    getCurrData() {
+    getFilterData() {
         var list = [];
         var arr = this.state.selected;
         var params = {space: arr[0], part: arr[1], style: arr[2]};
@@ -48,6 +48,11 @@ export default class OnlineDemo extends Component {
                 list.push(obj);
             }
         })
+        return list;
+    }
+
+    getCurrData() {
+        var list = this.getFilterData();
         return list.slice((this.state.current-1)*this.state.pageSize, this.state.current*this.state.pageSize);
     }
 
@@ -58,7 +63,7 @@ export default class OnlineDemo extends Component {
     }
 
     viewDetail(idx) {
-        localStorage.setItem('demoDetail', JSON.stringify(this.getCurrData()))
+        localStorage.setItem('demoDetail', JSON.stringify(this.getFilterData()))
         this.context.router.push({pathname: '/onlineDemo/'+idx});
     }
 
@@ -167,7 +172,7 @@ export default class OnlineDemo extends Component {
                 {data == undefined ?
                     <Loading />
                 :
-                this.getCurrData()['length'] > 0 ?
+                this.getFilterData()['length'] > 0 ?
                 <div>
                     {this.createItem()}
                     <div className="onlineDemo-pagination">
@@ -175,7 +180,7 @@ export default class OnlineDemo extends Component {
                             current={this.state.current}
                             defaultCurrent={1}
                             pageSize={this.state.pageSize}
-                            total={DATA.length}
+                            total={this.getFilterData()['length']}
                             onChange={this.changePage.bind(this)} />
                     </div>
                 </div>
