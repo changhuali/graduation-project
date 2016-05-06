@@ -100,7 +100,7 @@ export default class FamilyCase extends Component {
                                 defaultCurrent={1}
                                 current={this.state.current}
                                 pageSize={this.state.pageSize}
-                                total={DATA.length} />
+                                total={this.state.data['length']} />
                         </div>
                     </div>
                 }
