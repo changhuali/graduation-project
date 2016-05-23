@@ -27,7 +27,7 @@ var contactSchema = new mongoose.Schema({
     name: String,
     phone: String,
     advice: String,
-    time: Date,
+    time: String,
     status: String,
 });
 
@@ -78,6 +78,8 @@ var applySchema = new mongoose.Schema({
     applyItem: String,
     applyName: String,
     applyPhone: String,
+    status: String,
+    time: String,
 })
 
 //生成的Model对象
@@ -300,15 +302,7 @@ Model.findPwd = function(req, callback) {
 
 //联系我们
 Model.contactUs = function(req, callback) {
-    var date = new Date();
-    var obj = {
-        name   : req.body.name,
-        phone  : req.body.phone,
-        advice : req.body.advice,
-        status: '未处理',
-        time: date.toLocaleString(),
-    };
-    Model.contactModel.create(obj, function(err, data) {
+    Model.contactModel.create(req.body, function(err, data) {
         if(err) {
             console.log(err);
         }else{
@@ -418,6 +412,7 @@ Model.getOnlineDemoList = function(req, callback) {
 
 //申请
 Model.apply = function(req, callback) {
+    console.log(req.body, '======');
     Model.applyModel.create(req.body, function(err, data) {
         console.log(data, '==========申请 data');
         if(err) {

@@ -16,8 +16,15 @@ export default class Apply extends Component {
     apply(e) {
         e.preventDefault();
         if(this.state.applyName != "" && this.state.applyPhone != "") {
+            var date = new Date();
             if(__FORMCHECK__.isPhoneNum(this.state.applyPhone)) {
-                this.props.contactBoundAc.apply({applyItem: this.state.applyItem, applyName: this.state.applyName, applyPhone: this.state.applyPhone});
+                this.props.contactBoundAc.apply({
+                    applyItem: this.state.applyItem,
+                    applyName: this.state.applyName,
+                    applyPhone: this.state.applyPhone,
+                    time: date.toLocaleString(),
+                    status: '未处理',
+                });
                 this.setState({
                     applyItem: "免费设计",
                     applyName: "",

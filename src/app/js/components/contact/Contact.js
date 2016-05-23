@@ -52,7 +52,12 @@ export default class Contact extends Component {
             this.setState({
                 loading: true,
             })
-            this.props.contactBoundAc.contactUs(this.state.contactInfo);
+            var date = new Date();
+            var params = {
+                time: date.toLocaleString(),
+                status: '未处理',
+            }
+            this.props.contactBoundAc.contactUs(Object.assign({}, this.state.contactInfo, params));
         }else{
             message.warn('请您完成所有内容后再进行提交', 2.5);
         }
