@@ -27,6 +27,8 @@ var contactSchema = new mongoose.Schema({
     name: String,
     phone: String,
     advice: String,
+    time: Date,
+    status: String,
 });
 
 //优惠活动collection Schema
@@ -298,10 +300,13 @@ Model.findPwd = function(req, callback) {
 
 //联系我们
 Model.contactUs = function(req, callback) {
+    var date = new Date();
     var obj = {
         name   : req.body.name,
         phone  : req.body.phone,
         advice : req.body.advice,
+        status: '未处理',
+        time: date.toLocaleString(),
     };
     Model.contactModel.create(obj, function(err, data) {
         if(err) {
