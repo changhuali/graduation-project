@@ -50,9 +50,6 @@ export default class Imformation extends Component {
         data.map((obj, idx) => {
             list.push(
                 <div key={idx} onClick={this.viewDetail.bind(this, obj)} className="imformation-item clearfix">
-                    <div className="imformation-img">
-                        <img src={obj.img} />
-                    </div>
                     <div className="information-con">
                         <h3 className="imformation-title"><a href="javascript:;">{obj.title}</a></h3>
                         <p className="imformation-text">{obj.desc}</p>
