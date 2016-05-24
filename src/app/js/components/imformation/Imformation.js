@@ -155,36 +155,37 @@ export default class Imformation extends Component {
             <div className="imformation-wrap">
                 <div className="imformation clearfix">
                     <div className="imformation-left">
-                        {this.state.data.companyHot == undefined
+                        <div className="imformation-left-con">
+                            <h1 className='imformation-left-tit'>公司新闻</h1>
+                            {this.state.data.companyHot == undefined
                             ?
-                            <Loading />
+                                <Loading />
                             :
-                        this.state.data.companyHot.length == 0
+                                this.state.data.companyHot.length == 0
                             ?
-                            <NotFound />
+                                <NotFound />
                             :
-                            <div className="imformation-left-con">
-                                <h1 className='imformation-left-tit'>公司新闻</h1>
+
                                 <div>
                                     {this.createNews(this.state.data.companyHot)}
                                 </div>
+                            }
                             </div>
-                        }
-                        {this.state.data.industryHot == undefined
-                            ?
-                            <Loading />
-                            :
-                        this.state.data.industryHot.length == 0
-                            ?
-                            <NotFound />
-                            :
                             <div className="imformation-left-con">
                                 <h1 className='imformation-left-tit'>行业新闻</h1>
-                                <div>
-                                    {this.createNews(this.state.data.industryHot)}
-                                </div>
+                                {this.state.data.industryHot == undefined
+                                ?
+                                    <Loading />
+                                :
+                                this.state.data.industryHot.length == 0
+                                ?
+                                    <NotFound />
+                                :
+                                    <div>
+                                        {this.createNews(this.state.data.industryHot)}
+                                    </div>
+                                }
                             </div>
-                        }
                         <div className="imformation-left-axis">
                             <div style={{transform: 'rotate('+this.state.rotate+'deg)'}} className="imformation-circle">
                                 {this.createAxis()}
