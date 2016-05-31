@@ -60,19 +60,19 @@ export default class FamilyCase extends Component {
                         <p className="familyCase-text">{obj.description.substr(0, 20)}</p>
                     </div>
                     <div className="familyCase-img1">
-                        <img src={obj.img_1} />
+                        <img src={obj.img1} />
                     </div>
                     <div className="familyCase-img2">
-                        <img src={obj.img_2} />
+                        <img src={obj.img2} />
                     </div>
                     <div className="familyCase-img3">
-                        <img src={obj.img_3} />
+                        <img src={obj.img3} />
                     </div>
                     <div className="familyCase-img4">
-                        <img src={obj.img_4} />
+                        <img src={obj.img4} />
                     </div>
                     <div className="familyCase-img5">
-                        <img src={obj.img_5} />
+                        <img src={obj.img5} />
                     </div>
                 </div>
             );
@@ -117,11 +117,11 @@ var DATA = [
     {
         title: '休闲写意的居心宅',
         description: '位居高地的别墅案例，坐拥可俯瞰城市的无敌景观，已届退休之龄的屋主期待构筑一方辽阔敞明的居心宅，除了要融入旧有的中 式家具，还要注入大量实木元素，从五感体会休闲写意的生活情调。',
-        img_1: '/familyCase/item_1/item_1_1.jpg',
-        img_2: '/familyCase/item_1/item_1_2.jpg',
-        img_3: '/familyCase/item_1/item_1_3.jpg',
-        img_4: '/familyCase/item_1/item_1_4.jpg',
-        img_5: '/familyCase/item_1/item_1_5.jpg',
+        img1: '/familyCase/item_1/item_1_1.jpg',
+        img2: '/familyCase/item_1/item_1_2.jpg',
+        img3: '/familyCase/item_1/item_1_3.jpg',
+        img4: '/familyCase/item_1/item_1_4.jpg',
+        img5: '/familyCase/item_1/item_1_5.jpg',
         data: [
             {title: '屋主的精品收藏罗列在门斗两侧，增添入内动线的艺术气息.', img: '/familyCase/caseDetail/item_1/item_1_1.jpg'},
             {title: '大理石凿刻的半高电视墙分界客厅与厨房，保有敞阔绵延的空间视感。', img: '/familyCase/caseDetail/item_1/item_1_2.jpg'},
@@ -139,11 +139,11 @@ var DATA = [
     {
         title: '轻盈穿透北欧住宅',
         description: '设计只要简单合宜，就能淬炼空间美学。设计师以穿透、轻盈、明亮感为设计重点，让空间内盈满着轻透的日光，并透过玻璃材质作为屏隔，在视觉上营造出延伸的景深，缔造屋主一家所企盼敞朗与宽阔的居家主题。',
-        img_1: '/familyCase/item_2/item_2_1.jpg',
-        img_2: '/familyCase/item_2/item_2_2.jpg',
-        img_3: '/familyCase/item_2/item_2_3.jpg',
-        img_4: '/familyCase/item_2/item_2_4.jpg',
-        img_5: '/familyCase/item_2/item_2_5.jpg',
+        img1: '/familyCase/item_2/item_2_1.jpg',
+        img2: '/familyCase/item_2/item_2_2.jpg',
+        img3: '/familyCase/item_2/item_2_3.jpg',
+        img4: '/familyCase/item_2/item_2_4.jpg',
+        img5: '/familyCase/item_2/item_2_5.jpg',
         data: [
             {title: '在客厅的表现上，清新简约的调性，融入户外露台的休闲感，也让窗外暖阳盈满全室空间.', img: '/familyCase/caseDetail/item_2/item_2_1.jpg'},
             {title: '设计师使用玻璃的轻透性，作为区隔书房与餐厨区的隔屏，让整体空间明亮轻透。', img: '/familyCase/caseDetail/item_2/item_2_2.jpg'},
