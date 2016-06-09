@@ -99,6 +99,7 @@ export function getCheckCode(phone, forWhat) {
         .post(url)
         .send({phone: phone, type: forWhat})
         .end((err, resp) => {
+            interceptorAction(err, resp);
             dispatch({
                 type: GET_CHECK_CODE,
                 data: resp.body,

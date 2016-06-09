@@ -28,7 +28,7 @@ export default class Case extends Component {
         data.map((obj, idx) => {
             list.push(
                 <div key={'case'+idx} onClick={this.viewDetail.bind(this, obj)} className="index-case-item">
-                    <img src={obj.img_5} />
+                    <img src={obj.img5} />
                     <p>{obj.title}</p>
                 </div>
             )
