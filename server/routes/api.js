@@ -89,15 +89,15 @@ function getCheckCode(phoneNum, checkCode, type, callback) {
     var config = {
         regist: {
             sms_free_sign_name: '大鱼测试',
-            sms_template_code: 'SMS_7760522',
+            sms_template_code: 'SMS_7760518',
         },
         changePhone: {
             sms_free_sign_name: '大鱼测试',
-            sms_template_code: 'SMS_7760522',
+            sms_template_code: 'SMS_7760518',
         },
         findPwd: {
             sms_free_sign_name: '大鱼测试',
-            sms_template_code: 'SMS_7760522',
+            sms_template_code: 'SMS_7760518',
         }
     };
     alidayu.execute('alibaba.aliqin.fc.sms.num.send', {
